@@ -1,0 +1,138 @@
+\section{Upper bounds}
+
+A knowledge of an upper bound $\bar{t}$ affects the number of variables in all studied models. 
+Particularly in the decision versions, the iterative approach can be terminated once the solution is found to be infeasible for broadcast time limit $\bar{t}-1$.
+The algorithms presented in this section iteratively construct broadcast forest $T=(V_T,A_T)$, where in the last iteration $V_T=V$.
+\subsection{Matching heuristic}
+
+A fast straightforward algorithm determining an upper bound is based on repetitive construction of a matching between already connected nodes and their neighbors.
+Initially, the constructed broadcast forest consists of isolated sources. 
+In each iteration, the nodes already in the forest are sorted according to the number of neighbors not yet added to the forest.
+For each node we then select a neighbor to be appended to the forest.
+Let $V_T=\{v_1,\dots,v_{|V_T|}\}$.
+The steps are formalized in Alg. \ref{alg:matchheur}.
+%\begin{algorithm}[]
+%\KwData{$G=(V,E), S\subseteq V$}
+%\textbf{for }$s\in S\textbf{ do } V_s\leftarrow \{s\}, A_s\leftarrow\emptyset$\;
+%$t\leftarrow 0$\;
+%\While{$V_T\neq V$} {
+%	Sort nodes in $V_T$ increasingly by the number of neighbors in $V\setminus V_T$\;
+%	$W\leftarrow\emptyset$\;
+%	\For{$u\in V_T$} {
+%		Find $v\in V\setminus (V_T\cup W)$ such that $(u,v)\in A$\;
+%		$W\leftarrow W\cup\{v\}$\;
+%	}
+%	$A_T\leftarrow A_T\cup \{\{u,w\}: u\in V_T, w\in N(u)\cap W\}$\;
+%	$V_T\leftarrow V_T\cup W$\;
+%	$t\leftarrow t+1$\;
+%}
+%\Return t\;
+%%\Return $\lceil k/s \rceil$\;
+% \caption{A greedy matching heuristic method for determining an upper bound}
+%\label{alg:matchheur}
+%\end{algorithm}
+
+\begin{algorithm}[]
+\KwData{$G=(V,E), S\subseteq V$}
+$V_T\leftarrow S, A_T \leftarrow \emptyset$\;
+$\bar{t}\leftarrow 0$\;
+\While{$V_T\neq V$} {
+	Sort nodes in $V_T$ so that $i<j\Leftrightarrow |N(v_i)\cap(V\setminus V_T)|<|N(v_j)\cap (V\setminus V_T)|$\;
+	$W\leftarrow\emptyset$\;
+	$D\leftarrow\emptyset$\;
+	\For{$i=1,\dots,|V_T|$} {
+		Find $v_j\in V\setminus (V_T\cup W)$ such that $(v_i,v_j)\in A$\;
+		$W\leftarrow W\cup\{v_j\}$\;
+		$D\leftarrow D\cup\{\left(v_i,v_j\right)\}$\;
+	}
+	$V_T\leftarrow V_T\cup W$\;
+	$A_T\leftarrow A_T\cup D$\;
+	$\bar{t}\leftarrow \bar{t}+1$\;
+}
+\Return $\bar{t}$\;
+%\Return $\lceil k/s \rceil$\;
+ \caption{A greedy matching heuristic method for determining an upper bound}
+\label{alg:matchheur}
+\end{algorithm}
+The selection of a neighbor (line 7) can be done arbitrarily, or according to some strategy such as neighbor with maximum degree is selected first.
+Note that for determining an upper bound, it is not necessary to store arcs sets $A_T$ and $D$, because we merely count the number of iterations.
+In order to construct an actual solution with broadcast time equal to the upper bound, the arcs sets are needed.
+Matchings created in each iteration are not necessarily maximum.
+
+%\subsection{Restricted binomial tree method}
+%
+%The following inexact method is based on the idea of finding maximum cardinality matching in $G\left[V_T,V\setminus V_T\right]$, and extending $T$ by this matching.
+%It means that in each iteration, the maximum possible number of nodes are informed.
+%The maximum cardinality matching can be regarded as finding $|V_T|$ node-disjoint  binomial trees of order at most one with roots in $V_T$, maximizing the number of edges.
+%By generalizing this notion, we iteratively look for $|V_T|$ node-disjoint (pruned) binomial trees of an arbitrary given order $k$ valued between 1 and $n-|S|$, but typically not more than 4.
+%Even though this problem is NP-hard for $k\geq 2$ \cite{jansen95}, it is expected that the computational time is sound in most practical instances.
+%After obtaining the set of binomial trees, first $p$ nodes in each tree are selected and added to the broadcast forest.
+%The parameter $p\in \{1,\dots,2^k\}$ is also a part of the input.
+%\begin{algorithm}[]
+%\KwData{$G=(V,E), S\subseteq V, k\in \{1,\dots,n-|S|\}, p\in \{1,\dots,2^k\}$}
+%$V_T\leftarrow S, A_T \leftarrow \emptyset$\;
+%$\bar{t}\leftarrow 0$\;
+%\While{$V_T\neq V$} {
+%	$S\leftarrow V_T$\;
+%	Find a set of pruned binomial trees $B=\{B_1,\dots,B_{|V_T|}\}$ of order at most $k$ with roots in $V_T$ by solving model \eqref{mod:genmatch}\;
+%	$V_T\leftarrow V_T\cup \{v:v\in V_B:\beta(v)\leq p\}$\;
+%	$A_T\leftarrow A_T\cup \{(u,v)\in A_B: \beta(u)\leq p,\beta(v)\leq p\}$\;
+%	$\bar{t}\leftarrow \bar{t}+1$\;
+%}
+%\Return $\bar{t}$\;
+%%\Return $\lceil k/s \rceil$\;
+% \caption{A method for determining an upper bound based on iterative search for pruned binomial trees}
+%\label{alg:match}
+%\end{algorithm}
+%
+%Alg. \ref{alg:match} describes the process formally.
+%Initially, the broadcast forest consists of isolated sources.
+%The binomial trees are determined by solving the ILP model \eqref{mod:genmatch}. 
+%Note that in every iteration, the model is solved with a different set $S$, as all nodes already included in the broadcast forest are roots of the binomial trees.
+%The model considers the entire set $V$, but it is also possible to restrict this set to nodes with distance at most $k$ from some node in $V_T$.
+%When this restriction is not imposed, nodes with larger distance are not a part of any binomial tree in the current iteration due to \eqref{mod:part:followArcsA} - \eqref{mod:part:followArcsB}.
+%
+%Like in Alg. \ref{alg:matchheur}, for calculating an upper bound, it is also not needed to store node set $A_T$ in Alg \ref{alg:match}, but it is essential when the actual broadcast tree is desirable.
+%
+\subsection{Restricted broadcast tree method}
+
+The following idea is based on the observation that at every time step, the maximum number of nodes that can be informed equals the size of maximum matching between already informed nodes and the rest.
+In the first iteration, the only informed nodes are the sources.
+Once a maximum matching is found, the set of informed nodes is extended by the endpoits of the matching that were not yet informed.
+This process is repeated until all nodes become informed.
+The number of iteration necessary to inform all nodes is then the upper bound on the broadcast time.
+
+A maximum matching can be found by an exact polynomial algorithm, or by solving an integer program.
+Even though the second option is not a polynomial method, the solution time is negligible for the considered instance sizes.
+
+Maximum matching can be found using integer programs presented earlier with maximum time step set to 1.
+These models can be conveniently employed for an extension of this approach by increasing the maximum time step.
+In our implementation, we used model \eqref{mod:basic:dec}.
+A solution in each iteration gives a maximum number of newly informed nodes within the imposed time limit by finding a set of node disjoint broadcast trees rooted at nodes informed in previous iterations.
+In this way we use the principle of rolling horizon method known from planning and schedulling.
+For the next iteration, only some nodes are selected for extending the set of informed nodes, typically only the ones reachable in a single time step, thus a matching.
+The steps are expressed by a pseudocode in Alg. \ref{alg:match}.
+\begin{algorithm}[]
+	\KwData{$G=(V,E), S\subseteq V, t_{\text{max}}\in \{1,\dots,n-|S|\}$}
+$V_T\leftarrow S, A_T \leftarrow \emptyset$\;
+$\bar{t}\leftarrow 0$\;
+\While{$V_T\neq V$} {
+	$S\leftarrow V_T$\;
+	$x\leftarrow$ optimal solution to model \eqref{mod:basic:dec}\;
+%	Find a set of restricted broadcast trees $\{T_1,\dots,T_{|V_T|}\}$ with broadcast time at most $t_{\text{max}}$ rooted in nodes of $V_T$ by solving model \eqref{mod:genmatch}\;
+%	$V_T\leftarrow V_T\cup \{v:v\in V_B:\beta(v)\leq p\}$\;
+	$V_T\leftarrow V_T\cup \{v\in V\setminus V_T:x_{uv}^1=1, u\in V_T\}$\;
+	$A_T\leftarrow A_T\cup \{(u,v)\in V_T\times V\setminus V_T: x_{uv}^1=1\}$\;
+	$\bar{t}\leftarrow \bar{t}+1$\;
+}
+\Return $\bar{t}$\;
+%\Return $\lceil k/s \rceil$\;
+ \caption{A method for determining an upper bound based on iterative search for  trees}
+\label{alg:match}
+\end{algorithm}
+
+Like in Alg. \ref{alg:matchheur}, for calculating an upper bound, it is also not needed to store node and arcs sets $V_T$ and $A_T$ in Alg \ref{alg:match},
+but it is essential when the actual broadcast tree is desirable.
+It is also possible to use model \eqref{mod:genmatch} and obtain vector $y$.
+In that case lines 6 and 7 in Alg. \ref{alg:match} would be replaced by $V_T\leftarrow V_T\cup\{v\in V\setminus V_T:y_{2u}^v=1,u\in V_T\}$ and 
+$A_T\leftarrow A_T\cup \{(u,v)\in V_T\times V\setminus V_T:y_{2u}^v\}$, respectively.

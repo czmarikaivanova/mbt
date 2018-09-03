@@ -1,0 +1,50 @@
+\section{Introduction}
+\label{intro}
+The minimum broadcast time (MBT) problem consists of a set of communication nodes with a subset of source nodes. 
+The task is to disseminate a signal to every node in a shortest possible time (broadcast time), while abiding by communication rules.
+An \emph{informed} node is a node that has received the signal.
+Otherwise, a node is \emph{uninformed}.
+At the beginning, the set of informed nodes is exactly the set of sources.
+An informed node can send the signal to an uninformed node if the two nodes are located within a communication vicinity of each other.
+
+The time is divided into a finite number of time steps.
+Every informed node can, at each time step, forward the signal to at most one uninformed neighbor node.
+Therefore, the number of informed nodes can at most be doubled from one step to the next.
+%\subsection{Motivation and Related Work}
+%This communication protocol differs from various wireless communication models where a signal can be relayed to all nodes within a visibility range of a sender.
+This communication protocol appears in various practical application such as communication among computer processors or telephone networks.
+%The applications are however not confined to wired networks.
+Situations where the signals have to cover large distances typically assume sending the signal to one neighbor at a time.
+This is common in satellite communication.
+
+\subsection{Literature overview}
+
+Deciding whether an instance of MBT has a solution with delay at most $t$ has been shown to be NP-complete \cite{slater81}. 
+For bipartite planar graphs with maximum degree 3, NP-completeness persists even if $t=2$ or if there is only one source \cite{jansen95}.
+When $t=2$, the problem also remains NP-complete for cubic planar graphs \cite{middendorf93}, grid graphs with maximum degree 3,
+complete grid graphs, chordal graphs, and for split graphs \cite{jansen95}. 
+The single-source variant of the decision version of MBT is NP-complete for grid graphs with maximum degree 4, and for chordal graphs \cite{jansen95}.
+The problem is known to be polynomial in trees \cite{slater81}.
+Whether the problem is polynomial or NP-complete for split graphs with a single source was stated as an open questions in \cite{jansen95}, and has to the best of our knowledge not been answered yet.
+
+A number of inexact methods, for both general and special graph classes, have been proposed in the literature during the last three decades.
+One of the first works of this category \cite{scheuermann84} 
+introduces an exact dynamic programming algorithm based on generating all maximum matchings in an induced bipartite graph.
+Additional contributions of \cite{scheuermann84} are heuristic approaches for near optimal broadcasting.
+From more recent works we mention \cite{hasson04}, which describes a meta heuristic algorithm for MBT, and provides a comparison with other existing methods.
+The communication model is considered in an existing satellite navigation system in \cite{chu17}, where a greedy inexact methods is proposed together with a non-linear mathematical model.
+Examples of additional efficient heuristics can be found e.g. in \cite{harutyunyan06,harutyunyan14,wang10,jimborean13}.
+
+Approximation algorithms for MBT are studied in \cite{kortsarz95}. 
+The authors argue that methods presented in \cite{scheuermann84} provide no guarantee on the performance, and show that the $n$-node wheel is an example of an unfavourable instance.
+They introduce an $\mathcal{O}(\sqrt{n})$-additive approximation algorithm for broadcasting in general graphs.
+They further provide approximation algorithms for several graph classes with small separators with approximation ratio proportional to the separator size times $\log n$.
+Another algorithm with $\mathcal{O}\left(\frac{\log n}{\log \log n}\right)$-approximation\footnote{All logarithms in this paper are of base 2} ratio is given in~\cite{elkin03}.
+Most of the works cited above consider a single source.
+
+A related problem extensively studied in the literature is the minimum broadcast graph problem \cite{grigni91,mcgarvey16}. 
+A broadcast graph supports a broadcast from any node to all other nodes in optimal time $\lceil\log n\rceil$.
+For a given integer $n$, the problem is to find a broadcast graph of $n$ nodes such that e.g.\ the number of edges, or the maximum node degree, in the graph is minimized.
+The authors of \cite{mcgarvey16} study ILP models for $c$-broadcast graphs, a generalization of the problem that allows transmission of the signal to at most $c$ neighbours in a single time step.
+
+
