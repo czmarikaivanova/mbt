@@ -63,6 +63,7 @@ The reason why the result is divided by $|S|$ is that the best case scenario wit
 \end{proof}
 
 \subsection{Continuous relaxations of integer programming models} \label{sec:lblprel}
+
 DH: \emph{To be written: Demonstrate why LP-bounds are expected to be weak (no stronger than the analytical bounds).}
 
 \subsection{Combinatorial relaxations} \label{sec:lbcombrel}
@@ -75,10 +76,9 @@ Monotonous degree sequences of $G$ can be exploited more extensively than what w
 Let $(d_1,\dots,d_n)$ be a degree sequence and $t\leq \bar{t}-|S|$ a given delay.
 Consider all possible instances of which graphs are described by this degree sequence.
 The maximum number of nodes informed within $t$ time steps is achieved in an instance in which it is possible to inform  nodes in the order of their decreasing degree.
-
-In other words, the instance with the shortest possible broadcast time is such that its nodes can be informed in the order of their decreasing degree.
-
 \end{lemma}
+In other words, the instance with the shortest possible broadcast time is such that its nodes can be informed in the order of their decreasing degree.
+Lemma \ref{lemma:degorder} 
 \begin{proof}
 A node with degree $d_i$ informed in $i$-th time step can inform at most $\min\{d_i-1,t-i\}$ nodes.
 Consider $l,k$ such that $1\leq k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with $\deg(v_k)=d_k$ and $\deg(v_\ell)=d_\ell$.
@@ -99,8 +99,9 @@ We now investigate what possible values can the expression
 \end{equation}
 attain.
 Observe that $K_1\geq L_2$ and $K_2\geq L_1$. 
-If $K_2>L_1$, then $K_2=K_1=d_k-1$.
-But in that case, $L_2=L_1=d_\ell-1$. 
+If $K_2>L_1$, there are two distinct cases:
+Either $K_2=d_k-1=K_1$, and then also $L_2=d_l-1=L_1$.
+Or $K_2=t-\ell\leq K_1$ implying $L_1 =d_\ell-1$, and since $d_\ell-1<t-\ell<t-k$, we have $L_2=d_\ell-1$ as well.
 We conclude that \eqref{eq:degbounds} always takes a non-negative value.
 Therefore, if the nodes are informed in the order of their decreasing degrees,
 the number of informed nodes within the give time step is no worse than when the nodes are informed in any other order.
