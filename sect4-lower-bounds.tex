@@ -64,7 +64,46 @@ The reason why the result is divided by $|S|$ is that the best case scenario wit
 
 \subsection{Continuous relaxations of integer programming models} \label{sec:lblprel}
 
-DH: \emph{To be written: Demonstrate why LP-bounds are expected to be weak (no stronger than the analytical bounds).}
+For $t\in\mathbb{Z}_+$, define $\Omega(t)\subseteq[0,1]^{A\times\{1,\ldots,t\}}$ as the set of solutions satisfying
+\eqref{mod:basic:tIncreases}, \eqref{mod:basic:positiveCost}, and \eqref{mod:basic:dec:atMost1in},
+and let $\Omega^=(t) = \left\{x\in\Omega(t): \sum\limits_{u \in N(v)} \sum\limits_{k=1}^tx_{uv}^k = 1 ~~(v\in V\setminus S)\right\}$.
+Let $t^{\ast}=\min\left\{t\in\mathbb{Z}_+: \Omega^=\neq\emptyset\right\}$ be the smallest value of $t$, for which the optimal objective function value in
+the relaxation of \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim} equals $V\setminus S$.
+Existence of $t^{\ast}$ follows directly from $\Omega^=\left(\tau(G,S)\right)\neq\emptyset$.
+
+Consider a modification of model \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim} where the coverage constraint
+$\sum\limits_{u \in N(v)} \sum\limits_{k=1}^tx_{uv}^k = 1$ is imposed on all non-source nodes $v\in V\setminus S$, and the objective is to minimize the communication time.
+Its continuous relaxation is feasible for sufficently large $t$, and has optimal objective function value defined as
+$\zeta(t)=\min\left\{\sum\limits_{k=1}^tz_k: x\in\Omega^=(t), z_k\geq\sum\limits_{u \in N(v)}x_{uv}^k ~~(k=1,\ldots,t, v\in V\setminus S)\right\}$.
+
+\begin{proposition} \label{prop:lpweak}
+For all $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $\zeta(t)\leq t^{\ast}\leq\tau(G,S)$.
+\end{proposition}
+\begin{proof}
+We first prove that $\zeta(t)$ is non-increasing with increasing $t$: Let $x\in\Omega^=(t)$, and define $\hat{x}\in[0,1]^{A\times\{1,\ldots,t+1\}}$ such that
+for all $(u,v)\in A$, $\hat{x}_{uv}^k=x_{uv}^k$ ($k\leq t$) and $\hat{x}_{uv}^{t+1}=0$.
+Then $\hat{x}\in\Omega^=(t+1)$.
+An analogous extension of some $z\in[0,1]^{\{1,\ldots,t\}}$ satisfying $z_k\geq\sum\limits_{u \in N(v)}x_{uv}^k (k=1,\ldots,t)$, proves that $\zeta(t+1)\leq\zeta(t)$.
+
+For $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $t\geq t^{\ast}$ thus implies $\zeta(t)\leq\zeta(t^{\ast})$.
+Since the only lower bound on $z_k$ in the definition of $\zeta(t)$ is $\max_{v\in V\setminus S}\sum\limits_{u \in N(v)}x_{uv}^k\leq 1$,
+we get $\zeta(t)\leq\zeta(t^{\ast})\leq t^{\ast}$.
+The proof is complete by observing that $t^{\ast}\leq\tau(G,S)$ follows from $\Omega^=\left(\tau(G,S)\right)\neq\emptyset$.
+\qed
+\end{proof}
+
+\begin{remark} \label{rem:lpweak}
+Proposition \ref{prop:lpweak} suggests to solve a sequence of instances of the continuous relaxation of problem \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim},
+and stop by the first value of $t$ for which the optimal objective function value is $\left|V\setminus S\right\|$.
+Such an approach yields a lower bound ($t^{\ast}$) on $\tau(G,S)$,
+which is no weaker than the bound achieved by solving an extended optimization model targeting minimum communication time.
+\end{remark}
+
+\begin{remark} \label{rem:otheropt}
+Remark \ref{rem:lpweak} applies also if the definition of $\zeta(t)$ is modified to e.g.
+$\min\left\{z: x\in\Omega^=(t), z\geq\sum\limits_{k=1}^tk\sum\limits_{u \in N(v)}x_{uv}^k ~~(v\in V\setminus S)\right\}$,
+or other formulations reflecting minimization of communication time.
+\end{remark}
 
 \subsection{Combinatorial relaxations} \label{sec:lbcombrel}
 
