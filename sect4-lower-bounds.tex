@@ -9,36 +9,37 @@ Obvious bounds for a general graph instance are given by
 \begin{observation}
 For an instance $(G,S)$ of Problem \ref{prob:min},
 \begin{equation}
-\left\lceil\log\frac{n}{|S|}\right\rceil\leq t^* \leq n-|S|.
+\left\lceil\log\frac{n}{|S|}\right\rceil\leq \tau\{G,S\} \leq n-|S|.
 \label{eq:loglb}
 \end{equation}
 \label{obs:loglb}
 \end{observation}
 
-In the following, we use $m$-step Fibonacci numbers \cite{noe05}, a generalization of well known (2-step) Fibonacci numbers, defined by letting, 
+In the following, we use $m$-step Fibonacci numbers \cite{noe05}, a generalization of the well known (2-step) Fibonacci numbers, defined by letting, 
 $F^{(m)}_k=0$ for $k\leq 0$, $F^{(m)}_1=1$, and 
-other terms according to linear recurrence relation 
+other terms according to the linear recurrence relation 
 \begin{align*}
 F^{(m)}_k &=\sum\limits_{i=1}^m F^{(m)}_{k-i}, &\text{ for } k\geq 2.
 \end{align*}
 
-Consider a $d$-regular graph with a unique source $s$.
-Any broadcast forest consists of a single tree $T_s$.
-We investigate the number of leaves in $T_s$, and derive a lower bound on the delay for this graph class.
+% Possibly remove the subscript s in T_S
+Assume that $G$ is a $d$-regular graph with a unique source $s$.
+Any broadcast forest consists of a single tree $T_s$ rooted at $s$.
+We investigate the number of leaves in $T_s$, and exploit this number to derive a lower bound on $\tau\{G,\{s\}\}$.
 
-If the orientation of arcs in $T_s$ is disregarded, $L(T^1_s)=L(T^2_s)=2$.
-For $i\geq 3$, $L(T^i_s)$ equals the number of nodes with degree $1,\dots,d-1$ in $T^{i-1}_s$, 
+If the orientation of arcs in $T_s$ is disregarded, $|L(T^1_s)|=|L(T^2_s)|=2$.
+For $i\geq 3$, $|L(T^i_s)|$ is no more than the number of nodes with degree below $d$ in $T^{i-1}_s$, 
 because in a $d$-regular graph, only nodes with degree lower than $d$ can inform new uninformed nodes.
 It can also be interpreted as the sum of the number of leaves in $T^{i-d+1}_s,\dots,T^{i-1}_s$, which leads to %the following formula
 \begin{equation*}
 \label{eq:leafrec}
-L(T^i_s)=\sum\limits_{j=i-d+1}^{i-1} L(T^j_s).
+|L(T^i_s)|=\sum\limits_{j=i-d+1}^{i-1} |L(T^j_s)|.
 \end{equation*}  
 This formula equals to the recursive definition of Fibonacci sequence of order $d-1$.
-As each of the two base cases, $L(T^1_s)$ and $L(T^2_s)$, equals the double of the base cases of the Fibonacci sequence, the number of leaves in time step $i$ is calculated as
+As each of the two base cases, $|L(T^1_s)|$ and $|L(T^2_s)|$, equals the double of the base cases of the Fibonacci sequence, the number of leaves in time step $i$ is calculated as
 \begin{equation*}
 \label{eq:fibleaf}
-L(T^i_s)=2 F^{(d-1)}_i.
+|L(T^i_s)|=2 F^{(d-1)}_i.
 \end{equation*}  
 The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly informed in time steps $1,\dots,i$, that is, the sum of leaves in $T^1_s,\dots,T^i_s$. Thus,
 \begin{equation}
@@ -68,110 +69,7 @@ DH: \emph{To be written: Demonstrate why LP-bounds are expected to be weak (no s
 
 \subsection{Combinatorial relaxations} \label{sec:lbcombrel}
 
-DH: \emph{I keep the old content here so far, but a suggestion to a new version is given after the old one.}
-
 Monotonous degree sequences of $G$ can be exploited more extensively than what was demonstrated in Section \ref{sec:lbanalyt}. 
-\begin{lemma}
-\label{lemma:degorder}
-Let $(d_1,\dots,d_n)$ be a degree sequence and $t\leq \bar{t}-|S|$ a given delay.
-Consider all possible instances of which graphs are described by this degree sequence.
-The maximum number of nodes informed within $t$ time steps is achieved in an instance in which it is possible to inform  nodes in the order of their decreasing degree.
-\end{lemma}
-In other words, the instance with the shortest possible broadcast time is such that its nodes can be informed in the order of their decreasing degree.
-Lemma \ref{lemma:degorder} 
-\begin{proof}
-A node with degree $d_i$ informed in $i$-th time step can inform at most $\min\{d_i-1,t-i\}$ nodes.
-Consider $l,k$ such that $1\leq k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with $\deg(v_k)=d_k$ and $\deg(v_\ell)=d_\ell$.
-Then, $d_k-1>d_\ell-1$ and $t-k > t-\ell$.
-If nodes are informed in the order of their decreasing degree, let $K_1$ and $L_1$ be the number of nodes that can be informed by $v_k$ and $v_l$, respectively:
-$$
-K_1=\min\{d_k-1,t-k\}, ~~~ L_1=\min\{d_\ell-1,t-\ell\}.
-$$
-If the order in which $v_k$ and $v_l$ are informed is switched, i.e. when $v_k$ and $v_\ell$ is informed in the $\ell$-th and $k$-th time step, respectively, 
-we use $K_2$ and $L_2$ to denote the maximum number of nodes informed by $v_k$ and $v_\ell$:
-$$
-K_2=\min\{d_k-1,t-\ell\} ~~~ L_2=\min\{d_\ell-1,t-k\}.
-$$
-We now investigate what possible values can the expression 
-\begin{equation}
-\label{eq:degbounds}
-(K_1+L_1)-(K_2+L_2)
-\end{equation}
-attain.
-Observe that $K_1\geq L_2$ and $K_2\geq L_1$. 
-If $K_2>L_1$, there are two distinct cases:
-Either $K_2=d_k-1=K_1$, and then also $L_2=d_l-1=L_1$.
-Or $K_2=t-\ell\leq K_1$ implying $L_1 =d_\ell-1$, and since $d_\ell-1<t-\ell<t-k$, we have $L_2=d_\ell-1$ as well.
-We conclude that \eqref{eq:degbounds} always takes a non-negative value.
-Therefore, if the nodes are informed in the order of their decreasing degrees,
-the number of informed nodes within the give time step is no worse than when the nodes are informed in any other order.
-\qed
-\end{proof}
-
-Alg.~\ref{alg:dreg} calculates a lower bound on the delay when given number of nodes, sources and a degree sequence in $G$ that takes account of sources as an input.
-Specifically, the first $|S|$ positions in the degree sequence correspond to degrees of sources, and are ordered non-increasingly.
-The remaining $n-|S|$ positions represent degrees of non-source nodes also in a non-increasing order.
-The algorithm iteratively updates possible node degrees in $T^k$ in each time step $k$, and records the maximum possible number of nodes in $V_k$.
-For the purpose of finding lower bounds, it is assumed that each node $v\in V_k$ with $\deg_{T^k}(v)<\deg_G(v)$ informs a new uninformed node.
-The number of iterations is then the lowest possible delay for given input.
-%The main idea is that in the most optimistic case, each node $v\in V_i$ with $\text{deg}_{F_i}(v)<\text{deg}_G(v)$ informs new not yet informed node.
-%For the purpose of finding lower bounds, we can assume without loss of generality that $\text{deg}_{F_i}(u)\leq\text{deg}_{F_i}(v) \Leftrightarrow \text{deg}_G(u)\geq \text{deg}_G(v)$.
-Once a node $v$ reaches its maximum degree, i.e., when $\text{deg}_{T^k}=\deg_G(v)$ for some $k$, $v$ does not inform any other node in the next time steps.
-
-%For each $i=1,\dots d$, Alg. \ref{alg:dreg} keeps the  number of nodes with degree $i$.
-%These values are updated iteratively using dynamic programming until the number of informed nodes reaches $n$. 
-
-\begin{algorithm}
-\KwData{$n,|S|,d_1,\dots,d_n\in \mathbb{N}, |S|\leq n,$\newline 
-$1\leq d_{|S|}\leq\dots\leq d_2\leq d_1$,\newline
-$1\leq d_n\leq\dots\leq d_{|S|+1}$} 
-$a_1\leftarrow\dots\leftarrow a_{|S|}\leftarrow 1$\;%\tcp{this is a comment}
-$a_{|S|+1}\leftarrow\dots\leftarrow a_{n}\leftarrow 0$\;%\tcp{this is a comment}
-$c\leftarrow |S|$;%\tcp{every source informs a new node}
-$~k\leftarrow 0$\;
-\While {$c<n$} {
-$k\leftarrow k+1$\;
-$c'\leftarrow 0$\;
-\For{$i=1,\dots,c$} {
-	\If {$a_i<d_i$} {
-		$a_i\leftarrow a_i + 1$\;
-		$c'\leftarrow c' + 1$\;
-		\If {$c+c'\leq n$} {
-			$a_{c+c'}\leftarrow 1$;\tcp{Newly informed node} 
-		}
-	}
-}
-$c\leftarrow c + c'$\;
-}
-\Return $k$\;
-%\Return $\lceil k/s \rceil$\;
- \caption{Lower bound exploiting distribution of degrees}
-\label{alg:dreg}
-\end{algorithm}
-
-The input is assumed to be correct in the sense that a graph with the given degree sequence exists, and by definition, the degree sequence is ordered non-increasingly.
-For each iteration $k$, Alg.~\ref{alg:dreg} stores degrees of nodes in $T^k$ in variables $a_1,\dots,a_n$.
-Note that the forest $T^k$ is not actually constructed. 
-The algorithm operates merely with potential degrees of nodes in $T^k$.
-Next, variable $c$ keeps the value $|V_k|$, i.e., the number nodes informed within $k$ steps.
-Finally, $c'$ stores $|V_k\setminus V_{k-1}|$, thus the number of nodes newly informed in time step $k$.
-
-\begin{proposition}
-If $G$ is an arbitrary graph with $n$ nodes, $m$ sources and node degrees $d_i$, $1\leq i\leq n$, Alg.~\ref{alg:dreg} calculates a lower bound on the delay in $G$.
-\label{prop:deg}
-\end{proposition}
-\begin{proof}
-The assumption that nodes with higher degree in $G$ are informed first in the optimal solution is justified by Lemma \ref{lemma:degorder}.
-In each iteration $k$, degrees in $T^k$ of maximum possible number of nodes are increased in the order of their decreasing degree.
-The current maximum possible number of informed nodes is stored in the variable $c$, and is updated at the end of the outre loop.
-So, when the condition $c<n$ is tested on line 7, $c$ contains the correct value of number of nodes in $V_k$.
-As soon as it is possible that at least $n$ nodes are informed, the algorithm returns the number of necessary iterations.
-\qed
-\end{proof}
-
-
-DH: \emph{A suggestion to a new version follows.}
-\bigskip
 
 Lower bounds on the broadcast time $\tau(G,S)$ are obtained by omitting one or more of the conditions imposed in Definition \ref{def:broadcasttime}.
 For the purpose of strongest possible bounds, the relaxations thus constructed can be supplied with conditions that are redundant in the problem definition.
@@ -195,25 +93,114 @@ Except from the node degrees, explicit information about $G$ is not part of the 
 and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
 
 In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions of its single-source version.
-Thus, let $S=\left\{v_1\right\}$ and $V\setminus S=\left\{v_2,\ldots,v_n\right\}$, where $\delta_G(v_2)\geq\delta_G(v_3)\geq\dots\geq\delta_G(v_n)$,
+Thus, let $|S|=\sigma$, $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
 and denote $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
 
-Consider an optimal communication tree $T$. That is, $T$ is a subtree of $G$ rooted at the unique source $v_1$ such that
-$\tau\left(G,\{v_1\}\right)=\tau\left(T,\{v_1\}\right)$.
-Let $\tau_i=\tau\left(T[i],\{v_i\}\right)$ denote the broadcast time of node $v_i$ in the subtree $T[i]$ of $T$ rooted at $v_i$.
-The optimal broadcast time $\tau\left(T,\{v_1\}\right)$ is hence no less than the sum of the time $\lceil\log\beta(v_i)\rceil$ it takes to inform $v_i$,
-and the subsequent time $\tau_i$ needed to inform all nodes in $T[i]$.
-Taking the largest of all such lower bounds, we get:
-\begin{equation}
-  \tau\left(T,\{v_1\}\right)=\max\left\{\lceil\log\beta(v_i)\rceil+\tau_i: i=2,\ldots,n\right\}. \label{eq:tau}
-\end{equation}
+Given a degree sequence 
+\footnote{A degree sequence is commonly defined as a non-increasing sequence of degrees of nodes.
+We however require, that first $\sigma$ positions correspond to degrees of sources, 
+and the remaining $n-\sigma$ positions are degrees of the non-sources in a non-increasing order.} 
+$Q=(d_1,\dots,d_n)$, we determine a LB by finding a smallest broadcast time of a graph that can be represented by $Q$.
+Lemma \ref{lemma:degorder} characterizes such graphs.
 
-\begin{lemma} \label{lem:degree}
-Problem \ref{prob:degree} has an optimal solution where, for all $i=2,\ldots,n-1$, $\delta_T^+(v_i)\geq\delta_T^+(v_{i+1})$ and $\tau_i\geq\tau_{i+1}$.
+\begin{lemma}
+\label{lemma:degorder}
+Maximum number of informed nodes within a given time limit $t\leq \bar{t} - \sigma$ in Problem~\ref{prob:degree} is achieved when nodes in $V\setminus S$ are informed 
+in the order of their decreasing degree.
 \end{lemma}
 \begin{proof}
-Consider an optimal broadcast tree $T$, and let $j\in\{2,\ldots,n-1\}$ be the largest value of $i$ for which $\tau_i<\tau_{i+1}$.
-\emph{By utilizing (\ref{eq:tau}, go on to argue that a simple swap does not increase $\tau\left(\right)$}
-\emph{Slightly more tricky: Argue that moving subtrees can fix the first inequality. Swap again to restore the second}.
+
+A node with degree $d_i$ informed in the $i$-th time step can inform at most $\min\{d_i-1,t-i\}$ nodes.
+Consider integers  $k$ and $l$ such that $|S|< k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with $\deg(v_k)=d_k$ and $\deg(v_\ell)=d_\ell$.
+Then, $d_k-1\geq d_\ell-1$ and $t-k > t-\ell$.
+If nodes are informed in the order of their decreasing degree, let $K_1$ and $L_1$ be the number of nodes that can be informed by $v_k$ and $v_l$, respectively:
+$$
+K_1=\min\{d_k-1,t-k\}, ~~~ L_1=\min\{d_\ell-1,t-\ell\}.
+$$
+If the order in which $v_k$ and $v_l$ are informed is switched, i.e. when $v_k$ and $v_\ell$ is informed in the $\ell$-th and $k$-th time step, respectively, 
+we use $K_2$ and $L_2$ to denote the maximum number of nodes informed by $v_k$ and $v_\ell$:
+$$
+K_2=\min\{d_k-1,t-\ell\}, ~~~ L_2=\min\{d_\ell-1,t-k\}.
+$$
+We now investigate what values the difference 
+\begin{equation}
+\label{eq:degbounds}
+(K_1+L_1)-(K_2+L_2)
+\end{equation}
+can attain.
+Observe that $K_1\geq L_2$ and $K_2\geq L_1$. 
+If $K_2>L_1$, there are two distinct cases:
+Either $K_2=d_k-1=K_1$, and then also $L_2=d_l-1=L_1$.
+Or $K_2=t-\ell\leq K_1$ implying $L_1 =d_\ell-1$, and since $d_\ell-1<t-\ell<t-k$, we have $L_2=d_\ell-1$ as well.
+We conclude that \eqref{eq:degbounds} always takes a non-negative value.
+%Therefore, if the nodes are informed in the order of their decreasing degrees,
+%the number of informed nodes within the give time step is no worse than when the nodes are informed in any other order.
+As long as it is possible to swap the order in which two nodes are informed so that a node with a higher degree becomes informed before a node with a lower degree,
+thus whenever such $k$ and $l$ as above exist, swapping the order can not decrease the number of informed nodes within the given time limit.
+\qed
 \end{proof}
+For the relaxed problem, informing nodes in the desired order is clearly possible.
+If $\mathcal{Q}$ is the set of graphs represented by $Q$, a straightforward algorithm determining
+$\min\{\tau(G,S): G\in \mathcal{Q}\}$,
+and thus an optimal solution to Problem~\ref{prob:degree} can be developed.
+
+Alg. \ref{alg:dreg} operates with the set $I(t)$ that contains nodes informed within the first $t$ time steps.
+The function $a_i(t)$ determines the number of nodes informed by node $v_i$ within $t$ time steps, and finally,
+the set $F(t)$ contains fertile nodes in time step $t$.
+A node $v$ is called fertile in time step $t$ if $v$ informed less than $\delta_G(v)$ other nodes, and $v$ itself is also informed.
+
+\begin{algorithm}
+$\text{Let } I(0)=\{1,\dots,\sigma\}, a_1(0)=\dots = a_{n}(0)=0.$\\
+\For{$t=1,2,\dots$} {
+	$F(t)=\{i\in I(t-1):a_i(t-1)<d_i\},$\\
+	$I(t)=\{1,\dots,|I(t-1)|+|F(t)|\},$\\
+	$a_i(t)=a_i(t-1)+
+	\begin{cases}
+		1, i\in F(t)\cup \left(I(t)\setminus I(t-1)\right) \\
+		0, \text{ otherwise. }\\
+	\end{cases}$
+}
+$\text{Let } \tau(d_1,\dots,d_n,\sigma)=\min\{t=0,1,\dots:|I(t)|=n\}$
+\caption{Lower bound exploiting distribution of degrees}
+\label{alg:dreg}
+\end{algorithm}
+
+
+\begin{corollary}
+Alg.~\ref{alg:dreg} finds a lower bound to Problem~\ref{prob:min}.
+\label{cor:deg}
+\end{corollary}
+
+%A lower bound on $\tau(G,S)$ is then given by the solution to:
+%\begin{problem}[\textsc{Node Degree Relaxation}]\label{prob:degree}
+%Find the smallest integer $t\geq 0$ for which there exist
+%a sequence $V_0\subseteq\dots\subseteq V_t$ of node sets and a function $\pi:V\setminus S\to V$,
+%satisfying conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
+%\end{problem}
+%
+%Except from the node degrees, explicit information about $G$ is not part of the input to Problem \ref{prob:degree},
+%and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
+%
+%In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions of its single-source version.
+%Thus, let $S=\left\{v_1\right\}$ and $V\setminus S=\left\{v_2,\ldots,v_n\right\}$, where $\delta_G(v_2)\geq\delta_G(v_3)\geq\dots\geq\delta_G(v_n)$,
+%and denote $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
+
+%Consider an optimal communication tree $T$. That is, $T$ is a subtree of $G$ rooted at the unique source $v_1$ such that
+%$\tau\left(G,\{v_1\}\right)=\tau\left(T,\{v_1\}\right)$.
+%Let $\tau_i=\tau\left(T[i],\{v_i\}\right)$ denote the broadcast time of node $v_i$ in the subtree $T[i]$ of $T$ rooted at $v_i$.
+%The optimal broadcast time $\tau\left(T,\{v_1\}\right)$ is hence no less than the sum of the time $\lceil\log\beta(v_i)\rceil$ it takes to inform $v_i$,
+%and the subsequent time $\tau_i$ needed to inform all nodes in $T[i]$.
+%Taking the largest of all such lower bounds, we get:
+%\begin{equation}
+%  \tau\left(T,\{v_1\}\right)=\max\left\{\lceil\log\beta(v_i)\rceil+\tau_i: i=2,\ldots,n\right\}. \label{eq:tau}
+%\end{equation}
+%
+%\begin{lemma} \label{lem:degree}
+%Problem \ref{prob:degree} has an optimal solution where, for all $i=2,\ldots,n-1$, $\delta_T^+(v_i)\geq\delta_T^+(v_{i+1})$ and $\tau_i\geq\tau_{i+1}$.
+%\end{lemma}
+%\begin{proof}
+%Consider an optimal broadcast tree $T$, and let $j\in\{2,\ldots,n-1\}$ be the largest value of $i$ for which $\tau_i<\tau_{i+1}$.
+%\emph{By utilizing (\ref{eq:tau}, go on to argue that a simple swap does not increase $\tau\left(\right)$}
+%\emph{Slightly more tricky: Argue that moving subtrees can fix the first inequality. Swap again to restore the second}.
+%\end{proof}
 
