@@ -48,18 +48,23 @@ The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly inform
 \end{equation}
 
 \begin{proposition}
-For a $d$-regular graph on $n$ nodes and $|S|$ sources, a lower bound on the delay is 
+	If $\delta_G(v)=d$ for all $v\in V$, then 
 \begin{equation*}
 \label{lem:lbreg1}
-\underline{t}=\left\lceil\min\{k:2s\sum\limits_{j=1}^k F^{(d-1)}_j\geq n\}\right\rceil.
+	\tau(G,S)\geq\min\left\{i:2|S|\sum\limits_{j=1}^kF^{(d-1)}_j\geq n\right\}.
 \end{equation*}
 \label{prop:lbfib}
 \end{proposition}
 \begin{proof}
-In order to inform $n$ nodes in the best possible scenario, the signal has to be relayed sufficiently many time steps so that the maximum possible number of informed nodes becomes $n$.
-The maximum number of nodes informed within $i$ time steps is given by \eqref{eq:fibcnt}.
-We therefore need to set the upper limit of the summation in \eqref{eq:fibcnt} so that the right-hand side exceeds $n$.
-The reason why the result is divided by $|S|$ is that the best case scenario with several source nodes assumes that the signals initiated in individual sources are spread evenly.
+In order to inform as many nodes as possible within a given time step $t$,
+we assume that every informed node $v$ in each time step $i<t$ with $\delta_{T_i}(v)<d$ informs a new, not yet informed node.
+Maximum number of nodes informed within $i$ time steps in one tree in the broadcast forest is given by \eqref{eq:fibcnt}.
+For the entire broadcast forest, the maximum number of informed nodes becomes $2|S|\sum\limits_{j=1}^i F^{(d-1)}_j$, because the trees can be completely independent.
+We are therefore looking for the smallest $i$, for which the summation exceeds $n$.
+%In order to inform $n$ nodes in the best possible scenario, the signal has to be relayed sufficiently many time steps so that the maximum possible number of informed nodes becomes $n$.
+%The maximum number of nodes informed within $i$ time steps is given by \eqref{eq:fibcnt}.
+%We therefore need to set the upper limit of the summation in \eqref{eq:fibcnt} so that the right-hand side exceeds $n$.
+%The reason why the result is divided by $|S|$ is that the best case scenario with several source nodes assumes that the signals initiated in individual sources are spread evenly.
 \qed
 \end{proof}
 
@@ -128,19 +133,22 @@ a sequence $V_0\subseteq\dots\subseteq V_t$ of node sets and a function $\pi:V\s
 satisfying conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
 \end{problem}
 
-Except from the node degrees, explicit information about $G$ is not part of the input to Problem \ref{prob:degree},
-and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
+%Except from the node degrees, explicit information about $G$ is not part of the input to Problem \ref{prob:degree},
+%and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
 
-In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions of its single-source version.
+In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions.
 Thus, let $|S|=\sigma$, $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
 and denote $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
 
-Given a degree sequence 
-\footnote{A degree sequence is commonly defined as a non-increasing sequence of degrees of nodes.
+A degree sequence of a graph is commonly defined as a non-increasing sequence of degrees of nodes.
 We however require, that first $\sigma$ positions correspond to degrees of sources, 
-and the remaining $n-\sigma$ positions are degrees of the non-sources in a non-increasing order.} 
-$Q=(d_1,\dots,d_n)$, we determine a LB by finding a smallest broadcast time of a graph that can be represented by $Q$.
-Lemma \ref{lemma:degorder} characterizes such graphs.
+and the remaining $n-\sigma$ positions are degrees of the non-sources in a non-increasing order.
+Given a graph with a degree sequence 
+$Q=(d_1,\dots,d_n)$, we determine a lower bound by finding a smallest broadcast time among all possible graphs with degree sequence $Q$.
+A modified verison of Problem \ref{prob:degree} takes a fixed $t$ and asks for a sequence $V_0,\dots,V_t$ minimizing $|V_t|$ while satisfying \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
+As the requirement \ref{def:edge} is relaxed, Problem~\ref{prob:degree} can be solved by iterative solution of its modified version for an increasing $t$.
+As soon as $|V_t|=n$, $t$ is the optimal solution to Problem~\ref{prob:degree}.
+Lemma \ref{lemma:degorder} states a sufficient optimality condition condition for the modified Problem~\ref{prob:degree}, and thereby also for Problem~\ref{prob:degree} itself.
 
 \begin{lemma}
 \label{lemma:degorder}
@@ -149,17 +157,18 @@ in the order of their decreasing degree.
 \end{lemma}
 \begin{proof}
 
-A node with degree $d_i$ informed in the $i$-th time step can inform at most $\min\{d_i-1,t-i\}$ nodes.
-Consider integers  $k$ and $l$ such that $|S|< k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with $\deg(v_k)=d_k$ and $\deg(v_\ell)=d_\ell$.
-Then, $d_k-1\geq d_\ell-1$ and $t-k > t-\ell$.
-If nodes are informed in the order of their decreasing degree, let $K_1$ and $L_1$ be the number of nodes that can be informed by $v_k$ and $v_l$, respectively:
+A node with degree $d_i$ informed in the $j$-th time step can inform at most $\min\{d_i-1,t-j\}$ nodes.
+Consider integers  $k$ and $l$ such that $|S|< k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with degrees $d_k$, $d_\ell$, respectively.
+Assume without loss of generality, that $v_k$ and $v_l$ are informed in the $k'$-th and $\ell'$-th time step, respectively, and that $k'\leq\ell'$.
+Then, $d_k-1\geq d_\ell-1$ and $t-k' \geq t-\ell'$.
+Let $K_1$ and $L_1$ be the number of nodes that can be informed by $v_k$ and $v_l$, respectively:
 $$
-K_1=\min\{d_k-1,t-k\}, ~~~ L_1=\min\{d_\ell-1,t-\ell\}.
+K_1=\min\{d_k-1,t-k'\}, ~~~ L_1=\min\{d_\ell-1,t-\ell'\}.
 $$
-If the order in which $v_k$ and $v_l$ are informed is switched, i.e. when $v_k$ and $v_\ell$ is informed in the $\ell$-th and $k$-th time step, respectively, 
+If the order in which $v_k$ and $v_l$ are informed is switched, i.e. when $v_k$ and $v_\ell$ is informed in the $\ell'$-th and $k'$-th time step, respectively, 
 we use $K_2$ and $L_2$ to denote the maximum number of nodes informed by $v_k$ and $v_\ell$:
 $$
-K_2=\min\{d_k-1,t-\ell\}, ~~~ L_2=\min\{d_\ell-1,t-k\}.
+K_2=\min\{d_k-1,t-\ell'\}, ~~~ L_2=\min\{d_\ell-1,t-k'\}.
 $$
 We now investigate what values the difference 
 \begin{equation}
@@ -170,26 +179,28 @@ can attain.
 Observe that $K_1\geq L_2$ and $K_2\geq L_1$. 
 If $K_2>L_1$, there are two distinct cases:
 Either $K_2=d_k-1=K_1$, and then also $L_2=d_l-1=L_1$.
-Or $K_2=t-\ell\leq K_1$ implying $L_1 =d_\ell-1$, and since $d_\ell-1<t-\ell<t-k$, we have $L_2=d_\ell-1$ as well.
+	Or $K_2=t-\ell'\leq K_1$ implying $L_1 =d_\ell-1$, and since $d_\ell-1\leq t-\ell'\leq t-k'$, we have $L_2=d_\ell-1$ as well.
 We conclude that \eqref{eq:degbounds} always takes a non-negative value.
 %Therefore, if the nodes are informed in the order of their decreasing degrees,
 %the number of informed nodes within the give time step is no worse than when the nodes are informed in any other order.
+Assume that the nodes are informed in an arbitrary order.
 As long as it is possible to swap the order in which two nodes are informed so that a node with a higher degree becomes informed before a node with a lower degree,
 thus whenever such $k$ and $l$ as above exist, swapping the order can not decrease the number of informed nodes within the given time limit.
+The desired order of nodes can always be achieved by a sequence of swaps.
 \qed
 \end{proof}
 For the relaxed problem, informing nodes in the desired order is clearly possible.
-If $\mathcal{Q}$ is the set of graphs represented by $Q$, a straightforward algorithm determining
+If $\mathcal{Q}$ is the set of graphs with degree sequence $Q$, a straightforward algorithm determining
 $\min\{\tau(G,S): G\in \mathcal{Q}\}$,
 and thus an optimal solution to Problem~\ref{prob:degree} can be developed.
 
 Alg. \ref{alg:dreg} operates with the set $I(t)$ that contains nodes informed within the first $t$ time steps.
 The function $a_i(t)$ determines the number of nodes informed by node $v_i$ within $t$ time steps, and finally,
-the set $F(t)$ contains fertile nodes in time step $t$.
-A node $v$ is called fertile in time step $t$ if $v$ informed less than $\delta_G(v)$ other nodes, and $v$ itself is also informed.
+the set $F(t)$ consists of nodes that in period $t$ can inform other nodes.
+That is, $v\in F(t)$ if $v$ informed less than $\delta_G(v)$ other nodes, and $v$ itself is also informed.
 
 \begin{algorithm}
-$\text{Let } I(0)=\{1,\dots,\sigma\}, a_1(0)=\dots = a_{n}(0)=0.$\\
+\KwData{$I(0)=\{1,\dots,\sigma\}, a_1(0)=\dots = a_{n}(0)=0.$}
 \For{$t=1,2,\dots$} {
 	$F(t)=\{i\in I(t-1):a_i(t-1)<d_i\},$\\
 	$I(t)=\{1,\dots,|I(t-1)|+|F(t)|\},$\\
@@ -197,18 +208,22 @@ $\text{Let } I(0)=\{1,\dots,\sigma\}, a_1(0)=\dots = a_{n}(0)=0.$\\
 	\begin{cases}
 		1, i\in F(t)\cup \left(I(t)\setminus I(t-1)\right) \\
 		0, \text{ otherwise. }\\
-	\end{cases}$
+	\end{cases}$\\
+	\If{$|I(t)|=n$} {\Return $t$}
+		
 }
-$\text{Let } \tau(d_1,\dots,d_n,\sigma)=\min\{t=0,1,\dots:|I(t)|=n\}$
 \caption{Lower bound exploiting distribution of degrees}
 \label{alg:dreg}
 \end{algorithm}
 
 
-\begin{corollary}
-Alg.~\ref{alg:dreg} finds a lower bound to Problem~\ref{prob:min}.
+\begin{proposition}
+Alg.~\ref{alg:dreg} returns a lower bound on $\tau(G,S)$.
 \label{cor:deg}
-\end{corollary}
+\end{proposition}
+\begin{proof}
+		Follows from Lemma \ref{lemma:degorder} and the subsequent discussion. \qed
+\end{proof}
 
 %A lower bound on $\tau(G,S)$ is then given by the solution to:
 %\begin{problem}[\textsc{Node Degree Relaxation}]\label{prob:degree}
