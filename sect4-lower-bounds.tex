@@ -65,7 +65,6 @@ We are therefore looking for the smallest $i$, for which the summation exceeds $
 %The maximum number of nodes informed within $i$ time steps is given by \eqref{eq:fibcnt}.
 %We therefore need to set the upper limit of the summation in \eqref{eq:fibcnt} so that the right-hand side exceeds $n$.
 %The reason why the result is divided by $|S|$ is that the best case scenario with several source nodes assumes that the signals initiated in individual sources are spread evenly.
-\qed
 \end{proof}
 
 \subsection{Continuous relaxations of integer programming models} \label{sec:lblprel}
@@ -95,7 +94,6 @@ For $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $t\geq t^{\ast}$ th
 Since the only lower bound on $z_k$ in the definition of $\zeta(t)$ is $\max_{v\in V\setminus S}\sum\limits_{u \in N(v)}x_{uv}^k\leq 1$,
 we get $\zeta(t)\leq\zeta(t^{\ast})\leq t^{\ast}$.
 The proof is complete by observing that $t^{\ast}\leq\tau(G,S)$ follows from $\Omega^=\left(\tau(G,S)\right)\neq\emptyset$.
-\qed
 \end{proof}
 
 \begin{remark} \label{rem:lpweak}
@@ -187,7 +185,6 @@ Assume that the nodes are informed in an arbitrary order.
 As long as it is possible to swap the order in which two nodes are informed so that a node with a higher degree becomes informed before a node with a lower degree,
 thus whenever such $k$ and $l$ as above exist, swapping the order can not decrease the number of informed nodes within the given time limit.
 The desired order of nodes can always be achieved by a sequence of swaps.
-\qed
 \end{proof}
 For the relaxed problem, informing nodes in the desired order is clearly possible.
 If $\mathcal{Q}$ is the set of graphs with degree sequence $Q$, a straightforward algorithm determining
@@ -222,7 +219,7 @@ Alg.~\ref{alg:dreg} returns a lower bound on $\tau(G,S)$.
 \label{cor:deg}
 \end{proposition}
 \begin{proof}
-		Follows from Lemma \ref{lemma:degorder} and the subsequent discussion. \qed
+		Follows from Lemma \ref{lemma:degorder} and the subsequent discussion. 
 \end{proof}
 
 %A lower bound on $\tau(G,S)$ is then given by the solution to:

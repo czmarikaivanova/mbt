@@ -3,62 +3,62 @@
 A knowledge of an upper bound $\bar{t}$ affects the number of variables in all studied models. 
 Particularly in the decision versions, the iterative approach can be terminated once the solution is found to be infeasible for broadcast time limit $\bar{t}-1$.
 The algorithms presented in this section iteratively construct broadcast forest $T=(V_T,A_T)$, where in the last iteration $V_T=V$.
-\subsection{Matching heuristic}
-
-A fast straightforward algorithm determining an upper bound is based on repetitive construction of a matching between already connected nodes and their neighbors.
-Initially, the constructed broadcast forest consists of isolated sources. 
-In each iteration, the nodes already in the forest are sorted according to the number of neighbors not yet added to the forest.
-For each node we then select a neighbor to be appended to the forest.
-Let $V_T=\{v_1,\dots,v_{|V_T|}\}$.
-The steps are formalized in Alg. \ref{alg:matchheur}.
+%\subsection{Matching heuristic}
+%
+%A fast straightforward algorithm determining an upper bound is based on repetitive construction of a matching between already connected nodes and their neighbors.
+%Initially, the constructed broadcast forest consists of isolated sources. 
+%In each iteration, the nodes already in the forest are sorted according to the number of neighbors not yet added to the forest.
+%For each node we then select a neighbor to be appended to the forest.
+%Let $V_T=\{v_1,\dots,v_{|V_T|}\}$.
+%The steps are formalized in Alg. \ref{alg:matchheur}.
+%%\begin{algorithm}[]
+%%\KwData{$G=(V,E), S\subseteq V$}
+%%\textbf{for }$s\in S\textbf{ do } V_s\leftarrow \{s\}, A_s\leftarrow\emptyset$\;
+%%$t\leftarrow 0$\;
+%%\While{$V_T\neq V$} {
+%%	Sort nodes in $V_T$ increasingly by the number of neighbors in $V\setminus V_T$\;
+%%	$W\leftarrow\emptyset$\;
+%%	\For{$u\in V_T$} {
+%%		Find $v\in V\setminus (V_T\cup W)$ such that $(u,v)\in A$\;
+%%		$W\leftarrow W\cup\{v\}$\;
+%%	}
+%%	$A_T\leftarrow A_T\cup \{\{u,w\}: u\in V_T, w\in N(u)\cap W\}$\;
+%%	$V_T\leftarrow V_T\cup W$\;
+%%	$t\leftarrow t+1$\;
+%%}
+%%\Return t\;
+%%%\Return $\lceil k/s \rceil$\;
+%% \caption{A greedy matching heuristic method for determining an upper bound}
+%%\label{alg:matchheur}
+%%\end{algorithm}
+%
 %\begin{algorithm}[]
 %\KwData{$G=(V,E), S\subseteq V$}
-%\textbf{for }$s\in S\textbf{ do } V_s\leftarrow \{s\}, A_s\leftarrow\emptyset$\;
-%$t\leftarrow 0$\;
+%$V_T\leftarrow S, A_T \leftarrow \emptyset$\;
+%$\bar{t}\leftarrow 0$\;
 %\While{$V_T\neq V$} {
-%	Sort nodes in $V_T$ increasingly by the number of neighbors in $V\setminus V_T$\;
+%	Sort nodes in $V_T$ so that $i<j\Leftrightarrow |N(v_i)\cap(V\setminus V_T)|<|N(v_j)\cap (V\setminus V_T)|$\;
 %	$W\leftarrow\emptyset$\;
-%	\For{$u\in V_T$} {
-%		Find $v\in V\setminus (V_T\cup W)$ such that $(u,v)\in A$\;
-%		$W\leftarrow W\cup\{v\}$\;
+%	$D\leftarrow\emptyset$\;
+%	\For{$i=1,\dots,|V_T|$} {
+%		Find $v_j\in V\setminus (V_T\cup W)$ such that $(v_i,v_j)\in A$\;
+%		$W\leftarrow W\cup\{v_j\}$\;
+%		$D\leftarrow D\cup\{\left(v_i,v_j\right)\}$\;
 %	}
-%	$A_T\leftarrow A_T\cup \{\{u,w\}: u\in V_T, w\in N(u)\cap W\}$\;
 %	$V_T\leftarrow V_T\cup W$\;
-%	$t\leftarrow t+1$\;
+%	$A_T\leftarrow A_T\cup D$\;
+%	$\bar{t}\leftarrow \bar{t}+1$\;
 %}
-%\Return t\;
-%%\Return $\lceil k/s \rceil$\;
+%\Return $\bar{t}$\;
+%\Return $\lceil k/s \rceil$\;
 % \caption{A greedy matching heuristic method for determining an upper bound}
 %\label{alg:matchheur}
 %\end{algorithm}
-
-\begin{algorithm}[]
-\KwData{$G=(V,E), S\subseteq V$}
-$V_T\leftarrow S, A_T \leftarrow \emptyset$\;
-$\bar{t}\leftarrow 0$\;
-\While{$V_T\neq V$} {
-	Sort nodes in $V_T$ so that $i<j\Leftrightarrow |N(v_i)\cap(V\setminus V_T)|<|N(v_j)\cap (V\setminus V_T)|$\;
-	$W\leftarrow\emptyset$\;
-	$D\leftarrow\emptyset$\;
-	\For{$i=1,\dots,|V_T|$} {
-		Find $v_j\in V\setminus (V_T\cup W)$ such that $(v_i,v_j)\in A$\;
-		$W\leftarrow W\cup\{v_j\}$\;
-		$D\leftarrow D\cup\{\left(v_i,v_j\right)\}$\;
-	}
-	$V_T\leftarrow V_T\cup W$\;
-	$A_T\leftarrow A_T\cup D$\;
-	$\bar{t}\leftarrow \bar{t}+1$\;
-}
-\Return $\bar{t}$\;
-%\Return $\lceil k/s \rceil$\;
- \caption{A greedy matching heuristic method for determining an upper bound}
-\label{alg:matchheur}
-\end{algorithm}
-The selection of a neighbor (line 7) can be done arbitrarily, or according to some strategy such as neighbor with maximum degree is selected first.
-Note that for determining an upper bound, it is not necessary to store arcs sets $A_T$ and $D$, because we merely count the number of iterations.
-In order to construct an actual solution with broadcast time equal to the upper bound, the arcs sets are needed.
-Matchings created in each iteration are not necessarily maximum.
-
+%The selection of a neighbor (line 7) can be done arbitrarily, or according to some strategy such as neighbor with maximum degree is selected first.
+%Note that for determining an upper bound, it is not necessary to store arcs sets $A_T$ and $D$, because we merely count the number of iterations.
+%In order to construct an actual solution with broadcast time equal to the upper bound, the arcs sets are needed.
+%Matchings created in each iteration are not necessarily maximum.
+%
 %\subsection{Restricted binomial tree method}
 %
 %The following inexact method is based on the idea of finding maximum cardinality matching in $G\left[V_T,V\setminus V_T\right]$, and extending $T$ by this matching.
@@ -131,7 +131,7 @@ $\bar{t}\leftarrow 0$\;
 \label{alg:match}
 \end{algorithm}
 
-Like in Alg. \ref{alg:matchheur}, for calculating an upper bound, it is also not needed to store node and arcs sets $V_T$ and $A_T$ in Alg \ref{alg:match},
+For calculating an upper bound, it is not necessary to store node and arcs sets $V_T$ and $A_T$ in Alg \ref{alg:match},
 but it is essential when the actual broadcast tree is desirable.
 %It is also possible to use model \eqref{mod:genmatch} and obtain vector $y$.
 %In that case lines 6 and 7 in Alg. \ref{alg:match} would be replaced by $V_T\leftarrow V_T\cup\{v\in V\setminus V_T:y_{2u}^v=1,u\in V_T\}$ and 
