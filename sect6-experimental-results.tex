@@ -1,6 +1,6 @@
 \section{Experimental Results}
 
-The aim of our experimental evaluation is to compare the studied models and determine their usability on different instance types.
+The aim of our experiments is to evaluate computational abilities of B\&B applied to the studied model, and determine its usability on different instance types.
 Also, we assess the strength of upper and lower bounding methods discussed above, as well as continuous relaxations of the models.
 
 In some of the experimental settings we use randomly generated instances.
@@ -8,13 +8,15 @@ The generating procedure takes a number of nodes and a parameter $p$ as an input
 First, it generates a random tree with the given number of nodes.
 It then iterates over all pairs of nodes that are not yet connected by an edge, and places an edge between them with the probability $p$.
 
+Apart from randomly generated instances, we also evaluate existing data sets of various sizes and densities.
+
 \subsection{Comparison of upper and lower bounds}
 
 In the first set of experimetns we study how does the strength of different methods depend on the parameter $p$.
 We generate random single-source instances of sizes 125, 250, 500 and 1000 with increasing $p$.
-Tab. \ref{tab:lbup125} - \ref{tab:lbup1000} summarize the resuts.
+Tabs. \ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the resuts.
 Each entry is calculated as an average from 100 instances for a given $p$ and a selected method.
-The first column \emph{log} contains logarithmic bounds, and so this value depends only on the number of nodes and sources.
+%The first column \emph{log} contains logarithmic bounds, and so this value depends only on the number of nodes and sources.
 The column \emph{fib} contains Fibonacci bound.
 The values are rarely higher than the trivial logarithmic bound.
 Lower bound obtained from degree sequence in the column \emph{deg} is slightly better, 
@@ -28,9 +30,7 @@ The experiments were not pursued for higher values of $p$, because it is very co
 This behavior is easy to explain.
 There are more possibilities how to relay a signal in dense graphs as compared to the sparser graphs. 
 It is therefore likely that denser graphs have optimal broadcast time close to the lower bounds.
-Similarly, instances with many nodes a
-
-
+The decreasing span of bounds is also noticeable with increasing instance size.
 
 \begin{table}[]
 \centering
@@ -116,40 +116,45 @@ n     &	p & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
 \subsection{Solution time}
 
 Average solution time of instances from the previous section is reported in Tab.~\ref{tab:soltime}.
+All instances of size up to 500 nodes are solved to optimality within the imposed 1 hour time limit.
+Computation of B\&B on Instances of 1000 nodes is often interrupted before the optimal solution is found.
 
+
+Even thought the objective function value decreases with increasing $p$, and so the decision procedure needs to perform less iterations, ovarall solution time increases.
+This growth is caused by larger number of $x$-variables in denser graphs.
 
 \begin{table}[]
 \centering
-\begin{tabular}{rrrr|rrrr}
-$n/|S|$ & $p$ & LP  & X-dec& $n/|S|$ & $p$ & LP  & X-dec  \\
+\begin{tabular}{rrrrrr|rrrrrr}
+$n/|S|$ & $p$ & LP  & X-dec & \% int. & \% col & $n/|S|$ & $p$ & LP  & X-dec & \% int. & \% col \\
 \hline
 \multirow{5}{*}{125/1} 
- & 0.001 & 0   &  0 &  \multirow{5}{*}{125/2}  & 0.001 &  0  &  0  \\
- & 0.002 & 0   &  0 &    & 0.002 &  0  &  0  \\
- & 0.004 & 0   &  0 &    & 0.004 &  0  &  0  \\
- & 0.008 & 0   &  0 &    & 0.008 &  0  &  0  \\
- & 0.016 & 0   &  1 &    & 0.016 &  0  &  1  \\
-\hline
-\multirow{5}{*}{250/1} 
- & 0.001 &  1  &  1 & \multirow{5}{*}{250/2}  & 0.001 &  0  &  1  \\
- & 0.002 &  1  &  1 & & 0.002 &  0  &  1  \\
- & 0.004 &  1  &  3 & & 0.004 &  0  &  2  \\
- & 0.008 &  1  &  4 & & 0.008 &  0  &  3  \\
- & 0.016 &  1  & 17 & & 0.016 &  1  & 13  \\
-\hline
-\multirow{5}{*}{500/1} 
- & 0.001 & 3   &  7 & \multirow{5}{*}{500/2} & 0.001 &  2  &  5  \\
- & 0.002 & 2   & 26 &  & 0.002 &  2  & 22  \\
- & 0.004 & 3   & 53 &  & 0.004 &  2  & 26  \\
- & 0.008 & 6   &214 &  & 0.008 &  4  &101  \\
- & 0.016 &11   &390 &  & 0.016 &  6  &212  \\
+ & 0.001 & 0   &  0 & 0 & 0 &\multirow{5}{*}{125/2} & 0.001 &  0  &  0 &  0  &  0\\
+ & 0.002 & 0   &  0 & 0 & 0 &    	  	    & 0.002 &  0  &  0 &  0  &  0\\
+ & 0.004 & 0   &  0 & 0 & 0 &    	  	    & 0.004 &  0  &  0 &  0  &  0\\
+ & 0.008 & 0   &  0 & 0 & 0 &    	  	    & 0.008 &  0  &  0 &  0  &  0\\
+ & 0.016 & 0   &  1 & 0 & 4 &    	  	    & 0.016 &  0  &  1 &  0  &  9\\
+\hline                                                                           
+\multirow{5}{*}{250/1}                                                           
+ & 0.001 &  1  &  1 & 0 & 0 &\multirow{5}{*}{250/2} & 0.001 &  0  &  1 & 0   & 0 \\
+ & 0.002 &  1  &  1 & 0 & 0 & 	      		    & 0.002 &  0  &  1 & 0   & 0 \\
+ & 0.004 &  1  &  3 & 0 & 0 & 	      		    & 0.004 &  0  &  2 & 0   & 0 \\
+ & 0.008 &  1  &  4 & 0 & 2 & 	      		    & 0.008 &  0  &  3 & 0   & 1 \\
+ & 0.016 &  1  & 17 & 0 &20 & 	      		    & 0.016 &  1  & 13 & 0   &34 \\
+\hline                                                                           
+\multirow{5}{*}{500/1}                                                           
+ & 0.001 & 3   &  7 & 0 & 0 &\multirow{5}{*}{500/2} & 0.001 &  2  &  5 & 0   & 0 \\
+ & 0.002 & 2   & 26 & 0 & 0 & 		  	    & 0.002 &  2  & 22 & 0   & 0 \\
+ & 0.004 & 3   & 53 & 0 & 0 & 		  	    & 0.004 &  2  & 26 & 0   & 0 \\
+ & 0.008 & 6   &214 & 0 &13 & 		  	    & 0.008 &  4  &101 & 0   & 0 \\
+ & 0.016 &11   &390 & 0 &10 & 		  	    & 0.016 &  6  &212 & 0   &11 \\
 \hline % 1000 1 incomplete
 \multirow{5}{*}{1000/1} 
- & 0.001 & 12  &1366*& \multirow{5}{*}{1000/2}  & 0.001 &  9  &866 \\
- & 0.002 &  1  &2345*&  & 0.002 &  24 &378 * \\
- & 0.004 &  1  &3456*&  & 0.004 &  69 &1647* \\
- & 0.008 &  1  &3600*&  & 0.008 &  107&3378* \\
- & 0.016 &  1  &3600*&  & 0.016 &  235&3600* \\
+ & 0.001 & 12  &1366& 30& 0 &\multirow{5}{*}{1000/2} & 0.001 &  9  &866   & 17 & 0  \\
+ & 0.002 & 20  & 814& 17& 0 & 			     & 0.002 &  24 &378   & 0  & 0  \\
+ & 0.004 & 56  &1637& 33&10 & 			     & 0.004 &  69 &1647  & 30 & 8  \\
+ & 0.008 &  1  &3600& 0 & 0 & 			     & 0.008 &  107&3378  & 74 &30  \\
+ & 0.016 &  1  &3600& 0 & 0 & 			     & 0.016 &  235&3600  &100 &88  \\
 \hline                                     
 \end{tabular}
 \caption{Solution time of LP relaxation and B\&B}
