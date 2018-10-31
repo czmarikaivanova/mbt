@@ -8,13 +8,15 @@ The generating procedure takes a number of nodes and a parameter $p$ as an input
 First, it generates a random tree with the given number of nodes.
 It then iterates over all pairs of nodes that are not yet connected by an edge, and places an edge between them with the probability $p$.
 
-Apart from randomly generated instances, we also evaluate existing data sets of various sizes and densities.
+Apart from randomly generated instances, we also evaluate data sets of various sizes and densities available online \cite{steinlib}.
+These existing instances are used as benchmarks for algorithms for the minimum Steiner tree problem.
 
 \subsection{Comparison of upper and lower bounds}
 
 In the first set of experimetns we study how does the strength of different methods depend on the parameter $p$.
 We generate random single-source instances of sizes 125, 250, 500 and 1000 with increasing $p$.
-Tabs. \ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the resuts.
+Tabs. \ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the resuts of randomly generated instances.
+Results obtained for existing instances are stated in Tab. \ref{tab:obj-exist}.
 Each entry is calculated as an average from 100 instances for a given $n$, $p$ and a selected method.
 %The first column \emph{log} contains logarithmic bounds, and so this value depends only on the number of nodes and sources.
 The column \emph{fib} contains Fibonacci bound.
@@ -67,7 +69,7 @@ n & p     & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 & 10.00 & 10.41 & 10.54 & 10.57 & 11.80 & 11.93 & 12.06 & 13.06 \\
 & 0.008 & 10.00 & 10.01 & 10.01 & 10.01 & 11.02 & 11.02 & 11.02 & 12.04 \\
 \end{tabular}
-\caption{Objective function values yielded by different methods in instances with $|S|=1$}
+\caption{Objective function values yielded by different methods of randomly generated instances with $|S|=1$}
 \label{tab:obj-s1}
 \end{table}
 
@@ -107,13 +109,31 @@ n     &	p & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.008 & 9.00 & 9.03  & 9.03  & 9.03  & 10.00 & 10.00 & 10.00 & 11.01 \\
 & 0.016 & 9.00 & 9.00  & 9.00  & 9.00  & 9.12  & 9.07  & 9.15  & 11.00 \\
 \end{tabular}
-\caption{Objective function values yielded by different methods in instances with $|S|=2$}
+\caption{Objective function values yielded by different methods of randomly generated instances with $|S|=2$}
 \label{tab:obj-s2}
 \end{table}
 
+\begin{table}[]
+\centering
+\begin{tabular}{rrrrrrrrrr}
+n     &	avg $|E|$ & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
+\hline
+  50 & 140  & 6.00 & 6.21 & 7.14 & 7.21 & 7.93 & 8.93  & 9.43  & 10.86 \\
+ 100 & 530  & 7.00 & 7.23 & 7.93 & 8.00 & 8.80 & 9.60  & 10.00 & 12.53 \\
+ 160 &3629  & 8.00 & 8.00 & 8.00 & 8.00 & 8.40 & 8.93  & 8.80  & 12.13 \\
+ 200 &3222  & 8.00 & 8.00 & 8.00 & 8.00 & 8.22 & 9.00  & 9.22  & 12.89 \\
+ 300 &7189  & 9.00 & 9.00 & 9.00 & 9.00 & 9.11 & 9.33  & 9.56  & 13.33 \\
+ 320 &2264  & 9.00 & 9.00 & 9.00 & 9.00 &10.33 &10.67  &10.73  & 11.87 \\
+ 400 &12612 & 9.00 & 9.00 & 9.00 & 9.00 & 9.22 & 9.78  & 9.78  & 13.89 \\
+\end{tabular}
+\caption{Objective function values yielded by different methods of existing instances available online with $|S|=1$}
+\label{tab:obj-exist}
+\end{table}
+
+
 \subsection{Solution time}
 
-Average solution time of instances from the previous section is reported in Tab.~\ref{tab:soltime}.
+Average solution time of instances from the previous section is reported in Tabs.~\ref{tab:soltime} and \ref{tab:soltime-exist}..
 The columns LP and OPT contain solution times of solving LP relaxation and B\&B applied to the ILP model, respectively.
 The column \emph{int.} contains the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
 The values last column \emph{col.} are the number of instances in which the upper and lower bounds collpased. 
@@ -197,7 +217,25 @@ $n$ & $p$ & LP  & OPT & int. & col. \\
 & 0.016 &  235&3600  &100 &88 
 \end{tabular}
 \end{minipage}
-\caption{Solution time of LP relaxation and B\&B}
+\caption{Solution time of LP relaxation and B\&B of randomly generated instances}
 \label{tab:soltime}
 \end{table}
-			  
+			 
+
+\begin{table}[]
+	\centering
+\begin{tabular}{rrrrr}
+$n$ & avg $|E|$ & LP  & OPT &  col. \\
+\hline
+  50 & 140  & 0.02&0.14 & 26.67\\
+ 100 & 530  & 0.12&0.65 & 33.33\\
+ 160 &3629  & 0.12&1.75 & 73.33\\
+ 200 &3222  & 0.76&4.90 & 77.78\\
+ 300 &7189  & 7.43&15.69& 88.89\\
+ 320 &7189  & 2.66& 9.75& 26.67\\
+ 400 &12612 &12.83&74.08& 77.78
+\end{tabular}
+\caption{Solution time of LP relaxation and B\&B of existing instances available online for $|S|=1$}
+\label{tab:soltime-exist}
+\end{table}
+
