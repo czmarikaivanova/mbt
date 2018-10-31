@@ -15,7 +15,7 @@ Apart from randomly generated instances, we also evaluate existing data sets of 
 In the first set of experimetns we study how does the strength of different methods depend on the parameter $p$.
 We generate random single-source instances of sizes 125, 250, 500 and 1000 with increasing $p$.
 Tabs. \ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the resuts.
-Each entry is calculated as an average from 100 instances for a given $p$ and a selected method.
+Each entry is calculated as an average from 100 instances for a given $n$, $p$ and a selected method.
 %The first column \emph{log} contains logarithmic bounds, and so this value depends only on the number of nodes and sources.
 The column \emph{fib} contains Fibonacci bound.
 The values are rarely higher than the trivial logarithmic bound.
@@ -67,7 +67,7 @@ n & p     & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 & 10.00 & 10.41 & 10.54 & 10.57 & 11.80 & 11.93 & 12.06 & 13.06 \\
 & 0.008 & 10.00 & 10.01 & 10.01 & 10.01 & 11.02 & 11.02 & 11.02 & 12.04 \\
 \end{tabular}
-\caption{$|V|=1000, |S|=1$}
+\caption{Objective function values yielded by different methods in instances with $|S|=1$}
 \label{tab:obj-s1}
 \end{table}
 
@@ -107,24 +107,27 @@ n     &	p & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.008 & 9.00 & 9.03  & 9.03  & 9.03  & 10.00 & 10.00 & 10.00 & 11.01 \\
 & 0.016 & 9.00 & 9.00  & 9.00  & 9.00  & 9.12  & 9.07  & 9.15  & 11.00 \\
 \end{tabular}
-\caption{$|V|=1000, |S|=2$}
+\caption{Objective function values yielded by different methods in instances with $|S|=2$}
 \label{tab:obj-s2}
 \end{table}
-
-
 
 \subsection{Solution time}
 
 Average solution time of instances from the previous section is reported in Tab.~\ref{tab:soltime}.
+The columns LP and OPT contain solution times of solving LP relaxation and B\&B applied to the ILP model, respectively.
+The column \emph{int.} contains the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
+The values last column \emph{col.} are the number of instances in which the upper and lower bounds collpased. 
+I.e., how many instances have the value from the column \emph{deg} equal to the value in the column \emph{UB-4} in Tab.~\ref{tab:obj-s1}-\ref{tab:obj-s2}.
+In these instances, the optimal solution is pursued, because its objective function value is already known.
+Values in the second last column are therefore the proportion of interruptions in the total number of instances to which B\&B is actually applied.
+
 All instances of size up to 500 nodes are solved to optimality within the imposed 1 hour time limit.
-Computation of B\&B on Instances of 1000 nodes is often interrupted before the optimal solution is found.
-
-
+Computation of B\&B on instances of 1000 nodes is often interrupted before the optimal solution is found, particularly those with large $p$.
 Even thought the objective function value decreases with increasing $p$, and so the decision procedure needs to perform less iterations, ovarall solution time increases.
 This growth is caused by larger number of $x$-variables in denser graphs.
+It is also obvious and in accordance with the intuition that in denser graphs, the upper and lower bounds collapse more often.
 
 \begin{table}[]
-\label{tab:soltime}
 \begin{minipage}{.45\linewidth}
 \begin{tabular}{rrrrrr}
 \multicolumn{6}{c}{$|S|=1$} \\
@@ -155,8 +158,8 @@ $n$ & $p$ & LP  & OPT & int. & col. \\
  & 0.001 & 12  &1366& 30& 0 \\
  & 0.002 & 20  & 814& 17& 0 \\
  & 0.004 & 56  &1637& 33&10 \\
- & 0.008 &  1  &3600& 0 & 0 \\
- & 0.016 &  1  &3600& 0 & 0 
+ & 0.008 &101  &3399& 75& 6 \\
+ & 0.016 &204  &3600&100&93 
 \end{tabular}
 \end{minipage}
 \hspace{1.5cm}
@@ -195,5 +198,6 @@ $n$ & $p$ & LP  & OPT & int. & col. \\
 \end{tabular}
 \end{minipage}
 \caption{Solution time of LP relaxation and B\&B}
+\label{tab:soltime}
 \end{table}
 			  
