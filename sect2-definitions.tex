@@ -1,8 +1,6 @@
 \section{Network Model and Definitions} \label{sec:def}
 
 The communication network is represented by a connected graph $G=(V,E)$ and a subset $S\subseteq V$ referred to as the set of sources, where $|V|=n$. 
-% Let $V\left[F\right]=\{v\in V:\text{ some edge in } F \text{ is incident to } v\}, F\subseteq E$.
-% For disjoint node sets $V_1,V_S\subseteq V$, we denote by $G\left[V_1,V_2\right]$ the bipartite graph $(V_1\cup V_2,E')$, where  $E'=\{\{u,v\}\in E: u\in V_1,v\in V_2\}$. 
 
 \begin{definition} \label{def:broadcasttime}
 The \emph{broadcast time} $\tau(G,S)$ of a node set $S\subseteq V$ in $G$ is defined as the smallest integer $t\geq 0$ for which there exist
@@ -13,19 +11,7 @@ a sequence $V_0\subseteq\dots\subseteq V_t$ of node sets and a function $\pi:V\s
   \item for all $i=1,\ldots,t$ and all $v\in V_i$, $\pi(v)\in V_{i-1}$, and \label{def:parent}
   \item for all $u,v\in V_i\setminus V_{i-1}$, $\pi(u)=\pi(v)$ only if $u=v$. \label{def:unique}
 \end{enumerate}
-% % \begin{equation*}
-% \tau(G,S)=
-% \begin{cases}
-% 	0, S=V,\\
-% 	1+\min\{\tau(G,S\cup V\left[M\right]):M \text{ is a matching in } G\left[S, V\setminus S\right]\}, S\neq V.
-% \end{cases}
-% \label{eq:btime}
-% \end{equation*}
 \end{definition}
-% %Broadcasting is defined as a sequence of sets $(S=V_0\subseteq\dots\subseteq V_k = V)$ where each $V_i$ represents the nodes informed after time step $i$, $0\leq i\leq t$.
-% %For each node $v\in V_i\setminus V_{i-1}$, there exists a single node $\pi(v)\in V_{i-1}$ adjacent to $v$, which forwarded the signal to $v$.
-% %Also, for every two nodes $u,v\in V_i\setminus V_{i-1}$ we have $\pi(u)=\pi(v)$.
-% %The value $k$ is referred to as \emph{delay}.
 
 Referring to Section \ref{intro}, the node set $V_i$ is the set of nodes that are informed in time step $i$.
 Initially, only the sources are informed ($V_0=S$), whereas all nodes are informed after $t$ time steps ($V_t=V$),
@@ -39,12 +25,7 @@ condition \ref{def:unique} states that $\pi$ maps the set of nodes becoming info
 The optimization problem in question is formulated as follows:
 \begin{problem}[\textsc{Minimum Broadcast Time}]\label{prob:min}
 Given $G=(V,E)$ and $S\subseteq V$, find $\tau(G,S)$.
-% a sequence $(S=V_0\subseteq\dots\subseteq V_{\tau(G,S)}=V)$ and a function $\pi:V\setminus S\to V$, such that for each $v\in V\setminus S:\{v,\pi(v)\}\in E$, and for each $u,v\in V_i\setminus V_{i-1}: \pi(u)=\pi(v)\Leftrightarrow u=v$.
 \end{problem}
-
-Directed versions of Defintion \ref{def:broadcasttime} and Problem \ref{prob:min} are defined analogously.
-For a digraph $D=(V,A)$, condition \ref{def:edge} is modified to state that $(\pi(v),v)\in A$ for all $v\in V\setminus S$.
-We denote by $\tau(D,S)$ the broadcast time of $S$ in $D$.
 
 \begin{definition} \label{def:broadcastgraph}
 For any $V_0,\ldots,V_t$ and $\pi$ satisfying the conditions of Definition \ref{def:broadcasttime},
@@ -55,49 +36,15 @@ Each connected component of $D$ is a \emph{communication tree}.
 
 \noindent
 It is easily verified that the communication trees are indeed arborescences, rooted at distinct sources, with arcs pointing away from the source.
-Let $T_s=\left(V_{T_s},A_{V_s}\right)$ denote the communication tree rooted at source $s\in S$, and define
-the function $\alpha:V\to S$ such that $v\in V_{T_{\alpha(v)}}$ for all $v\in V$.
-That is, $\alpha$ associates a node $v$ with the source at which the communication tree containing $v$ is rooted.
-For any communication tree $T_s$, let $T^i_s$ be the subtree of $T_s$ induced by the set of nodes with distance at most $i$ edges from $s$.
-Analogously, let $D^i=\left\{T_s^i: s\in S\right\}$.
+Let $T(s)=\left(V(s),A(s)\right)$ denote the communication tree in $D$ rooted at source $s\in S$,
+and let $T_i(s)$ be the subtree of $T(s)$ induced by $V(s)\cap V_i$.
+Analogously, let $D_i$ be the directed subgraph of $D$ induced by node set $V_i$.
+For the sake of notational simplicity, the dependence on $(V_0,\ldots,V_t,\pi)$ is suppressed when referring to the directed graphs introduced here.
 
-% Given a feasible sequence of node sets and $\pi$, we derive the following broadcast trees \cite{grigni91}:
-% For $s\in S$, a broadcast tree $T_s=(V_{T_s},E_{T_s})$ is a time-labeled directed subgraph of $G$ describing a broadcast originated in $s$ by the rules:
-% \begin{enumerate}
-% \item $T_s$ is rooted at $s$ with arcs directed towards the leaves.
-% \item each node $v\in V_i$ is labeled with an integer $\tau(v)=i$,
-% \item for $v\in V\setminus S, v\in V_{T_s}\Leftrightarrow \pi(v)\in V_{T_s}$, 
-% \item $E_{T_s}=\{\{u,v\}: u,v\in V_{T_s}, \pi(v)=u\}$, and
-% \item for two sources $s,s'\in S, s\neq s'$ we have that $V_{T_s}\cap V_{T_{s'}}=\emptyset$. 
-% \end{enumerate}
-
-% Any feasible sequence of node sets and $\pi$ yield a set of trees $T=\{T_s:s\in S\}$ that forms a partition of $G$ into trees referred to as \emph{broadcast forest}.
-
-% Given a broadcast forest $T$, the delay is determined as $\max_{v\in V}\{\tau(v)\}$.
-%A set of trees $T=\{T_s:\cup_{s\in S}V_{T_s}=V\}$ forms a partition of $G$ into trees referred to as \emph{broadcast forest}.
-%$T$ can be derived from a given sequence of sets of nodes defining broadcasting and the mapping $\pi$.
-% For any integer $i$, let $T^i_s$ be the subtree of $T_s$ obtained by pruning all nodes $v\in V_{T_s}$ with $\tau(v)>i$.
-% Analogously, we define $T^i=\{T^i_s:s\in S\}$. 
-
-
-%We also define the set $A=\{(i,j),(j,i):\{i,j\}\in E\}$ that consists of all arcs that can be derived by directing edges in $E$.
 The degree of node $v$ in graph $G$ is denoted by $\delta_G(v)$.
-For the diameter of $G$ we use the symbol $\Delta_G$.
 The set of neighbors of $v\in V$ in $G$ is denoted by $N_G(v)$.
-Whenever there is no risk of confusion, the subscript $G$ is omitted.
-For a given subset $U\subseteq V$ of nodes, we define $N(U)=\bigcup_{v\in U}N(v)$.
+% Whenever there is no risk of confusion, the subscript $G$ is omitted.
+For a given subset $U\subseteq V$ of nodes, we define $N_G(U)=\bigcup_{v\in U}N_G(v)$.
 
-Likewise, $\delta^-_D(v)$ and $\delta^+_D(v)$ denote, respectively, the in-degree and the out-degree of digraph $D$,
+Likewise, $\delta^-_D(v)$ and $\delta^+_D(v)$ denote, respectively, the in-degree and the out-degree of $D$,
 and $N_D^+(v)=\left\{u\in V:(v,u)\in A\right\}$ and $N_D^-(v)=\left\{u\in V:(u,v)\in A\right\}$ denote the neighbor sets of node $v$ in $D$.
-The node set $L(D)=\left\{v\in V: N_D^+(v)=\emptyset\right\}$ is referred to as the \emph{leaves} in $D$.
-
-%For convenience, we consider the following definition of broadcast trees \cite{grigni91}:
-%For $s\in S$, a broadcast tree $T_s$ with node set $V_{T_s}$ is a time-labeled directed subgraph of $G$ describing a broadcast originated by $s$ by the following rules:
-%\begin{enumerate}
-%\item $T_s$ is rooted at $s$ with arcs directed towards the leaves.
-%\item Each node $v$ is labeled with an integer $\tau(v)$, where $\tau(s)=0$.
-%\item Whenever $v$ is a parent of $u$ in $T_s$ $\tau(v)<\tau(u)$.
-%\item Whenever $v$ and $u$ are siblings in $T_s$, $\tau(v)\neq \tau(u)$. 
-%\end{enumerate}
-%The number of leaves in $T_s$ is denoted by $L(T_s)$.
-
