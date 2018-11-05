@@ -1,5 +1,16 @@
 \section{Concluding Remarks} \label{sec:conc}
 
 This work focuses on the minimum broadcast time problem and presents several techniques for determining lower bounds, upper bounds as well as optimal solutions.
-The main contribution consists in introducing two different integer programming models and their comparison.
+The main contribution consists in introducing an ILP models and a suitable solving method.
+Its LP relaxation provides a strong lower bound which often coincides with the optimum, and is stronger than other lower bounding methods presented in this work in vast majority of test instances.
 We consider various instance types and sizes both from existing datasets and randomly generated.
+
+We also develop and test a heuristic method that provides an upper bound. 
+Large instances that are too time consuming for B\&B can often be solved to optimality by comparing objective function values yielded by LP relaxation and upper bounding methods.
+The results of numerical experiments indicate that instances with many edges are more time consuming to solve by B\&B.
+At the same time, however, the denser graph, the more likely are the upper and lower bounds to coincide. 
+
+There is a potential for the future research in developing stronger upper bounding algorithms and improving the existing ILP model.
+The problem definition assumes that a node transmits a signal to at most one neighbor in each time step.
+A further direction of the research considers a generalization of the problem, where nodes can transmit a signal to up to a certain number of neighbors at the same time.
+
