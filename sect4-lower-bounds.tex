@@ -219,36 +219,3 @@ Alg.~\ref{alg:dreg} returns a lower bound on $\tau(G,S)$.
 		Follows from Lemma \ref{lemma:degorder} and the subsequent discussion. 
 \end{proof}
 
-%A lower bound on $\tau(G,S)$ is then given by the solution to:
-%\begin{problem}[\textsc{Node Degree Relaxation}]\label{prob:degree}
-%Find the smallest integer $t\geq 0$ for which there exist
-%a sequence $V_0\subseteq\dots\subseteq V_t$ of node sets and a function $\pi:V\setminus S\to V$,
-%satisfying conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
-%\end{problem}
-%
-%Except from the node degrees, explicit information about $G$ is not part of the input to Problem \ref{prob:degree},
-%and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
-%
-%In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions of its single-source version.
-%Thus, let $S=\left\{v_1\right\}$ and $V\setminus S=\left\{v_2,\ldots,v_n\right\}$, where $\delta_G(v_2)\geq\delta_G(v_3)\geq\dots\geq\delta_G(v_n)$,
-%and denote $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
-
-%Consider an optimal communication tree $T$. That is, $T$ is a subtree of $G$ rooted at the unique source $v_1$ such that
-%$\tau\left(G,\{v_1\}\right)=\tau\left(T,\{v_1\}\right)$.
-%Let $\tau_i=\tau\left(T[i],\{v_i\}\right)$ denote the broadcast time of node $v_i$ in the subtree $T[i]$ of $T$ rooted at $v_i$.
-%The optimal broadcast time $\tau\left(T,\{v_1\}\right)$ is hence no less than the sum of the time $\lceil\log\beta(v_i)\rceil$ it takes to inform $v_i$,
-%and the subsequent time $\tau_i$ needed to inform all nodes in $T[i]$.
-%Taking the largest of all such lower bounds, we get:
-%\begin{equation}
-%  \tau\left(T,\{v_1\}\right)=\max\left\{\lceil\log\beta(v_i)\rceil+\tau_i: i=2,\ldots,n\right\}. \label{eq:tau}
-%\end{equation}
-%
-%\begin{lemma} \label{lem:degree}
-%Problem \ref{prob:degree} has an optimal solution where, for all $i=2,\ldots,n-1$, $\delta_T^+(v_i)\geq\delta_T^+(v_{i+1})$ and $\tau_i\geq\tau_{i+1}$.
-%\end{lemma}
-%\begin{proof}
-%Consider an optimal broadcast tree $T$, and let $j\in\{2,\ldots,n-1\}$ be the largest value of $i$ for which $\tau_i<\tau_{i+1}$.
-%\emph{By utilizing (\ref{eq:tau}, go on to argue that a simple swap does not increase $\tau\left(\right)$}
-%\emph{Slightly more tricky: Argue that moving subtrees can fix the first inequality. Swap again to restore the second}.
-%\end{proof}
-

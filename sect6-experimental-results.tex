@@ -13,18 +13,19 @@ These existing instances are used as benchmarks for algorithms for the minimum S
 
 \subsection{Comparison of upper and lower bounds}
 
-In the first set of experimetns we study how does the strength of different methods depend on the parameter $p$.
-We generate random single-source instances of sizes 125, 250, 500 and 1000 with increasing $p$.
-Tabs. \ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the resuts of randomly generated instances.
-Results obtained for existing instances are stated in Tab. \ref{tab:obj-exist}.
+In the first set of experiments we study how does the strength of different methods depend on the parameter $p$.
+We generate random single and double-source instances of sizes 125, 250, 500 and 1000 with increasing $p$.
+Tabs. \ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the results of randomly generated instances.
 Each entry is calculated as an average from 100 instances for a given $n$, $p$ and a selected method.
-%The first column \emph{log} contains logarithmic bounds, and so this value depends only on the number of nodes and sources.
+Results obtained for existing instances are stated in Tab. \ref{tab:obj-exist} where 15 instances are used for obtaining average objective function value for each number of nodes.
+Instead of the parameter $p$, the average number of edges in a given instance size is stated in the second column.
+
 The column \emph{fib} contains Fibonacci bound.
 The values are rarely higher than the trivial logarithmic bound.
 Lower bound obtained from degree sequence in the column \emph{deg} is slightly better, 
 but in majority of cases is far weaker than the LP bound, which is very tight in all considered experimental settings.
-Upper bounds \emph{UB-k, $k=1,\dots 4$} are obtained using Alg. \ref{alg:match}, where $k$ is the input parameter $t_{\text{max}}$.
-In general, we observe that the higher $t_{\text{max}}$ the tighter upper bound is calculated.
+Upper bounds \emph{UB-t, $t=1,\dots 4$} are obtained using Alg. \ref{alg:match}, which takes $t$ as one of its input parameters.
+In general, we observe that the higher $t$ the tighter upper bound is calculated.
 There are however some instances where it does not hold, particularly for instances with larger $p$,  but the differences is very small, and can be explained as a coincidence.
 
 We further observe that the span of bounds decreases with increasing $p$, within one instance size, and also increases for a constant $p$ with increasing instance size.
@@ -136,14 +137,15 @@ n     &	avg $|E|$ & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  
 Average solution time of instances from the previous section is reported in Tabs.~\ref{tab:soltime} and \ref{tab:soltime-exist}..
 The columns LP and OPT contain solution times of solving LP relaxation and B\&B applied to the ILP model, respectively.
 The column \emph{int.} contains the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
-The values last column \emph{col.} are the number of instances in which the upper and lower bounds collpased. 
-I.e., how many instances have the value from the column \emph{deg} equal to the value in the column \emph{UB-4} in Tab.~\ref{tab:obj-s1}-\ref{tab:obj-s2}.
+The values in the last column \emph{col.} are the numbers of instances in which the upper and lower bounds collapsed. 
+I.e., how many instances have the lower bound \emph{deg} value equal to the upper bound \emph{UB-4} value.
 In these instances, the optimal solution is pursued, because its objective function value is already known.
-Values in the second last column are therefore the proportion of interruptions in the total number of instances to which B\&B is actually applied.
+Values in the second last column are therefore the proportion of interruptions in the total number of instances to which B\&B is actually applied 
+(in which the bounds did not collapse).
 
-All instances of size up to 500 nodes are solved to optimality within the imposed 1 hour time limit.
+All investigated instances of size up to 500 nodes are solved to optimality within the imposed 1 hour time limit.
 Computation of B\&B on instances of 1000 nodes is often interrupted before the optimal solution is found, particularly those with large $p$.
-Even thought the objective function value decreases with increasing $p$, and so the decision procedure needs to perform less iterations, ovarall solution time increases.
+Even thought the objective function value decreases with increasing $p$, and so the decision procedure needs to perform less iterations, overall solution time increases.
 This growth is caused by larger number of $x$-variables in denser graphs.
 It is also obvious and in accordance with the intuition that in denser graphs, the upper and lower bounds collapse more often.
 
