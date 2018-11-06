@@ -36,19 +36,19 @@ This formula equals to the recursive definition of Fibonacci sequence of order $
 As each of the two base cases, $|L(T^1_s)|$ and $|L(T^2_s)|$, equals the double of the base cases of the Fibonacci sequence, the number of leaves in time step $i$ is calculated as
 \begin{equation*}
 \label{eq:fibleaf}
-|L(T^i_s)|=2 F^{(d-1)}_i.
+|L(T^i_s)|=2 f^{(d-1)}_i.
 \end{equation*}  
 The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly informed in time steps $1,\dots,i$, that is, the sum of leaves in $T^1_s,\dots,T^i_s$. Thus,
 \begin{equation}
 \label{eq:fibcnt}
-|V_{T^i_s}|=|V_i|=2\sum\limits_{j=1}^i F^{(d-1)}_j.
+|V_{T^i_s}|=|V_i|=2\sum\limits_{j=1}^i f^{(d-1)}_j.
 \end{equation}
 
 \begin{proposition}
 	If $\delta_G(v)=d$ for all $v\in V$, then 
 \begin{equation*}
 \label{lem:lbreg1}
-	\tau(G,S)\geq\min\left\{i:2\sigma\sum\limits_{j=1}^kF^{(d-1)}_j\geq n\right\}.
+	\tau(G,S)\geq\min\left\{i:2\sigma\sum\limits_{j=1}^kf^{(d-1)}_j\geq n\right\}.
 \end{equation*}
 \label{prop:lbfib}
 \end{proposition}
@@ -56,7 +56,7 @@ The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly inform
 In order to inform as many nodes as possible within a given time step $t$,
 we assume that every informed node $v$ in each time step $i<t$ with $\delta_{T_i}(v)<d$ informs a new, not yet informed node.
 Maximum number of nodes informed within $i$ time steps in one tree in the broadcast forest is given by \eqref{eq:fibcnt}.
-For the entire broadcast forest, the maximum number of informed nodes becomes $2\sigma\sum\limits_{j=1}^i F^{(d-1)}_j$, because the trees can be completely independent.
+For the entire broadcast forest, the maximum number of informed nodes becomes $2\sigma\sum\limits_{j=1}^i f^{(d-1)}_j$, because the trees can be completely independent.
 We are therefore looking for the smallest $i$, for which the summation exceeds $n$.
 %In order to inform $n$ nodes in the best possible scenario, the signal has to be relayed sufficiently many time steps so that the maximum possible number of informed nodes becomes $n$.
 %The maximum number of nodes informed within $i$ time steps is given by \eqref{eq:fibcnt}.

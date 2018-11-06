@@ -10,7 +10,7 @@ It then iterates over all pairs of nodes that are not yet connected by an edge, 
 
 Apart from randomly generated instances, we also evaluate data sets of various sizes and densities available online \cite{steinlib}.
 These existing collection of instances is used as benchmark for algorithms for the minimum Steiner tree problem.
-We evaluate datasets named "I160", "I320" and "I640" with selected edge cardinalities stated in the tables with results. 
+We evaluate datasets named ``I160'',``I320'' and ``I640'' with selected edge cardinalities stated in the tables with results. 
 In each instance category, 20 instances are available.
 
 \subsection{Comparison of upper and lower bounds}
@@ -74,7 +74,7 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 && 10.00 & 10.41 & 10.54 && 10.57 && 11.80 & 11.93 & 12.06 & 13.06 \\
 & 0.008 && 10.00 & 10.01 & 10.01 && 10.01 && 11.02 & 11.02 & 11.02 & 12.04 \\
 \end{tabular}                              
-\caption{Objective function values yielded by different methods of randomly generated instances with $|S|=1$}
+\caption{Objective function values yielded by different methods of randomly generated instances with $\sigma=1$}
 \label{tab:obj-s1}
 \end{table}
 
@@ -116,7 +116,7 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.008 && 9.00 & 9.03  & 9.03  && 9.03  && 10.00 & 10.00 & 10.00 & 11.01 \\
 & 0.016 && 9.00 & 9.00  & 9.00  && 9.00  && 9.12  & 9.07  & 9.15  & 11.00 \\
 \end{tabular}
-\caption{Objective function values yielded by different methods of randomly generated instances with $|S|=2$}
+\caption{Objective function values yielded by different methods of randomly generated instances with $\sigma=2$}
 \label{tab:obj-s2}
 \end{table}
 
@@ -133,7 +133,7 @@ $n$     &	avg $|E|$ & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1
  320 &2264  & 9.00 & 9.00 & 9.00 & 9.00 &10.33 &10.67  &10.73  & 11.87 \\
  400 &12612 & 9.00 & 9.00 & 9.00 & 9.00 & 9.22 & 9.78  & 9.78  & 13.89 \\
 \end{tabular}
-\caption{Objective function values yielded by different methods of existing instances available online with $|S|=1$}
+\caption{Objective function values yielded by different methods of existing instances available online with $\sigma=1$}
 \label{tab:obj-exist}
 \end{table}
 
@@ -156,7 +156,7 @@ It is also obvious and in accordance with the intuition that in denser graphs, t
 
 \begin{table}[]
 \begin{tabular}{ccrrrrrrrrrr}
-\multicolumn{2}{c}{Instance} & & \multicolumn{4}{c}{$|S|=1$} & &\multicolumn{4}{c}{$|S|=2$} \\
+\multicolumn{2}{c}{Instance} & & \multicolumn{4}{c}{$\sigma=1$} & &\multicolumn{4}{c}{$\sigma=2$} \\
 \cline{1-2}\cline{4-7}\cline{9-12}
 $n$ & $p$ & & LP  & OPT & int. & col.& & LP  & OPT & int. & col. \\
 \hline
@@ -206,7 +206,7 @@ $n$ & avg $|E|$ & LP  & OPT &  col. \\
  320 &7189  & 2.66& 9.75& 26.67\\
  400 &12612 &12.83&74.08& 77.78
 \end{tabular}
-\caption{Solution time of LP relaxation and B\&B of existing instances available online for $|S|=1$}
+\caption{Solution time of LP relaxation and B\&B of existing instances available online for $\sigma=1$}
 \label{tab:soltime-exist}
 \end{table}
 
