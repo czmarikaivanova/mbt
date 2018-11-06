@@ -3,26 +3,23 @@ Strong lower bounds on the minimum objective function value are of vital importa
 In this section, we study three types of lower bounds on the broadcast time $\tau(G,S)$.
 
 \subsection{Analytical lower bounds} \label{sec:lbanalyt}
-%An optimal solution is obtained by solving a sequence of decision problems with varying $t$. 
-%It is therefore desirable to determine tight lower and upper bounds in order to arrive in the optimum after solving as few decision problems as possible.
-Obvious bounds for a general graph instance are given by
+Because $\left|V_{i+1}\right|\leq 2\left|V_i\right|$ for all $i\geq 1$, and $N_G\left(V_i\right)\neq\emptyset$, the following bounds are obvious:
 \begin{observation}
 For an instance $(G,S)$ of Problem \ref{prob:min},
 \begin{equation}
-\left\lceil\log\frac{n}{|S|}\right\rceil\leq \tau\{G,S\} \leq n-|S|.
+\left\lceil\log\frac{n}{\sigma}\right\rceil\leq \tau(G,S) \leq n-\sigma.
 \label{eq:loglb}
 \end{equation}
 \label{obs:loglb}
 \end{observation}
 
-In the following, we use $m$-step Fibonacci numbers \cite{noe05}, a generalization of the well known (2-step) Fibonacci numbers, defined by letting, 
-$F^{(m)}_k=0$ for $k\leq 0$, $F^{(m)}_1=1$, and 
+Consider the $m$-step Fibonacci numbers $\left\{f^{(m)}_k\right\}_{k=1,2,\ldots}$ \cite{noe05}, a generalization of the well-known (2-step) Fibonacci numbers, defined by
+$f^{(m)}_k=0$ for $k\leq 0$, $f^{(m)}_1=1$, and 
 other terms according to the linear recurrence relation 
 \begin{align*}
-F^{(m)}_k &=\sum\limits_{i=1}^m F^{(m)}_{k-i}, &\text{ for } k\geq 2.
+f^{(m)}_k &=\sum\limits_{i=1}^m f^{(m)}_{k-i}, &\text{ for } k\geq 2.
 \end{align*}
 
-% Possibly remove the subscript s in T_S
 Assume that $G$ is a $d$-regular graph with a unique source $s$.
 Any broadcast forest consists of a single tree $T_s$ rooted at $s$.
 We investigate the number of leaves in $T_s$, and exploit this number to derive a lower bound on $\tau\{G,\{s\}\}$.
@@ -51,7 +48,7 @@ The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly inform
 	If $\delta_G(v)=d$ for all $v\in V$, then 
 \begin{equation*}
 \label{lem:lbreg1}
-	\tau(G,S)\geq\min\left\{i:2|S|\sum\limits_{j=1}^kF^{(d-1)}_j\geq n\right\}.
+	\tau(G,S)\geq\min\left\{i:2\sigma\sum\limits_{j=1}^kF^{(d-1)}_j\geq n\right\}.
 \end{equation*}
 \label{prop:lbfib}
 \end{proposition}
@@ -59,7 +56,7 @@ The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly inform
 In order to inform as many nodes as possible within a given time step $t$,
 we assume that every informed node $v$ in each time step $i<t$ with $\delta_{T_i}(v)<d$ informs a new, not yet informed node.
 Maximum number of nodes informed within $i$ time steps in one tree in the broadcast forest is given by \eqref{eq:fibcnt}.
-For the entire broadcast forest, the maximum number of informed nodes becomes $2|S|\sum\limits_{j=1}^i F^{(d-1)}_j$, because the trees can be completely independent.
+For the entire broadcast forest, the maximum number of informed nodes becomes $2\sigma\sum\limits_{j=1}^i F^{(d-1)}_j$, because the trees can be completely independent.
 We are therefore looking for the smallest $i$, for which the summation exceeds $n$.
 %In order to inform $n$ nodes in the best possible scenario, the signal has to be relayed sufficiently many time steps so that the maximum possible number of informed nodes becomes $n$.
 %The maximum number of nodes informed within $i$ time steps is given by \eqref{eq:fibcnt}.
@@ -135,7 +132,7 @@ satisfying conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
 %and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
 
 In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions.
-Thus, let $|S|=\sigma$, $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
+Thus, let $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
 and denote $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
 
 A degree sequence of a graph is commonly defined as a non-increasing sequence of degrees of nodes.
@@ -156,7 +153,7 @@ in the order of their decreasing degree.
 \begin{proof}
 
 A node with degree $d_i$ informed in the $j$-th time step can inform at most $\min\{d_i-1,t-j\}$ nodes.
-Consider integers  $k$ and $l$ such that $|S|< k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with degrees $d_k$, $d_\ell$, respectively.
+Consider integers  $k$ and $l$ such that $\sigma< k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with degrees $d_k$, $d_\ell$, respectively.
 Assume without loss of generality, that $v_k$ and $v_l$ are informed in the $k'$-th and $\ell'$-th time step, respectively, and that $k'\leq\ell'$.
 Then, $d_k-1\geq d_\ell-1$ and $t-k' \geq t-\ell'$.
 Let $K_1$ and $L_1$ be the number of nodes that can be informed by $v_k$ and $v_l$, respectively:
