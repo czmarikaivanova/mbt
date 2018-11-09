@@ -47,5 +47,8 @@ The set of neighbors of $v\in V$ in $G$ is denoted by $N_G(v)$.
 % Whenever there is no risk of confusion, the subscript $G$ is omitted.
 For a given subset $U\subseteq V$ of nodes, we define $N_G(U)=\bigcup_{v\in U}N_G(v)$.
 
-Likewise, $\delta^-_D(v)$ and $\delta^+_D(v)$ denote, respectively, the in-degree and the out-degree of $D$,
-and $N_D^+(v)=\left\{u\in V:(v,u)\in A\right\}$ and $N_D^-(v)=\left\{u\in V:(u,v)\in A\right\}$ denote the neighbor sets of node $v$ in $D$.
+Likewise, $N_D^+(v)=\left\{u\in V:(v,u)\in A\right\}$ and $N_D^-(v)=\left\{u\in V:(u,v)\in A\right\}$ denote the neighbor sets of node $v$ in $D$,
+and $N_D(v)=N_D^+(v)\cup N_D^-(v)$.
+Finally, we let $\delta^+_D(v)=\left|N_D^+(v)\right|$ and $\delta^-_D(v)=\left|N_D^-(v)\right|$ denote, respectively, the out-degree and the in-degree of $D$,
+and we let $\delta_D(v)=\delta_D^+(v)+\delta_D^-(v)$
+

@@ -3,9 +3,12 @@ Strong lower bounds on the minimum objective function value are of vital importa
 In this section, we study three types of lower bounds on the broadcast time $\tau(G,S)$.
 
 \subsection{Analytical lower bounds} \label{sec:lbanalyt}
-Because $\left|V_{i+1}\right|\leq 2\left|V_i\right|$ for all $i\geq 1$, and $N_G\left(V_i\right)\neq\emptyset$, the following bounds are obvious:
+Any solution $\left(V_0,\ldots,V_t,\pi\right)$ satisfying conditions \ref{def:boundary}--\ref{def:unique} of Definition \ref{def:broadcasttime},
+also satisfies $\left|V_{i+1}\right|\leq 2\left|V_i\right|$ for all $i\geq 1$.
+Because $G$ is connected, $N_G\left(V_i\right)$ intersects $V\setminus V_i$ as long as $V_i\neq V$.
+This yields the following bounds:
 \begin{observation}
-For an instance $(G,S)$ of Problem \ref{prob:min},
+For all instances $(G,S)$ of Problem \ref{prob:min},
 \begin{equation}
 \left\lceil\log\frac{n}{\sigma}\right\rceil\leq \tau(G,S) \leq n-\sigma.
 \label{eq:loglb}
@@ -13,107 +16,112 @@ For an instance $(G,S)$ of Problem \ref{prob:min},
 \label{obs:loglb}
 \end{observation}
 
-Consider the $m$-step Fibonacci numbers $\left\{f^{(m)}_k\right\}_{k=1,2,\ldots}$ \cite{noe05}, a generalization of the well-known (2-step) Fibonacci numbers, defined by
-$f^{(m)}_k=0$ for $k\leq 0$, $f^{(m)}_1=1$, and 
+Consider the $m$-step Fibonacci numbers $\left\{f^{m}_i\right\}_{i=1,2,\ldots}$ \cite{noe05}, a generalization of the well-known (2-step) Fibonacci numbers, defined by
+$f^{m}_i=0$ for $i\leq 0$, $f^{m}_1=1$, and 
 other terms according to the linear recurrence relation 
 \begin{align*}
-f^{(m)}_k &=\sum\limits_{i=1}^m f^{(m)}_{k-i}, &\text{ for } k\geq 2.
+f^{m}_i &=\sum\limits_{j=1}^m f^{m}_{i-j}, &\text{ for } i\geq 2.
 \end{align*}
 
-Assume that $G$ is a $d$-regular graph with a unique source $s$.
-Any broadcast forest consists of a single tree $T_s$ rooted at $s$.
-We investigate the number of leaves in $T_s$, and exploit this number to derive a lower bound on $\tau\{G,\{s\}\}$.
-
-If the orientation of arcs in $T_s$ is disregarded, $|L(T^1_s)|=|L(T^2_s)|=2$.
-For $i\geq 3$, $|L(T^i_s)|$ is no more than the number of nodes with degree below $d$ in $T^{i-1}_s$, 
-because in a $d$-regular graph, only nodes with degree lower than $d$ can inform new uninformed nodes.
-It can also be interpreted as the sum of the number of leaves in $T^{i-d+1}_s,\dots,T^{i-1}_s$, which leads to %the following formula
-\begin{equation*}
-\label{eq:leafrec}
-|L(T^i_s)|=\sum\limits_{j=i-d+1}^{i-1} |L(T^j_s)|.
-\end{equation*}  
-This formula equals to the recursive definition of Fibonacci sequence of order $d-1$.
-As each of the two base cases, $|L(T^1_s)|$ and $|L(T^2_s)|$, equals the double of the base cases of the Fibonacci sequence, the number of leaves in time step $i$ is calculated as
-\begin{equation*}
-\label{eq:fibleaf}
-|L(T^i_s)|=2 F^{(d-1)}_i.
-\end{equation*}  
-The number of nodes in $T^i_s$ can be expressed as the sum of nodes newly informed in time steps $1,\dots,i$, that is, the sum of leaves in $T^1_s,\dots,T^i_s$. Thus,
-\begin{equation}
-\label{eq:fibcnt}
-|V_{T^i_s}|=|V_i|=2\sum\limits_{j=1}^i F^{(d-1)}_j.
-\end{equation}
+The generalized Fibonacci numbers are instrumental in the derivation of a lower bound on $\tau(G,S)$,
+depending on the maximum node degree $d=\max\left\{\delta_G(v): v\in V\right\}$ in $G$.
+The idea behind the bound is that the broadcast time can be no shorter than what is achieved if
+the following ideal, but not necessarily feasible, criteria are met:
+Every source transmits the signal to a neighbor node in each of the periods $1,\ldots,d$,
+and every node $u\in V\setminus S$
+transmits the signal to a neighbor node in each of the first $d-1$ periods following the period when $u$ gets informed.
+An exception possibly occurs in the last period, as there may be fewer nodes left to be informed than there are nodes available to inform them.
 
 \begin{proposition}
-	If $\delta_G(v)=d$ for all $v\in V$, then 
 \begin{equation*}
 \label{lem:lbreg1}
-	\tau(G,S)\geq\min\left\{i:2\sigma\sum\limits_{j=1}^kF^{(d-1)}_j\geq n\right\}.
+	\tau(G,S)\geq\min\left\{t:2\sigma\sum\limits_{j=1}^tf^{d-1}_j\geq n\right\}.
 \end{equation*}
 \label{prop:lbfib}
 \end{proposition}
 \begin{proof}
-In order to inform as many nodes as possible within a given time step $t$,
-we assume that every informed node $v$ in each time step $i<t$ with $\delta_{T_i}(v)<d$ informs a new, not yet informed node.
-Maximum number of nodes informed within $i$ time steps in one tree in the broadcast forest is given by \eqref{eq:fibcnt}.
-For the entire broadcast forest, the maximum number of informed nodes becomes $2\sigma\sum\limits_{j=1}^i F^{(d-1)}_j$, because the trees can be completely independent.
-We are therefore looking for the smallest $i$, for which the summation exceeds $n$.
-%In order to inform $n$ nodes in the best possible scenario, the signal has to be relayed sufficiently many time steps so that the maximum possible number of informed nodes becomes $n$.
-%The maximum number of nodes informed within $i$ time steps is given by \eqref{eq:fibcnt}.
-%We therefore need to set the upper limit of the summation in \eqref{eq:fibcnt} so that the right-hand side exceeds $n$.
-%The reason why the result is divided by $|S|$ is that the best case scenario with several source nodes assumes that the signals initiated in individual sources are spread evenly.
+Consider a solution $\left(V_0,\ldots,V_t,\pi\right)$ with associated broadcast graph $D$, such that $V_{t-1}\neq V_t$, 
+\begin{itemize}
+  \item conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:unique} of Definition \ref{def:broadcasttime} are satisfied,
+  \item for each source $u\in S$ and each $j=1,\ldots,\min\{d,t-1\}$, there exists a node $v_j\in V_j\setminus V_{j-1}$ such that $\pi\left(v_j\right)=u$, and
+  \item for each $i\in\{1,\ldots,t-2\}$, each node $u\in V_i\setminus V_{i-1}$, and each $j=i+1,\ldots,\min\{i+d-1,t-1\}$,
+        there exists a node $v_j\in V_j\setminus V_{j-1}$ such that $\pi\left(v_j\right)=u$.
+\end{itemize}
+\noindent
+Clearly, such a solution exists, and $\left(V_0,\ldots,V_t,\pi\right)$ is optimal if $\pi$ also satisfies condition \ref{def:edge}.
+We thus have $t\leq\tau(G,S)$.
+It remains to prove that $2\sigma\sum_{i=1}^{t-1}f_i^{d-1}<n\leq 2\sigma\sum_{i=1}^tf_i^{d-1}$.
+
+For $i=1,\ldots,t$, let $L_i=\left\{v\in V_i:\delta_{D_i}(v)=1\right\}$ denote the set of nodes with exactly one out- or in-neighbor in $D_i$,
+and let $L_i=\emptyset$ for $i\leq 0$.
+That is, for $i>1$, $L_i$ is the set of nodes that receive the signal in period $i$, whereas $L_1$ consists of all nodes informed in period 1, including the sources $S$.
+Hence, $L_1,\ldots,L_{t-1}$ are disjoint sets (but $V_t$ may intersect $V_{t-1}$), and $V_i=L_1\cup\cdots\cup L_i$ for all $i=1,\ldots,t$.
+
+Consider a period $i\in\{2,\ldots,t-1\}$.
+The assumptions on $\left(V_0,\ldots,V_t,\pi\right)$ imply that $\pi$ is a bijection from $L_i$ to $L_{i-1}\cup\cdots\cup L_{i-d+1}$.
+Thus, $\left|L_i\right|=\sum_{j=1}^{d-1}\left|L_{i-j}\right|$.
+Since also $\left|L_1\right|=2\sigma=2\sigma f_1^{d-1}$ and $\left|L_j\right|=f_j^{d-1}=0$ for $j\leq 0$,
+we get $\left|L_i\right|=2\sigma f_i^{d-1}$.
+Further, $\left|L_t\right|\leq\sum_{j=1}^{d-1}\left|L_{t-j}\right|=2\sigma f_t^{d-1}$.
+It follows that $2\sigma\sum_{i=1}^{t-1}f_i^{d-1}=\sum_{i=1}^{t-1}\left|L_i\right|=\left|V_{t-1}\right|<n=\left|V_t\right|\leq\sum_{i=1}^t\left|L_i\right|\leq 2\sigma\sum_{i=1}^tf_i^{d-1}$,
+which completes the proof.
 \end{proof}
 
 \subsection{Continuous relaxations of integer programming models} \label{sec:lblprel}
 
-For $t\in\mathbb{Z}_+$, define $\Omega(t)\subseteq[0,1]^{A\times\{1,\ldots,t\}}$ as the set of solutions satisfying
-\eqref{mod:basic:tIncreases}, \eqref{mod:basic:positiveCost}, and \eqref{mod:basic:dec:atMost1in},
-and let $\Omega^=(t) = \left\{x\in\Omega(t): \sum\limits_{u \in N(v)} \sum\limits_{k=1}^tx_{uv}^k = 1 ~~(v\in V\setminus S)\right\}$.
-Let $t^{\ast}=\min\left\{t\in\mathbb{Z}_+: \Omega^=\neq\emptyset\right\}$ be the smallest value of $t$, for which the optimal objective function value in
-the relaxation of \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim} equals $V\setminus S$.
+For $t\in\mathbb{Z}_+$, define $\Omega(t)\subseteq[0,1]^{A\times\{1,\ldots,t\}}$ as the set of feasible solutions to the continuous relaxation of
+\eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim},
+and let
+\[
+ \Omega^=(t) = \left\{x\in\Omega(t): \sum\limits_{u \in N(v)} \sum\limits_{k=1}^tx_{uv}^k = 1 ~~(v\in V\setminus S)\right\}.
+\]
+Let $t^{\ast}=\min\left\{t\in\mathbb{Z}_+: \Omega^=\neq\emptyset\right\}$ be the smallest value of $t$ for which the optimal objective function value in
+the relaxation equals $n-\sigma$.
 Existence of $t^{\ast}$ follows directly from $\Omega^=\left(\tau(G,S)\right)\neq\emptyset$.
 
-Consider a modification of model \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim} where the coverage constraint
-$\sum\limits_{u \in N(v)} \sum\limits_{k=1}^tx_{uv}^k = 1$ is imposed on all non-source nodes $v\in V\setminus S$, and the objective is to minimize the communication time.
-Its continuous relaxation is feasible for sufficently large $t$, and has optimal objective function value defined as
-$\zeta(t)=\min\left\{\sum\limits_{k=1}^tz_k: x\in\Omega^=(t), z_k\geq\sum\limits_{u \in N(v)}x_{uv}^k ~~(k=1,\ldots,t, v\in V\setminus S)\right\}$.
+% Consider a modification of model \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim} where the coverage constraint
+% $\sum\limits_{u \in N(v)} \sum\limits_{k=1}^tx_{uv}^k = 1$ is imposed on all non-source nodes $v\in V\setminus S$, and the objective is to minimize the communication time.
+The continuous relaxation of \eqref{mod:basic:obj}--\eqref{mod:basic:dim} is feasible for sufficiently large $t$.
+We denote its optimal objective function value by $\zeta(t)$.
+% $\zeta(t)=\min\left\{\sum\limits_{k=1}^tz_k: x\in\Omega^=(t), z_k\geq\sum\limits_{u \in N(v)}x_{uv}^k ~~(k=1,\ldots,t, v\in V\setminus S)\right\}$.
 
 \begin{proposition} \label{prop:lpweak}
 For all $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $\zeta(t)\leq t^{\ast}\leq\tau(G,S)$.
 \end{proposition}
 \begin{proof}
-We first prove that $\zeta(t)$ is non-increasing with increasing $t$: Let $x\in\Omega^=(t)$, and define $\hat{x}\in[0,1]^{A\times\{1,\ldots,t+1\}}$ such that
+We first prove that $\zeta(t)$ is non-increasing with increasing $t$:
+Let $\Gamma(t)$ denote the set of feasible solutions to the continuous relaxation of \eqref{mod:basic:obj}--\eqref{mod:basic:dim}, and assume $(x,z)\in\Gamma(t)$.
+Define $\hat{x}\in[0,1]^{A\times\{1,\ldots,t+1\}}$ such that
 for all $(u,v)\in A$, $\hat{x}_{uv}^k=x_{uv}^k$ ($k\leq t$) and $\hat{x}_{uv}^{t+1}=0$.
-Then $\hat{x}\in\Omega^=(t+1)$.
-An analogous extension of some $z\in[0,1]^{\{1,\ldots,t\}}$ satisfying $z_k\geq\sum\limits_{u \in N(v)}x_{uv}^k (k=1,\ldots,t)$, proves that $\zeta(t+1)\leq\zeta(t)$.
+An analogous extension of $z$ to $\hat{z}\in[0,1]^{\{1,\ldots,t+1\}}$ yields $(\hat{x},\hat{z})\in\Gamma(t+1)$,
+and $\sum_{i=1}^{t+1}\hat{z}_i=\sum_{i=1}^tz_i$ proves that $\zeta(t+1)\leq\zeta(t)$.
 
 For $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $t\geq t^{\ast}$ thus implies $\zeta(t)\leq\zeta(t^{\ast})$.
-Since the only lower bound on $z_k$ in the definition of $\zeta(t)$ is $\max_{v\in V\setminus S}\sum\limits_{u \in N(v)}x_{uv}^k\leq 1$,
+Since the only lower bounds on $z_k$ in \eqref{mod:basic:obj}--\eqref{mod:basic:dim} are $\max_{v\in V\setminus S}\sum\limits_{u \in N(v)}x_{uv}^k\leq 1$ and $z_{k-1}\leq 1$,
 we get $\zeta(t)\leq\zeta(t^{\ast})\leq t^{\ast}$.
 The proof is complete by observing that $t^{\ast}\leq\tau(G,S)$ follows from $\Omega^=\left(\tau(G,S)\right)\neq\emptyset$.
 \end{proof}
 
 \begin{remark} \label{rem:lpweak}
 Proposition \ref{prop:lpweak} suggests to solve a sequence of instances of the continuous relaxation of problem \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim},
-and stop by the first value of $t$ for which the optimal objective function value is $\left|V\setminus S\right\|$.
+and stop by the first value of $t$ for which the optimal objective function value is $n-\sigma$.
 Such an approach yields a lower bound ($t^{\ast}$) on $\tau(G,S)$,
-which is no weaker than the bound achieved by solving an extended optimization model targeting minimum communication time.
+which is no weaker than the bound achieved by solving the continuous relaxation of \eqref{mod:basic:obj}--\eqref{mod:basic:dim}.
 \end{remark}
 
 \begin{remark} \label{rem:otheropt}
-Remark \ref{rem:lpweak} applies also if the definition of $\zeta(t)$ is modified to e.g.
-$\min\left\{z: x\in\Omega^=(t), z\geq\sum\limits_{k=1}^tk\sum\limits_{u \in N(v)}x_{uv}^k ~~(v\in V\setminus S)\right\}$,
-or other formulations reflecting minimization of communication time.
+Remark \ref{rem:lpweak} applies to a reformulation of \eqref{mod:basic:obj}--\eqref{mod:basic:dim}, where a unique integer variable $y$ replaces $z_1,\ldots,z_t$,
+and the objective is to minimize $y$ subject to the constraints
+$y\geq\sum\limits_{k=1}^tk\sum\limits_{u \in N(v)}x_{uv}^k ~~(v\in V\setminus S)$, \eqref{mod:basic:singlein}--\eqref{mod:basic:tIncreases},
+and \eqref{mod:basic:positiveCost}--\eqref{mod:basic:dim}.
 \end{remark}
 
 \subsection{Combinatorial relaxations} \label{sec:lbcombrel}
 
-Monotonous degree sequences of $G$ can be exploited more extensively than what was demonstrated in Section \ref{sec:lbanalyt}. 
-
 Lower bounds on the broadcast time $\tau(G,S)$ are obtained by omitting one or more of the conditions imposed in Definition \ref{def:broadcasttime}.
 For the purpose of strongest possible bounds, the relaxations thus constructed can be supplied with conditions that are redundant in the problem definition.
 
-Recall from Section \ref{sec:def} that $D=(V,A)$ is the communication forest corresponding to $V_0,\ldots,V_t$, and $\pi$.
+Recall from Section \ref{sec:def} that $D=(V,A)$ denotes the communication forest corresponding to $\left(V_0,\ldots,V_t,\pi\right)$.
 Conditions \ref{def:boundary}--\ref{def:unique} of Definition \ref{def:broadcasttime} imply that
 \begin{enumerate}
 \setcounter{enumi}{4}
@@ -128,16 +136,16 @@ a sequence $V_0\subseteq\dots\subseteq V_t$ of node sets and a function $\pi:V\s
 satisfying conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
 \end{problem}
 
-%Except from the node degrees, explicit information about $G$ is not part of the input to Problem \ref{prob:degree},
-%and two nodes $u,v\in V\setminus S$, where $\delta_G(u)=\delta_G(v)$, are considered identical.
+Observe that the bound given in Proposition \ref{prop:lbfib} is obtained by exploiting the lower-bounding capabilities of the \textsc{Node Degree Relaxation}.
+By considering the degree of all nodes $v\in V$, rather than just the maximum degree, stronger bounds may be achieved in instances where $G$ is not regular
+($\min_{v\in V}\delta_G(v)<\max_{v\in V}\delta_G(v)$).
 
-In order to develop an algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions.
-Thus, let $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
-and denote $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
+% In order to develop an exact algorithm for the \textsc{Node Degree Relaxation}, we derive some optimality conditions.
+Denote the source nodes $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and the non-source nodes $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
+and let $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
+Thus, $\left\{d_1,\ldots,d_n\right\}$ resembles the conventional definition of a non-increasing degree sequence of $G$,
+with the difference that only the final $n-\sigma$ elements are required to be non-increasing.
 
-A degree sequence of a graph is commonly defined as a non-increasing sequence of degrees of nodes.
-We however require, that first $\sigma$ positions correspond to degrees of sources, 
-and the remaining $n-\sigma$ positions are degrees of the non-sources in a non-increasing order.
 Given a graph with a degree sequence 
 $Q=(d_1,\dots,d_n)$, we determine a lower bound by finding a smallest broadcast time among all possible graphs with degree sequence $Q$.
 A modified verison of Problem \ref{prob:degree} takes a fixed $t$ and asks for a sequence $V_0,\dots,V_t$ minimizing $|V_t|$ while satisfying \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
@@ -145,10 +153,22 @@ As the requirement \ref{def:edge} is relaxed, Problem~\ref{prob:degree} can be s
 As soon as $|V_t|=n$, $t$ is the optimal solution to Problem~\ref{prob:degree}.
 Lemma \ref{lemma:degorder} states a sufficient optimality condition condition for the modified Problem~\ref{prob:degree}, and thereby also for Problem~\ref{prob:degree} itself.
 
+For a given $t\in\mathbb{Z}_+$, consider the problem of finding $\left(V_0,\ldots,V_t,\pi\right)$ such that $V_0=S$,
+conditions \ref{def:parent}--\ref{def:degree} are satisfied, and $\left|V_t\right|$ is maximized.
+The smallest value of $t$ for which the maximum equals $n$ is obviously the solution to Problem~\ref{prob:degree}.
+
+The algorithm for Problem~\ref{prob:degree}, to follow later in the section, utilizes that the maximum value of $\left|V_t\right|$
+is achieved by transmitting the signal to nodes in non-increasing order of their degrees.
+Observe that, contrary to the case of Problem~\ref{prob:min}, transmissions to non-neighbors are allowed in the relaxed problem.
+Any instance of Problem~\ref{prob:degree} thus has an optimal solution where, for $i=1,\ldots,t-1$,
+$u\in V_i\setminus V_{i-1}$ and $v\in V_{i+1}\setminus V_i$ implies $\delta_G(u)\geq\delta_G(v)$.
+
+More rigorously, this is stated as follows:
 \begin{lemma}
 \label{lemma:degorder}
-Maximum number of informed nodes within a given time limit $t\leq \bar{t} - \sigma$ in Problem~\ref{prob:degree} is achieved when nodes in $V\setminus S$ are informed 
-in the order of their decreasing degree.
+The maximum value of $\left|V_t\right|$ over all $\left(V_0,\ldots,V_t,\pi\right)$ satisfying $V_0=S$ and
+conditions \ref{def:parent}--\ref{def:degree}, is attained by some
+$\left(V_0,\ldots,V_t,\pi\right)$ where \\ $\max_{v\in V_{i-1}}\delta_G(v)\leq\min_{v\in V_i}\delta_G(v)$ ($i=2,\ldots,t$).
 \end{lemma}
 \begin{proof}
 
