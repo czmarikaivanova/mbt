@@ -31,7 +31,7 @@ Problem \ref{prob:min} is then formulated as follows:
 \label{mod:basic:timing} z_k & \leq z_{k-1} &  k=2,\dots,\bar{t},\\
 %\label{mod:basic:tcrel} \sum\limits_{t=1}^{n-1}t\sum\limits_{j\in N(i)}x_{ij}^k & \leq c &  i\in V,\\
 \label{mod:basic:positiveCost}x_{uv}^1 & = 0 & (u,v)\in A, u \in V\setminus S,\\
-\label{mod:basic:dim}x \in \{0,1\}^{A\times \{1,\dots,\bar{t}\}},z&\in\{0,1\}^{\bar{t}}.&
+\label{mod:basic:dim}x \in \{0,1\}^{A\times \{1,\dots,\bar{t}\}},z&\in\{0,1\}^{\{1,\dots,\bar{t}\}}.&
 \end{align}~
 \end{subequations}
 By \eqref{mod:basic:singlein}, every non-source node $u$ receives the signal from exactly one adjacent node $v$ in some time step $k$.

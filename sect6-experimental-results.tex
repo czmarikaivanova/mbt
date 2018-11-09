@@ -23,61 +23,60 @@ Each entry is calculated as an average from 100 instances for a given $n$, $p$ a
 Results obtained for existing instances are stated in Tab.~\ref{tab:obj-exist} where 20 instances are used for obtaining average objective function value for each instance category.
 Instead of the parameter $p$, the number of edges in a given in the second column.
 
-The column \emph{fib} contains Fibonacci bounds.
+The column 'fib' consists of Fibonacci bounds.
 The values are rarely higher than the trivial logarithmic bound.
-Lower bound obtained from degree sequence in the column \emph{deg} is slightly better, 
+Lower bound obtained from degree sequence in the column 'deg' is slightly better, 
 but in majority of cases is far weaker than the LP bound, which is very tight in all considered experimental settings.
-Upper bounds \emph{UB-$t$, $t=1,\dots 4$} are obtained using Alg.~\ref{alg:match}, which takes $t$ as one of its input parameters.
+Upper bounds UB-$t$, $t=1,\dots 4$ are obtained using Alg.~\ref{alg:match}, which takes $t$ as one of its input parameters.
 In general, we observe that the higher $t$ the tighter upper bound is calculated.
 There are however some instances where it does not hold, particularly for instances with larger $p$,  but the differences is very small, and can be explained as a coincidence.
 
 We further observe that the span of bounds decreases with increasing $p$, within one instance size, and also increases for a constant $p$ with increasing instance size.
-The experiments were not pursued for higher values of $p$, because it is very common that upper and lower bounds \emph{deg} and \emph{UB-4} coincide.
+The experiments were not pursued for higher values of $p$, because it is very common that upper and lower bounds 'deg' and 'UB-4' coincide.
 This behavior is easy to explain.
 There are more possibilities how to relay a signal in dense graphs as compared to the sparser graphs. 
 It is therefore likely that denser graphs have optimal broadcast time close to the lower bounds.
 The decreasing span of bounds is also noticeable with increasing instance size.
 
-Note that due to the computational time restriction, results in columns \emph{OPT} are in fact lower bounds, whenever an interruption occurs.
+Note that due to the computational time restriction, results in columns 'OPT' are in fact lower bounds, whenever an interruption occurs.
 If the iterative decision procedure is interrupted, it is not guaranteed that the number of iterations performed is the optimal value.
 This is apparent in Tab.~\ref{tab:obj-exist} in instances with $n=640$ and $\sigma=960$. 
 The LP relaxation of the model provides a tighter lower bound in average than the integer model.
 
-\begin{footnotesize}
 \begin{table}[]
 \centering
-\begin{tabular}{ccrrrrrrrrrrr}
-\multicolumn{2}{c}{Instance} & &\multicolumn{3}{c}{Lower bounds} & & & &\multicolumn{4}{c}{Upper bounds} \\
-\cline{1-2}\cline{4-6}\cline{10-13}
-$n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
+\begin{tabular}{cccrrrrrrrr}
+	\multicolumn{2}{c}{Instance}&  &\multicolumn{3}{c}{Lower bounds} & &\multicolumn{4}{c}{Upper bounds} \\
+\cline{1-2}\cline{4-6}\cline{8-11}
+	$n$ & $p$ & & fib  & deg  & LP & OPT & UB-4  & UB-3  & UB-2  & UB-1  \\
 \hline
 \multirow{5}{*}{125} 
-& 0.001 && 7.23 & 8.35 & 16.46 && 16.49 && 18.72 & 20.28 & 20.77 & 23.75 \\
-& 0.002 && 7.21 & 8.20 & 13.97 && 13.98 && 15.80 & 17.18 & 17.21 & 19.50 \\
-& 0.004 && 7.03 & 8.08 & 11.44 && 11.49 && 13.07 & 14.06 & 14.30 & 16.05 \\
-& 0.008 && 7.00 & 7.86 & 9.09  && 9.22  && 10.71 & 11.25 & 11.85 & 12.90 \\
-& 0.016 && 7.00 & 7.59 & 7.94  && 8.01  && 9.11  & 9.42  & 9.83  & 10.58 \\
+& 0.001 && 7.23 & 8.35 & 16.46 & 16.49 & 18.72 & 20.28 & 20.77 & 23.75 \\
+& 0.002 && 7.21 & 8.20 & 13.97 & 13.98 & 15.80 & 17.18 & 17.21 & 19.50 \\
+& 0.004 && 7.03 & 8.08 & 11.44 & 11.49 & 13.07 & 14.06 & 14.30 & 16.05 \\
+& 0.008 && 7.00 & 7.86 & 9.09  & 9.22  & 10.71 & 11.25 & 11.85 & 12.90 \\
+& 0.016 && 7.00 & 7.59 & 7.94  & 8.01  & 9.11  & 9.42  & 9.83  & 10.58 \\
 \hline
 \multirow{5}{*}{250} 
-& 0.001 && 8.01 & 9.29 & 16.18 && 16.28 && 18.72 & 20.09 & 20.49 & 23.22 \\
-& 0.002 && 8.00 & 9.17 & 12.87 && 12.93 && 15.23 & 16.19 & 16.84 & 18.78 \\
-& 0.004 && 8.00 & 8.92 & 10.06 && 10.33 && 12.23 & 12.87 & 13.46 & 14.70 \\
-& 0.008 && 8.00 & 8.83 & 8.96  && 9.03  && 10.31 & 10.73 & 11.34 & 12.18 \\
-& 0.016 && 8.00 & 8.24 & 8.24  && 8.24  && 9.40  & 9.42  & 9.71  & 10.51 \\
+& 0.001 && 8.01 & 9.29 & 16.18 & 16.28 & 18.72 & 20.09 & 20.49 & 23.22 \\
+& 0.002 && 8.00 & 9.17 & 12.87 & 12.93 & 15.23 & 16.19 & 16.84 & 18.78 \\
+& 0.004 && 8.00 & 8.92 & 10.06 & 10.33 & 12.23 & 12.87 & 13.46 & 14.70 \\
+& 0.008 && 8.00 & 8.83 & 8.96  & 9.03  & 10.31 & 10.73 & 11.34 & 12.18 \\
+& 0.016 && 8.00 & 8.24 & 8.24  & 8.24  & 9.40  & 9.42  & 9.71  & 10.51 \\
 \hline
 \multirow{5}{*}{500} 
-& 0.001 && 9.01 & 10.20 & 14.35 && 14.54 && 17.06 & 18.47 & 18.92 & 20.96 \\
-& 0.002 && 9.00 & 9.95  & 11.19 && 11.55 && 13.69 & 14.54 & 15.11 & 16.53 \\
-& 0.004 && 9.00 & 9.86  & 10.09 && 10.12 && 11.81 & 12.12 & 12.69 & 13.57 \\
-& 0.008 && 9.00 & 9.33  & 9.42  && 9.43  && 10.53 & 10.71 & 11.07 & 11.84 \\
-& 0.016 && 9.00 & 9.00  & 9.00  && 9.00  && 10.00 & 9.94  & 10.00 & 11.06 \\
+& 0.001 && 9.01 & 10.20 & 14.35 & 14.54 & 17.06 & 18.47 & 18.92 & 20.96 \\
+& 0.002 && 9.00 & 9.95  & 11.19 & 11.55 & 13.69 & 14.54 & 15.11 & 16.53 \\
+& 0.004 && 9.00 & 9.86  & 10.09 & 10.12 & 11.81 & 12.12 & 12.69 & 13.57 \\
+& 0.008 && 9.00 & 9.33  & 9.42  & 9.43  & 10.53 & 10.71 & 11.07 & 11.84 \\
+& 0.016 && 9.00 & 9.00  & 9.00  & 9.00  & 10.00 & 9.94  & 10.00 & 11.06 \\
 \hline
 \multirow{5}{*}{1000} 
-& 0.001 && 10.00 & 10.92 & 12.39 && 12.83 && 15.44 & 16.39 & 17.08 & 18.49 \\
-& 0.002 && 10.00 & 10.77 & 11.06 && 11.07 && 12.99 & 13.38 & 14.00 & 14.98 \\
-& 0.004 && 10.00 & 10.41 & 10.54 && 10.57 && 11.80 & 11.93 & 12.06 & 13.06 \\
-& 0.008 && 10.00 & 10.01 & 10.01 && 10.01 && 11.02 & 11.02 & 11.02 & 12.04 \\
-& 0.016 && 10.00 & 10.00 & 10.00 && 10.00 && 10.11 & 10.06 & 10.13 & 12.00 \\
+& 0.001 && 10.00 & 10.92 & 12.39 & 12.83 & 15.44 & 16.39 & 17.08 & 18.49 \\
+& 0.002 && 10.00 & 10.77 & 11.06 & 11.07 & 12.99 & 13.38 & 14.00 & 14.98 \\
+& 0.004 && 10.00 & 10.41 & 10.54 & 10.57 & 11.80 & 11.93 & 12.06 & 13.06 \\
+& 0.008 && 10.00 & 10.01 & 10.01 & 10.01 & 11.02 & 11.02 & 11.02 & 12.04 \\
+& 0.016 && 10.00 & 10.00 & 10.00 & 10.00 & 10.11 & 10.06 & 10.13 & 12.00 \\
 \end{tabular}                              
 \caption{Objective function values yielded by different methods of randomly generated instances with $\sigma=1$}
 \label{tab:obj-s1}
@@ -85,38 +84,38 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 
 \begin{table}[]
 \centering
-\begin{tabular}{ccrrrrrrrrrrr}
-\multicolumn{2}{c}{Instance} & &\multicolumn{3}{c}{Lower bounds} & & & &\multicolumn{4}{c}{Upper bounds} \\
-\cline{1-2}\cline{4-6}\cline{10-13}
-$n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
+\begin{tabular}{cccrrrrrrrr}
+	\multicolumn{2}{c}{Instance} & &\multicolumn{3}{c}{Lower bounds}  & &\multicolumn{4}{c}{Upper bounds} \\
+\cline{1-2}\cline{4-6}\cline{8-11}
+	$n$ & $p$ &  & fib  & deg  & LP  &  OPT & UB-4  & UB-3  & UB-2  & UB-1  \\
 \hline
 \multirow{5}{*}{125} 
-& 0.001 && 6.26 & 7.10 & 13.33 && 13.35 && 15.20 & 16.70 & 16.88 & 19.23 \\
-& 0.002 && 6.20 & 7.04 & 11.96 && 11.99 && 13.57 & 14.67 & 14.92 & 17.11 \\
-& 0.004 && 6.04 & 7.01 & 9.75  && 9.77  && 11.14 & 12.05 & 12.36 & 13.73 \\
-& 0.008 && 6.00 & 6.96 & 7.78  && 7.91  && 9.19  & 9.71  & 10.21 & 11.38 \\
-& 0.016 && 6.00 & 6.78 & 6.90  && 6.97  && 8.10  & 8.27  & 8.62  & 9.40  \\
+& 0.001 && 6.26 & 7.10 & 13.33 & 13.35 & 15.20 & 16.70 & 16.88 & 19.23 \\
+& 0.002 && 6.20 & 7.04 & 11.96 & 11.99 & 13.57 & 14.67 & 14.92 & 17.11 \\
+& 0.004 && 6.04 & 7.01 & 9.75  & 9.77  & 11.14 & 12.05 & 12.36 & 13.73 \\
+& 0.008 && 6.00 & 6.96 & 7.78  & 7.91  & 9.19  & 9.71  & 10.21 & 11.38 \\
+& 0.016 && 6.00 & 6.78 & 6.90  & 6.97  & 8.10  & 8.27  & 8.62  & 9.40  \\
 \hline
 \multirow{5}{*}{250} 
-& 0.001 && 7.03 & 8.14 & 14.59 && 14.63 && 16.92 & 18.07 & 18.40 & 20.67 \\
-& 0.002 && 7.00 & 8.01 & 11.46 && 11.51 && 13.40 & 14.32 & 14.7  & 16.61 \\
-& 0.004 && 7.00 & 7.98 & 8.99  && 9.16  && 10.94 & 11.57 & 12.11 & 13.29 \\
-& 0.008 && 7.00 & 7.86 & 7.98  && 7.99  && 9.22  & 9.61  & 10.08 & 10.89 \\
-& 0.016 && 7.00 & 7.26 & 7.27  && 7.27  && 8.33  & 8.35  & 8.61  & 9.44  \\
+& 0.001 && 7.03 & 8.14 & 14.59 & 14.63 & 16.92 & 18.07 & 18.40 & 20.67 \\
+& 0.002 && 7.00 & 8.01 & 11.46 & 11.51 & 13.40 & 14.32 & 14.7  & 16.61 \\
+& 0.004 && 7.00 & 7.98 & 8.99  & 9.16  & 10.94 & 11.57 & 12.11 & 13.29 \\
+& 0.008 && 7.00 & 7.86 & 7.98  & 7.99  & 9.22  & 9.61  & 10.08 & 10.89 \\
+& 0.016 && 7.00 & 7.26 & 7.27  & 7.27  & 8.33  & 8.35  & 8.61  & 9.44  \\
 \hline
 \multirow{5}{*}{500} 
-& 0.001 && 8.00 & 9.04 & 12.82 &&12.96  &&15.47  & 16.47 & 17.05 & 18.86 \\
-& 0.002 && 8.00 & 8.98 & 10.12 &&10.29  &&12.38  & 13.24 & 13.91 & 15.11 \\
-& 0.004 && 8.00 & 8.87 & 8.98  &&8.99   &&10.61  & 11.03 & 11.47 & 12.41 \\
-& 0.008 && 8.00 & 8.54 & 8.56  &&8.56   &&9.50   & 9.67  & 9.96  & 10.79 \\
-& 0.016 && 8.00 & 8.09 & 8.09  &&8.09   &&8.98   & 8.94  & 8.98  & 10.05 \\
+& 0.001 && 8.00 & 9.04 & 12.82 &12.96  &15.47  & 16.47 & 17.05 & 18.86 \\
+& 0.002 && 8.00 & 8.98 & 10.12 &10.29  &12.38  & 13.24 & 13.91 & 15.11 \\
+& 0.004 && 8.00 & 8.87 & 8.98  &8.99   &10.61  & 11.03 & 11.47 & 12.41 \\
+& 0.008 && 8.00 & 8.54 & 8.56  &8.56   &9.50   & 9.67  & 9.96  & 10.79 \\
+& 0.016 && 8.00 & 8.09 & 8.09  &8.09   &8.98   & 8.94  & 8.98  & 10.05 \\
 \hline
 \multirow{5}{*}{1000} 
-& 0.001 && 9.00 & 10.00 & 11.23 && 11.44 && 14.02 & 14.79 & 15.56 & 16.95 \\
-& 0.002 && 9.00 & 9.01  & 9.02  && 9.03  && 9.18  & 9.14  & 9.21  & 11.06 \\
-& 0.004 && 9.00 & 9.51  & 9.59  && 9.61  && 10.83 & 10.97 & 11.10 & 12.06 \\
-& 0.008 && 9.00 & 9.03  & 9.03  && 9.03  && 10.00 & 10.00 & 10.00 & 11.01 \\
-& 0.016 && 9.00 & 9.00  & 9.00  && 9.00  && 9.12  & 9.07  & 9.15  & 11.00 \\
+& 0.001 && 9.00 & 10.00 & 11.23 & 11.44 & 14.02 & 14.79 & 15.56 & 16.95 \\
+& 0.002 && 9.00 & 9.01  & 9.02  & 9.03  & 9.18  & 9.14  & 9.21  & 11.06 \\
+& 0.004 && 9.00 & 9.51  & 9.59  & 9.61  & 10.83 & 10.97 & 11.10 & 12.06 \\
+& 0.008 && 9.00 & 9.03  & 9.03  & 9.03  & 10.00 & 10.00 & 10.00 & 11.01 \\
+& 0.016 && 9.00 & 9.00  & 9.00  & 9.00  & 9.12  & 9.07  & 9.15  & 11.00 \\
 \end{tabular}
 \caption{Objective function values yielded by different methods of randomly generated instances with $\sigma=2$}
 \label{tab:obj-s2}
@@ -124,37 +123,44 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 
 \begin{table}[]
 \centering
-\begin{tabular}{ccrrrrrrrrrrr}
-\multicolumn{2}{c}{Instance} & &\multicolumn{3}{c}{Lower bounds} & & & &\multicolumn{4}{c}{Upper bounds} \\
-\cline{1-2}\cline{4-6}\cline{10-13}
-$n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
+%\begin{small}
+\begin{tabular}{ccrrrrrrrrr}
+\multicolumn{2}{c}{Instance} & &\multicolumn{3}{c}{Lower bounds}  & &\multicolumn{4}{c}{Upper bounds} \\
+\cline{1-2}\cline{4-6}\cline{8-11}
+$n$ & $p$  &   & fib  & deg  & LP   & OPT & UB-4  & UB-3  & UB-2  & UB-1  \\
 \hline
- 160 & 240  && 8.00 & 8.00 & 8.05 && 8.05 &&10.10 &10.90  &11.20  & 12.55 \\
- 160 & 320  && 8.00 & 8.00 & 8.00 && 8.00 && 9.30 & 9.70  &10.05  & 10.85 \\
- 320 & 480  && 9.00 & 9.00 & 9.05 && 9.20 &&11.60 &12.60  &12.85  & 14.75 \\
- 320 & 640  && 9.00 & 9.00 & 9.00 && 9.00 &&10.40 &10.85  &11.20  & 12.25 \\
- 640 & 960  &&10.00 &10.00 &10.11 &&10.00 &&13.06 &13.94  &14.67  & 16.39 \\
- 640 &1280  &&10.00 &10.00 &10.00 &&10.00 &&12.00 &12.25  &12.85  & 13.80 \\
+ 160 & 240  && 8.00 & 8.00 & 8.05 & 8.05 &10.10 &10.90  &11.20  & 12.55 \\
+ 160 & 320  && 8.00 & 8.00 & 8.00 & 8.00 & 9.30 & 9.70  &10.05  & 10.85 \\
+ 320 & 480  && 9.00 & 9.00 & 9.05 & 9.20 &11.60 &12.60  &12.85  & 14.75 \\
+ 320 & 640  && 9.00 & 9.00 & 9.00 & 9.00 &10.40 &10.85  &11.20  & 12.25 \\
+ 640 & 960  &&10.00 &10.00 &10.11 &10.00 &13.06 &13.94  &14.67  & 16.39 \\
+ 640 &1280  &&10.00 &10.00 &10.00 &10.00 &12.00 &12.25  &12.85  & 13.80 \\
 \end{tabular}
 \caption{Objective function values yielded by different methods of existing instances available online with $\sigma=1$}
 \label{tab:obj-exist}
+%\end{small}
 \end{table}
-\end{footnotesize}
 \subsection{Solution time}
 
 Average solution time of instances from the previous section is reported in Tabs.~\ref{tab:soltime} and \ref{tab:soltime-exist}..
 The columns LP and OPT contain solution times of solving LP relaxation and B\&B applied to the ILP model, respectively.
-The column \emph{int.} contains the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
-The values in the last column \emph{col.} are the numbers of instances in which the upper and lower bounds collapsed. 
-I.e., how many instances have the lower bound \emph{deg} value equal to the upper bound \emph{UB-4} value.
+The column 'int.' consists of the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
+The interrupted instances count with 3600 to the resulting average solution time.
+The values in the last column 'col.' are the numbers of instances in which the upper and lower bounds collapsed. 
+I.e., how many instances have the lower bound 'deg' value equal to the upper bound 'UB-4' value.
 In these instances, the optimal solution is not pursued, because its objective function value is already known.
 Values in the second last column are therefore the proportion of interruptions in the total number of instances to which B\&B is actually applied 
 (in which the bounds did not collapse).
 
 All investigated instances of size up to 500 nodes are solved to optimality within the imposed 1 hour time limit.
-Computation of B\&B on instances of 1000 nodes is often interrupted before the optimal solution is found, particularly those with large $p$.
-Even thought the objective function value decreases with increasing $p$, and so the decision procedure needs to perform less iterations, overall solution time increases.
-This growth is caused by larger number of $x$-variables in denser graphs.
+The resulting times are not reported for sparse instance sets of size 125 and 250 in Tab \ref{tab:soltime} because in the worst case it takes 3 seconds to solve an instance to optimality,
+and interruptions or bound collapses never occur.
+Computation of B\&B on instances of 1000 nodes is frequently interrupted before the optimal solution is found, particularly those with large $p$.
+Even thought the objective function value decreases with increasing $p$, and so the decision procedure needs to perform less iterations, overall solution time often increases.
+%This growth is caused by larger number of $x$-variables in denser graphs.
+However, there are some exceptions in the monotonous growth of the solution time.
+Instances with $n=1000$ and $p=0.001$ in average take more time than instances with $n=1000$ and $p=0.002$.
+Similar behavior is exhibited in existing instances, where solution time tends to be longer for sparser graphs.
 It is also obvious and in accordance with the intuition that in denser graphs, the upper and lower bounds collapse more often.
 
 \begin{table}[]
@@ -163,17 +169,17 @@ It is also obvious and in accordance with the intuition that in denser graphs, t
 \cline{1-2}\cline{4-7}\cline{9-12}
 $n$ & $p$ & & LP  & OPT & int. & col.& & LP  & OPT & int. & col. \\
 \hline
-\multirow{5}{*}{125}       
- & 0.001 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\ 
- & 0.002 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\
- & 0.004 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\
- & 0.008 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\
+\multirow{1}{*}{125}       
+% & 0.001 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\ 
+% & 0.002 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\
+% & 0.004 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\
+% & 0.008 & &0   &  0 & 0 & 0 & & 0  &  0 &  0  &  0 \\
  & 0.016 & &0   &  1 & 0 & 4 & & 0  &  1 &  0  &  9 \\
 \hline                         
-\multirow{5}{*}{250}                               
- & 0.001 & & 1  &  1 & 0 & 0 & & 0  &  1 & 0   & 0  \\
- & 0.002 & & 1  &  1 & 0 & 0 & & 0  &  1 & 0   & 0  \\
- & 0.004 & & 1  &  3 & 0 & 0 & & 0  &  2 & 0   & 0  \\
+\multirow{2}{*}{250}                               
+% & 0.001 & & 1  &  1 & 0 & 0 & & 0  &  1 & 0   & 0  \\
+% & 0.002 & & 1  &  1 & 0 & 0 & & 0  &  1 & 0   & 0  \\
+% & 0.004 & & 1  &  3 & 0 & 0 & & 0  &  2 & 0   & 0  \\
  & 0.008 & & 1  &  4 & 0 & 2 & & 0  &  3 & 0   & 1  \\
  & 0.016 & & 1  & 17 & 0 &20 & & 1  & 13 & 0   &34  \\
 \hline                         
@@ -199,7 +205,7 @@ $n$ & $p$ & & LP  & OPT & int. & col.& & LP  & OPT & int. & col. \\
 \begin{table}[]
 	\centering
 \begin{tabular}{rrrrrr}
-$n$ & $\sigma$ & LP  & OPT &  int. & col.\\
+$n$ & $|E|$ & LP  & OPT &  int. & col.\\
 \hline
  160 & 240  & 0    &  2   &   0   &   0  \\
  160 & 320  & 0    &  1   &   0   &   0  \\

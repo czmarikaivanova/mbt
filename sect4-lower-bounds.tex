@@ -209,7 +209,7 @@ If $\mathcal{Q}$ is the set of graphs with degree sequence $Q$, a straightforwar
 $\min\{\tau(G,S): G\in \mathcal{Q}\}$,
 and thus an optimal solution to Problem~\ref{prob:degree} can be developed.
 
-Alg. \ref{alg:dreg} operates with the set $I(t)$ that contains nodes informed within the first $t$ time steps.
+Alg. \ref{alg:dreg} operates with the set $I(t)$ that consists of indices of nodes informed within the first $t$ time steps.
 The function $a_i(t)$ determines the number of nodes informed by node $v_i$ within $t$ time steps, and finally,
 the set $F(t)$ consists of nodes that in period $t$ can inform other nodes.
 That is, $v\in F(t)$ if $v$ informed less than $\delta_G(v)$ other nodes, and $v$ itself is also informed.
