@@ -23,7 +23,7 @@ In this way we use the principle of rolling horizon method known from planning a
 For the next iteration, only some nodes are selected for extending the set of informed nodes, typically only the ones reachable in a single time step, thus a matching.
 The steps are expressed by a pseudocode in Alg. \ref{alg:match}.
 \begin{algorithm}[]
-	\KwData{$G=(V,E), S\subseteq V, t\in \{1,\dots,n-|S|\}$}
+	\KwData{$G=(V,E), S\subseteq V, t\in \{1,\dots,n-\sigma\}$}
 $V_T\leftarrow S, A_T \leftarrow \emptyset$\;
 $\bar{t}\leftarrow 0$\;
 \While{$V_T\neq V$} {
