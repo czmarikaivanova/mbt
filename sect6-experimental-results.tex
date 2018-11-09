@@ -10,8 +10,9 @@ It then iterates over all pairs of nodes that are not yet connected by an edge, 
 
 Apart from randomly generated instances, we also evaluate data sets of various sizes and densities available online \cite{steinlib}.
 These existing collection of instances is used as benchmark for algorithms for the minimum Steiner tree problem.
-We evaluate datasets named ``I160'',``I320'' and ``I640'' with selected edge cardinalities stated in the tables with results. 
-In each instance category, 20 instances are available.
+We evaluate datasets named ``I160'', ``I320'' and ``I640'' with selected edge cardinalities stated in the tables with results.
+The only source in these instances is always the node with id 1.
+In each instance category, 20 graphs are available.
 
 \subsection{Comparison of upper and lower bounds}
 
@@ -20,9 +21,9 @@ We generate random single and double-source instances of sizes 125, 250, 500 and
 Tabs.~\ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the results of randomly generated instances.
 Each entry is calculated as an average from 100 instances for a given $n$, $p$ and a selected method.
 Results obtained for existing instances are stated in Tab.~\ref{tab:obj-exist} where 20 instances are used for obtaining average objective function value for each instance category.
-Instead of the parameter $p$, the number of edges in a given instance size is stated in the second column.
+Instead of the parameter $p$, the number of edges in a given in the second column.
 
-The column \emph{fib} contains Fibonacci bound.
+The column \emph{fib} contains Fibonacci bounds.
 The values are rarely higher than the trivial logarithmic bound.
 Lower bound obtained from degree sequence in the column \emph{deg} is slightly better, 
 but in majority of cases is far weaker than the LP bound, which is very tight in all considered experimental settings.
@@ -37,6 +38,12 @@ There are more possibilities how to relay a signal in dense graphs as compared t
 It is therefore likely that denser graphs have optimal broadcast time close to the lower bounds.
 The decreasing span of bounds is also noticeable with increasing instance size.
 
+Note that due to the computational time restriction, results in columns \emph{OPT} are in fact lower bounds, whenever an interruption occurs.
+If the iterative decision procedure is interrupted, it is not guaranteed that the number of iterations performed is the optimal value.
+This is apparent in Tab.~\ref{tab:obj-exist} in instances with $n=640$ and $\sigma=960$. 
+The LP relaxation of the model provides a tighter lower bound in average than the integer model.
+
+\begin{footnotesize}
 \begin{table}[]
 \centering
 \begin{tabular}{ccrrrrrrrrrrr}
@@ -50,8 +57,6 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 && 7.03 & 8.08 & 11.44 && 11.49 && 13.07 & 14.06 & 14.30 & 16.05 \\
 & 0.008 && 7.00 & 7.86 & 9.09  && 9.22  && 10.71 & 11.25 & 11.85 & 12.90 \\
 & 0.016 && 7.00 & 7.59 & 7.94  && 8.01  && 9.11  & 9.42  & 9.83  & 10.58 \\
-%0.032 & 7.00 & 7.11 & 7.16  & 7.17  & 8.28  & 8.22  & 8.48  & 9.27  \\
-%0.064 & 7.00 & 7.00 & 7.00  & 7.00  & 8.00  & 7.64  & 7.64  & 8.82 
 \hline
 \multirow{5}{*}{250} 
 & 0.001 && 8.01 & 9.29 & 16.18 && 16.28 && 18.72 & 20.09 & 20.49 & 23.22 \\
@@ -59,7 +64,6 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 && 8.00 & 8.92 & 10.06 && 10.33 && 12.23 & 12.87 & 13.46 & 14.70 \\
 & 0.008 && 8.00 & 8.83 & 8.96  && 9.03  && 10.31 & 10.73 & 11.34 & 12.18 \\
 & 0.016 && 8.00 & 8.24 & 8.24  && 8.24  && 9.40  & 9.42  & 9.71  & 10.51 \\
-%0.032 & 8.00 & 8.00 & 8.00  & 8.00  & 9.00  & 8.76  & 8.85  & 10.00
 \hline
 \multirow{5}{*}{500} 
 & 0.001 && 9.01 & 10.20 & 14.35 && 14.54 && 17.06 & 18.47 & 18.92 & 20.96 \\
@@ -73,6 +77,7 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.002 && 10.00 & 10.77 & 11.06 && 11.07 && 12.99 & 13.38 & 14.00 & 14.98 \\
 & 0.004 && 10.00 & 10.41 & 10.54 && 10.57 && 11.80 & 11.93 & 12.06 & 13.06 \\
 & 0.008 && 10.00 & 10.01 & 10.01 && 10.01 && 11.02 & 11.02 & 11.02 & 12.04 \\
+& 0.016 && 10.00 & 10.00 & 10.00 && 10.00 && 10.11 & 10.06 & 10.13 & 12.00 \\
 \end{tabular}                              
 \caption{Objective function values yielded by different methods of randomly generated instances with $\sigma=1$}
 \label{tab:obj-s1}
@@ -91,7 +96,6 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 && 6.04 & 7.01 & 9.75  && 9.77  && 11.14 & 12.05 & 12.36 & 13.73 \\
 & 0.008 && 6.00 & 6.96 & 7.78  && 7.91  && 9.19  & 9.71  & 10.21 & 11.38 \\
 & 0.016 && 6.00 & 6.78 & 6.90  && 6.97  && 8.10  & 8.27  & 8.62  & 9.40  \\
-%& 0.032 & 6.00 & 6.09 & 6.16  & 6.17  & 7.14  & 7.13  & 7.44  & 8.26 
 \hline
 \multirow{5}{*}{250} 
 & 0.001 && 7.03 & 8.14 & 14.59 && 14.63 && 16.92 & 18.07 & 18.40 & 20.67 \\
@@ -99,7 +103,6 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 && 7.00 & 7.98 & 8.99  && 9.16  && 10.94 & 11.57 & 12.11 & 13.29 \\
 & 0.008 && 7.00 & 7.86 & 7.98  && 7.99  && 9.22  & 9.61  & 10.08 & 10.89 \\
 & 0.016 && 7.00 & 7.26 & 7.27  && 7.27  && 8.33  & 8.35  & 8.61  & 9.44  \\
-%0.032 & 7.00 & 7.00 & 7.00 & 7.00  & 7.00  & 8.00  & 7.69  & 7.94  & 9.02 
 \hline
 \multirow{5}{*}{500} 
 & 0.001 && 8.00 & 9.04 & 12.82 &&12.96  &&15.47  & 16.47 & 17.05 & 18.86 \\
@@ -107,7 +110,6 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 & 0.004 && 8.00 & 8.87 & 8.98  &&8.99   &&10.61  & 11.03 & 11.47 & 12.41 \\
 & 0.008 && 8.00 & 8.54 & 8.56  &&8.56   &&9.50   & 9.67  & 9.96  & 10.79 \\
 & 0.016 && 8.00 & 8.09 & 8.09  &&8.09   &&8.98   & 8.94  & 8.98  & 10.05 \\
-%0.032 & 8.00 & 8.00 & 8.00 & 8.00  &8.00   &8.05   & 8.06  & 8.05  & 10.00
 \hline
 \multirow{5}{*}{1000} 
 & 0.001 && 9.00 & 10.00 & 11.23 && 11.44 && 14.02 & 14.79 & 15.56 & 16.95 \\
@@ -122,21 +124,22 @@ $n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 
 \begin{table}[]
 \centering
-\begin{tabular}{rrrrrrrrrr}
-$n$     &	avg $|E|$ & fib  & deg  & LP    & X-dec & UB-4  & UB-3  & UB-2  & UB-1  \\
+\begin{tabular}{ccrrrrrrrrrrr}
+\multicolumn{2}{c}{Instance} & &\multicolumn{3}{c}{Lower bounds} & & & &\multicolumn{4}{c}{Upper bounds} \\
+\cline{1-2}\cline{4-6}\cline{10-13}
+$n$ & $p$  &   & fib  & deg  & LP  &  & OPT & & UB-4  & UB-3  & UB-2  & UB-1  \\
 \hline
-  50 & 140  & 6.00 & 6.21 & 7.14 & 7.21 & 7.93 & 8.93  & 9.43  & 10.86 \\
- 100 & 530  & 7.00 & 7.23 & 7.93 & 8.00 & 8.80 & 9.60  & 10.00 & 12.53 \\
- 160 &3629  & 8.00 & 8.00 & 8.00 & 8.00 & 8.40 & 8.93  & 8.80  & 12.13 \\
- 200 &3222  & 8.00 & 8.00 & 8.00 & 8.00 & 8.22 & 9.00  & 9.22  & 12.89 \\
- 300 &7189  & 9.00 & 9.00 & 9.00 & 9.00 & 9.11 & 9.33  & 9.56  & 13.33 \\
- 320 &2264  & 9.00 & 9.00 & 9.00 & 9.00 &10.33 &10.67  &10.73  & 11.87 \\
- 400 &12612 & 9.00 & 9.00 & 9.00 & 9.00 & 9.22 & 9.78  & 9.78  & 13.89 \\
+ 160 & 240  && 8.00 & 8.00 & 8.05 && 8.05 &&10.10 &10.90  &11.20  & 12.55 \\
+ 160 & 320  && 8.00 & 8.00 & 8.00 && 8.00 && 9.30 & 9.70  &10.05  & 10.85 \\
+ 320 & 480  && 9.00 & 9.00 & 9.05 && 9.20 &&11.60 &12.60  &12.85  & 14.75 \\
+ 320 & 640  && 9.00 & 9.00 & 9.00 && 9.00 &&10.40 &10.85  &11.20  & 12.25 \\
+ 640 & 960  &&10.00 &10.00 &10.11 &&10.00 &&13.06 &13.94  &14.67  & 16.39 \\
+ 640 &1280  &&10.00 &10.00 &10.00 &&10.00 &&12.00 &12.25  &12.85  & 13.80 \\
 \end{tabular}
 \caption{Objective function values yielded by different methods of existing instances available online with $\sigma=1$}
 \label{tab:obj-exist}
 \end{table}
-
+\end{footnotesize}
 \subsection{Solution time}
 
 Average solution time of instances from the previous section is reported in Tabs.~\ref{tab:soltime} and \ref{tab:soltime-exist}..
@@ -144,7 +147,7 @@ The columns LP and OPT contain solution times of solving LP relaxation and B\&B 
 The column \emph{int.} contains the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
 The values in the last column \emph{col.} are the numbers of instances in which the upper and lower bounds collapsed. 
 I.e., how many instances have the lower bound \emph{deg} value equal to the upper bound \emph{UB-4} value.
-In these instances, the optimal solution is pursued, because its objective function value is already known.
+In these instances, the optimal solution is not pursued, because its objective function value is already known.
 Values in the second last column are therefore the proportion of interruptions in the total number of instances to which B\&B is actually applied 
 (in which the bounds did not collapse).
 
@@ -186,27 +189,26 @@ $n$ & $p$ & & LP  & OPT & int. & col.& & LP  & OPT & int. & col. \\
  & 0.002 & & 20  & 814& 17& 0 & & 24 &378   & 0  & 0 \\
  & 0.004 & & 56  &1637& 33&10 & & 69 &1647  & 30 & 8 \\
  & 0.008 & &101  &3399& 75& 6 & & 107&3378  & 74 &30 \\
- & 0.016 & &204  &3600&100&93 & & 235&3600  &100 &88 
+ & 0.016 & &172  &3600&100&89 & & 235&3600  &100 &88 
 \end{tabular}
-\caption{Solution time of LP relaxation and B\&B of randomly generated instances}
+\caption{Solution time in seconds of LP relaxation and B\&B of randomly generated instances}
 \label{tab:soltime}
 \end{table}
 			 
 
 \begin{table}[]
 	\centering
-\begin{tabular}{rrrrr}
-$n$ & avg $|E|$ & LP  & OPT &  col. \\
+\begin{tabular}{rrrrrr}
+$n$ & $\sigma$ & LP  & OPT &  int. & col.\\
 \hline
-  50 & 140  & 0.02&0.14 & 26.67\\
- 100 & 530  & 0.12&0.65 & 33.33\\
- 160 &3629  & 0.12&1.75 & 73.33\\
- 200 &3222  & 0.76&4.90 & 77.78\\
- 300 &7189  & 7.43&15.69& 88.89\\
- 320 &7189  & 2.66& 9.75& 26.67\\
- 400 &12612 &12.83&74.08& 77.78
+ 160 & 240  & 0    &  2   &   0   &   0  \\
+ 160 & 320  & 0    &  1   &   0   &   0  \\
+ 320 & 480  & 1    &227   &   0   &   0  \\
+ 320 & 640  & 1    & 17   &   0   &   0  \\
+ 640 & 960  & 3    &3155  &  85   &   0  \\
+ 640 &1280  & 5    &236   &   0   &   0  
 \end{tabular}
-\caption{Solution time of LP relaxation and B\&B of existing instances available online for $\sigma=1$}
+\caption{Solution time in seconds of LP relaxation and B\&B of existing instances available online for $\sigma=1$}
 \label{tab:soltime-exist}
 \end{table}
 

@@ -8,7 +8,7 @@ The algorithms presented in this section iteratively construct broadcast forest 
 
 The following idea is based on the observation that at every time step, the maximum number of nodes that can be informed equals the size of maximum matching between already informed nodes and the rest.
 In the first iteration, the only informed nodes are the sources.
-Once a maximum matching is found, the set of informed nodes is extended by the endpoits of the matching that were not yet informed.
+Once a maximum matching is found, the set of informed nodes is extended by the endpoints of the matching that were not yet informed.
 This process is repeated until all nodes become informed.
 The number of iteration necessary to inform all nodes is then the upper bound on the broadcast time.
 
@@ -19,7 +19,7 @@ Maximum matching can be found using integer programs presented earlier with maxi
 These models can be conveniently employed for an extension of this approach by increasing the maximum time step.
 In our implementation, we used model \eqref{mod:basic:dec}.
 A solution in each iteration gives a maximum number of newly informed nodes within the imposed time limit by finding a set of node disjoint broadcast trees rooted at nodes informed in previous iterations.
-In this way we use the principle of rolling horizon method known from planning and schedulling.
+In this way we use the principle of rolling horizon method known from planning and scheduling.
 For the next iteration, only some nodes are selected for extending the set of informed nodes, typically only the ones reachable in a single time step, thus a matching.
 The steps are expressed by a pseudocode in Alg. \ref{alg:match}.
 \begin{algorithm}[]
