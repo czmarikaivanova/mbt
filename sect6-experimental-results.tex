@@ -9,9 +9,9 @@ First, it generates a random tree with the given number of nodes.
 It then iterates over all pairs of nodes that are not yet connected by an edge, and places an edge between them with the probability $p$.
 
 Apart from randomly generated instances, we also evaluate data sets of various sizes and densities available online \cite{steinlib}.
-These existing collection of instances is used as benchmark for algorithms for the minimum Steiner tree problem.
+These existing collections of instances are used as benchmarks for algorithms for the minimum Steiner tree problem.
 We evaluate datasets named ``I160'', ``I320'' and ``I640'' with selected edge cardinalities stated in the tables with results.
-The only source in these instances is always the node with id 1.
+The only source node in these instances is always the node with id 1.
 In each instance category, 20 graphs are available.
 
 \subsection{Comparison of upper and lower bounds}
@@ -21,20 +21,20 @@ We generate random single and double-source instances of sizes 125, 250, 500 and
 Tabs.~\ref{tab:obj-s1} and \ref{tab:obj-s2} summarize the results of randomly generated instances.
 Each entry is calculated as an average from 100 instances for a given $n$, $p$ and a selected method.
 Results obtained for existing instances are stated in Tab.~\ref{tab:obj-exist} where 20 instances are used for obtaining average objective function value for each instance category.
-Instead of the parameter $p$, the number of edges in a given in the second column.
+Instead of the parameter $p$, the number of edges is given in the second column.
 
 The column 'fib' consists of Fibonacci bounds.
 The values are rarely higher than the trivial logarithmic bound.
 Lower bound obtained from degree sequence in the column 'deg' is slightly better, 
 but in majority of cases is far weaker than the LP bound, which is very tight in all considered experimental settings.
 Upper bounds UB-$t$, $t=1,\dots 4$ are obtained using Alg.~\ref{alg:match}, which takes $t$ as one of its input parameters.
-In general, we observe that the higher $t$ the tighter upper bound is calculated.
+In general, we observe that the higher $t$, the tighter upper bound is calculated.
 There are however some instances where it does not hold, particularly for instances with larger $p$,  but the differences is very small, and can be explained as a coincidence.
 
 We further observe that the span of bounds decreases with increasing $p$, within one instance size, and also increases for a constant $p$ with increasing instance size.
 The experiments were not pursued for higher values of $p$, because it is very common that upper and lower bounds 'deg' and 'UB-4' coincide.
 This behavior is easy to explain.
-There are more possibilities how to relay a signal in dense graphs as compared to the sparser graphs. 
+There are more possibilities how to relay a signal in dense graphs as compared to sparser graphs. 
 It is therefore likely that denser graphs have optimal broadcast time close to the lower bounds.
 The decreasing span of bounds is also noticeable with increasing instance size.
 
@@ -143,14 +143,14 @@ $n$ & $p$  &   & fib  & deg  & LP   & OPT & UB-4  & UB-3  & UB-2  & UB-1  \\
 \subsection{Solution time}
 
 Average solution time of instances from the previous section is reported in Tabs.~\ref{tab:soltime} and \ref{tab:soltime-exist}..
-The columns LP and OPT contain solution times of solving LP relaxation and B\&B applied to the ILP model, respectively.
+The columns LP and OPT consists of solution times of solving LP relaxation and B\&B applied to the ILP model, respectively.
 The column 'int.' consists of the percentage of instances of which solving was interrupted after 1 hour, before the optimal solution was found.
-The interrupted instances count with 3600 to the resulting average solution time.
+Each interrupted instance counts with 3600 to the resulting average solution time.
 The values in the last column 'col.' are the numbers of instances in which the upper and lower bounds collapsed. 
 I.e., how many instances have the lower bound 'deg' value equal to the upper bound 'UB-4' value.
 In these instances, the optimal solution is not pursued, because its objective function value is already known.
 Values in the second last column are therefore the proportion of interruptions in the total number of instances to which B\&B is actually applied 
-(in which the bounds did not collapse).
+(in which the bounds do not collapse).
 
 All investigated instances of size up to 500 nodes are solved to optimality within the imposed 1 hour time limit.
 The resulting times are not reported for sparse instance sets of size 125 and 250 in Tab \ref{tab:soltime} because in the worst case it takes 3 seconds to solve an instance to optimality,

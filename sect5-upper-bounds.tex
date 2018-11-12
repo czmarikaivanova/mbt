@@ -1,7 +1,7 @@
 \section{Upper bounds} \label{sec:ub}
 
-A knowledge of an upper bound $\bar{t}$ affects the number of variables in all studied models. 
-Particularly in the decision versions, the iterative approach can be terminated once the solution is found to be infeasible for broadcast time limit $\bar{t}-1$.
+A knowledge of an upper bound $\bar{t}$ affects the number of variables in the studied model. 
+Particularly in the decision version, the iterative approach can be terminated once the solution is found to be infeasible for broadcast time limit $\bar{t}-1$.
 The algorithm presented in this section iteratively constructs broadcast forest $T=(V_T,A_T)$, where in the last iteration $V_T=V$.
 
 \subsection{Restricted broadcast tree method}
@@ -12,16 +12,16 @@ Once a maximum matching is found, the set of informed nodes is extended by the e
 This process is repeated until all nodes become informed.
 The number of iteration necessary to inform all nodes is then the upper bound on the broadcast time.
 
-A maximum matching can be found by an exact polynomial algorithm, or by solving an integer program.
+A maximum matching can be determined by an exact polynomial algorithm, or by solving an integer program.
 Even though the second option is not a polynomial method, the solution time is negligible for the considered instance sizes.
 
-Maximum matching can be found using integer programs presented earlier with maximum time step set to 1.
-These models can be conveniently employed for an extension of this approach by increasing the maximum time step.
-In our implementation, we used model \eqref{mod:basic:dec}.
-A solution in each iteration gives a maximum number of newly informed nodes within the imposed time limit by finding a set of node disjoint broadcast trees rooted at nodes informed in previous iterations.
+A maximum matching can be found with the help of the integer program \eqref{mod:basic:dec} presented earlier with maximum time step $t$ set to 1.
+This model can be conveniently employed for an extension of this approach by increasing the maximum time step.
+A solution in each iteration gives a maximum number of newly informed nodes within the imposed time limit 
+by finding a set of node disjoint broadcast trees rooted at nodes informed in previous iterations.
 In this way we use the principle of rolling horizon method known from planning and scheduling.
 For the next iteration, only some nodes are selected for extending the set of informed nodes, typically only the ones reachable in a single time step, thus a matching.
-The steps are expressed by a pseudocode in Alg. \ref{alg:match}.
+The steps are expressed by a pseudocode in Alg.~\ref{alg:match}.
 \begin{algorithm}[]
 	\KwData{$G=(V,E), S\subseteq V, t\in \{1,\dots,n-\sigma\}$}
 $V_T\leftarrow S, A_T \leftarrow \emptyset$\;
@@ -37,12 +37,12 @@ $\bar{t}\leftarrow 0$\;
 }
 \Return $\bar{t}$\;
 %\Return $\lceil k/s \rceil$\;
- \caption{A method for determining an upper bound based on iterative search for  trees}
+ \caption{A method for determining an upper bound based on iterative search for trees}
 \label{alg:match}
 \end{algorithm}
 
-For calculating an upper bound, it is not necessary to store node and arcs sets $V_T$ and $A_T$ in Alg \ref{alg:match},
-but it is essential when the actual broadcast tree is desirable.
+For calculating an upper bound, it is not necessary to store node and arcs sets $V_T$ and $A_T$ in Alg~\ref{alg:match},
+but it is essential when knowledge of the actual broadcast tree is desirable.
 %It is also possible to use model \eqref{mod:genmatch} and obtain vector $y$.
 %In that case lines 6 and 7 in Alg. \ref{alg:match} would be replaced by $V_T\leftarrow V_T\cup\{v\in V\setminus V_T:y_{2u}^v=1,u\in V_T\}$ and 
 %$A_T\leftarrow A_T\cup \{(u,v)\in V_T\times V\setminus V_T:y_{2u}^v\}$, respectively.
