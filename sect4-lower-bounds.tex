@@ -4,9 +4,8 @@ In this section, we study three types of lower bounds on the broadcast time $\ta
 
 \subsection{Analytical lower bounds} \label{sec:lbanalyt}
 Any solution $\left(V_0,\ldots,V_t,\pi\right)$ satisfying conditions \ref{def:boundary}--\ref{def:unique} of Definition \ref{def:broadcasttime},
-also satisfies $\left|V_{i+1}\right|\leq 2\left|V_i\right|$ for all $i\geq 1$.
-Because $G$ is connected, $N_G\left(V_i\right)$ intersects $V\setminus V_i$ as long as $V_i\neq V$.
-This yields the following bounds:
+also satisfies $\left|V_{k+1}\right|\leq 2\left|V_k\right|$ for all $k\geq 0$.
+Combined with the observation made in Section \ref{sec:decbasic}, this yields the following bounds:
 \begin{observation}
 For all instances $(G,S)$ of Problem \ref{prob:min},
 \begin{equation}
@@ -16,11 +15,11 @@ For all instances $(G,S)$ of Problem \ref{prob:min},
 \label{obs:loglb}
 \end{observation}
 
-Consider the $m$-step Fibonacci numbers $\left\{f^{m}_i\right\}_{i=1,2,\ldots}$ \cite{noe05}, a generalization of the well-known (2-step) Fibonacci numbers, defined by
-$f^{m}_i=0$ for $i\leq 0$, $f^{m}_1=1$, and 
+Consider the $m$-step Fibonacci numbers $\left\{f^{m}_k\right\}_{k=1,2,\ldots}$ \cite{noe05}, a generalization of the well-known (2-step) Fibonacci numbers, defined by
+$f^{m}_k=0$ for $k\leq 0$, $f^{m}_1=1$, and 
 other terms according to the linear recurrence relation 
 \begin{align*}
-f^{m}_i &=\sum\limits_{j=1}^m f^{m}_{i-j}, &\text{ for } i\geq 2.
+f^{m}_k &=\sum\limits_{j=1}^m f^{m}_{k-j}, &\text{ for } k\geq 2.
 \end{align*}
 
 The generalized Fibonacci numbers are instrumental in the derivation of a lower bound on $\tau(G,S)$,
@@ -44,33 +43,33 @@ An exception possibly occurs in the last period, as there may be fewer nodes lef
 Consider a solution $\left(V_0,\ldots,V_t,\pi\right)$ with associated broadcast graph $D$, such that $V_{t-1}\neq V_t$, 
 \begin{itemize}
   \item conditions \ref{def:boundary} and \ref{def:parent}--\ref{def:unique} of Definition \ref{def:broadcasttime} are satisfied,
-  \item for each source $u\in S$ and each $j=1,\ldots,\min\{d,t-1\}$, there exists a node $v_j\in V_j\setminus V_{j-1}$ such that $\pi\left(v_j\right)=u$, and
-  \item for each $i\in\{1,\ldots,t-2\}$, each node $u\in V_i\setminus V_{i-1}$, and each $j=i+1,\ldots,\min\{i+d-1,t-1\}$,
-        there exists a node $v_j\in V_j\setminus V_{j-1}$ such that $\pi\left(v_j\right)=u$.
+  \item for each source $u\in S$ and each $j=1,\ldots,\min\{d,t-1\}$, there exists a node $v\in V_j\setminus V_{j-1}$ such that $\pi(v)=u$, and
+  \item for each $k\in\{1,\ldots,t-2\}$, each node $u\in V_k\setminus V_{k-1}$, and each $j=k+1,\ldots,\min\{k+d-1,t-1\}$,
+        there exists a node $v\in V_j\setminus V_{j-1}$ such that $\pi(v)=u$.
 \end{itemize}
 \noindent
-Clearly, such a solution exists, and $\left(V_0,\ldots,V_t,\pi\right)$ is optimal if $\pi$ also satisfies condition \ref{def:edge}.
+Clearly, such a solution exists, and $\left(V_0,\ldots,V_t,\pi\right)$ is optimal if $\pi$ also satisfies condition \ref{def:edge} of Definition \ref{def:broadcasttime}.
 We thus have $t\leq\tau(G,S)$.
-It remains to prove that $2\sigma\sum_{i=1}^{t-1}f_i^{d-1}<n\leq 2\sigma\sum_{i=1}^tf_i^{d-1}$.
+It remains to prove that $2\sigma\sum_{k=1}^{t-1}f_k^{d-1}<n\leq 2\sigma\sum_{k=1}^tf_k^{d-1}$.
 
-For $i=1,\ldots,t$, let $L_i=\left\{v\in V_i:\delta_{D_i}(v)=1\right\}$ denote the set of nodes with exactly one out- or in-neighbor in $D_i$,
-and let $L_i=\emptyset$ for $i\leq 0$.
-That is, for $i>1$, $L_i$ is the set of nodes that receive the signal in period $i$, whereas $L_1$ consists of all nodes informed in period 1, including the sources $S$.
-Hence, $L_1,\ldots,L_{t-1}$ are disjoint sets (but $V_t$ may intersect $V_{t-1}$), and $V_i=L_1\cup\cdots\cup L_i$ for all $i=1,\ldots,t$.
+For $k=1,\ldots,t$, let $L_k=\left\{v\in V_k:\delta_{D_k}(v)=1\right\}$ denote the set of nodes with exactly one out- or in-neighbor in $D_k$,
+and let $L_k=\emptyset$ for $k\leq 0$.
+That is, for $i>1$, $L_k$ is the set of nodes that receive the signal in period $i$, whereas $L_1$ consists of all nodes informed in period 1, including the sources $S$.
+Hence, $L_1,\ldots,L_{t-1}$ are disjoint sets (but $L_t$ may intersect $L_{t-1}$), and $V_k=L_1\cup\cdots\cup L_k$ for all $k=1,\ldots,t$.
 
-Consider a period $i\in\{2,\ldots,t-1\}$.
-The assumptions on $\left(V_0,\ldots,V_t,\pi\right)$ imply that $\pi$ is a bijection from $L_i$ to $L_{i-1}\cup\cdots\cup L_{i-d+1}$.
-Thus, $\left|L_i\right|=\sum_{j=1}^{d-1}\left|L_{i-j}\right|$.
+Consider a period $k\in\{2,\ldots,t-1\}$.
+The assumptions on $\left(V_0,\ldots,V_t,\pi\right)$ imply that $\pi$ is a bijection from $L_k$ to $L_{k-1}\cup\cdots\cup L_{k-d+1}$.
+Thus, $\left|L_k\right|=\sum_{j=1}^{d-1}\left|L_{k-j}\right|$.
 Since also $\left|L_1\right|=2\sigma=2\sigma f_1^{d-1}$ and $\left|L_j\right|=f_j^{d-1}=0$ for $j\leq 0$,
-we get $\left|L_i\right|=2\sigma f_i^{d-1}$.
+we get $\left|L_k\right|=2\sigma f_k^{d-1}$.
 Further, $\left|L_t\right|\leq\sum_{j=1}^{d-1}\left|L_{t-j}\right|=2\sigma f_t^{d-1}$.
-It follows that $2\sigma\sum_{i=1}^{t-1}f_i^{d-1}=\sum_{i=1}^{t-1}\left|L_i\right|=\left|V_{t-1}\right|<n=\left|V_t\right|\leq\sum_{i=1}^t\left|L_i\right|\leq 2\sigma\sum_{i=1}^tf_i^{d-1}$,
+It follows that $2\sigma\sum_{k=1}^{t-1}f_k^{d-1}=\sum_{k=1}^{t-1}\left|L_k\right|=\left|V_{t-1}\right|<n=\left|V_t\right|\leq\sum_{k=1}^t\left|L_k\right|\leq 2\sigma\sum_{k=1}^tf_k^{d-1}$,
 which completes the proof.
 \end{proof}
 
 \subsection{Continuous relaxations of integer programming models} \label{sec:lblprel}
 
-For $t\in\mathbb{Z}_+$, define $\Omega(t)\subseteq[0,1]^{A\times\{1,\ldots,t\}}$ as the set of feasible solutions to the continuous relaxation of
+For $t\in\mathbb{Z}_+$, define $\Omega(t)\subseteq[0,1]^{\overrightarrow{E}\times\{1,\ldots,t\}}$ as the set of feasible solutions to the continuous relaxation of
 \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim},
 and let
 \[
@@ -92,10 +91,10 @@ For all $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $\zeta(t)\leq t
 \begin{proof}
 We first prove that $\zeta(t)$ is non-increasing with increasing $t$:
 Let $\Gamma(t)$ denote the set of feasible solutions to the continuous relaxation of \eqref{mod:basic:obj}--\eqref{mod:basic:dim}, and assume $(x,z)\in\Gamma(t)$.
-Define $\hat{x}\in[0,1]^{A\times\{1,\ldots,t+1\}}$ such that
-for all $(u,v)\in A$, $\hat{x}_{uv}^k=x_{uv}^k$ ($k\leq t$) and $\hat{x}_{uv}^{t+1}=0$.
+Define $\hat{x}\in[0,1]^{\overrightarrow{E}\times\{1,\ldots,t+1\}}$ such that
+for all $(u,v)\in \overrightarrow{E}$, $\hat{x}_{uv}^k=x_{uv}^k$ ($k\leq t$) and $\hat{x}_{uv}^{t+1}=0$.
 An analogous extension of $z$ to $\hat{z}\in[0,1]^{\{1,\ldots,t+1\}}$ yields $(\hat{x},\hat{z})\in\Gamma(t+1)$,
-and $\sum_{i=1}^{t+1}\hat{z}_i=\sum_{i=1}^tz_i$ proves that $\zeta(t+1)\leq\zeta(t)$.
+and $\sum_{k=1}^{t+1}\hat{z}_k=\sum_{k=1}^tz_k$ proves that $\zeta(t+1)\leq\zeta(t)$.
 
 For $t\in\mathbb{Z}_+$ such that $\Omega^=(t)\neq\emptyset$, $t\geq t^{\ast}$ thus implies $\zeta(t)\leq\zeta(t^{\ast})$.
 Since the only lower bounds on $z_k$ in \eqref{mod:basic:obj}--\eqref{mod:basic:dim} are $\max_{v\in V\setminus S}\sum\limits_{u \in N(v)}x_{uv}^k\leq 1$ and $z_{k-1}\leq 1$,
@@ -104,7 +103,7 @@ The proof is complete by observing that $t^{\ast}\leq\tau(G,S)$ follows from $\O
 \end{proof}
 
 \begin{remark} \label{rem:lpweak}
-Proposition \ref{prop:lpweak} suggests to solve a sequence of instances of the continuous relaxation of problem \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim},
+To compute a lower bound on $\tau(G,S)$, Proposition \ref{prop:lpweak} suggests to solve a sequence of instances of the continuous relaxation of problem \eqref{mod:basic:dec:obj}--\eqref{mod:basic:dec:dim},
 and stop by the first value of $t$ for which the optimal objective function value is $n-\sigma$.
 Such an approach yields a lower bound ($t^{\ast}$) on $\tau(G,S)$,
 which is no weaker than the bound achieved by solving the continuous relaxation of \eqref{mod:basic:obj}--\eqref{mod:basic:dim}.
@@ -145,14 +144,7 @@ By considering the degree of all nodes $v\in V$, rather than just the maximum de
 Denote the source nodes $S=\left\{v_1,\dots,v_{\sigma}\right\}$ and the non-source nodes $V\setminus S=\left\{v_{\sigma+1},\ldots,v_n\right\}$, where $\delta_G(v_{\sigma+1})\geq\delta_G(v_{\sigma+2})\geq\dots\geq\delta_G(v_n)$,
 and let $d_i=\delta_G(v_i)$ ($i=1,\ldots,n$).
 Thus, $\left\{d_1,\ldots,d_n\right\}$ resembles the conventional definition of a non-increasing degree sequence of $G$,
-with the difference that only the final $n-\sigma$ elements are required to be non-increasing.
-
-Given a graph with a degree sequence 
-$Q=(d_1,\dots,d_n)$, we determine a lower bound by finding a smallest broadcast time among all possible graphs with degree sequence $Q$.
-A modified verision of Problem \ref{prob:degree} takes a fixed $t$ and asks for a sequence $V_0,\dots,V_t$ minimizing $|V_t|$ while satisfying \ref{def:boundary} and \ref{def:parent}--\ref{def:degree}.
-As the requirement \ref{def:edge} is relaxed, Problem~\ref{prob:degree} can be solved by iterative solution of its modified version for an increasing $t$.
-As soon as $|V_t|=n$, $t$ is the optimal solution to Problem~\ref{prob:degree}.
-Lemma \ref{lemma:degorder} states a sufficient optimality condition condition for the modified Problem~\ref{prob:degree}, and thereby also for Problem~\ref{prob:degree} itself.
+with the difference that only the subsequence consisting of the final $n-\sigma$ degrees is required to be non-increasing.
 
 For a given $t\in\mathbb{Z}_+$, consider the problem of finding $\left(V_0,\ldots,V_t,\pi\right)$ such that $V_0=S$,
 conditions \ref{def:parent}--\ref{def:degree} are satisfied, and $\left|V_t\right|$ is maximized.
@@ -161,30 +153,62 @@ The smallest value of $t$ for which the maximum equals $n$ is obviously the solu
 The algorithm for Problem~\ref{prob:degree}, to follow later in the section, utilizes that the maximum value of $\left|V_t\right|$
 is achieved by transmitting the signal to nodes in non-increasing order of their degrees.
 Observe that, contrary to the case of Problem~\ref{prob:min}, transmissions to non-neighbors are allowed in the relaxed problem.
-Any instance of Problem~\ref{prob:degree} thus has an optimal solution where, for $i=1,\ldots,t-1$,
-$u\in V_i\setminus V_{i-1}$ and $v\in V_{i+1}\setminus V_i$ implies $\delta_G(u)\geq\delta_G(v)$.
+Any instance of Problem~\ref{prob:degree} thus has an optimal solution where, for $k=1,\ldots,t-1$,
+$u\in V_k\setminus V_{k-1}$ and $v\in V_{k+1}\setminus V_k$ implies $\delta_G(u)\geq\delta_G(v)$.
 
-More rigorously, this is stated as follows:
+A rigorous proof of this follows next.
+
+\begin{lemma}
+\label{lemma:degchild}
+For a positive integer $t$ and node sets $V_0\subseteq V_1\subseteq\cdots\subseteq V_t$, where $V_0=S$,
+there exists a $\pi:V_t\setminus S\mapsto V_t$ such that $\left(V_0,\ldots,V_t,\pi\right)$ satisfies 
+conditions \ref{def:parent}--\ref{def:degree} if and only if, for all $k=1,\ldots,t$,
+\begin{equation} \label{eq:lemiff}
+\left|V_k\setminus S\right| \leq \sum_{v_i\in S}\min\{d_i, k\}+\sum_{\ell=1}^{k-1}\sum_{v_i\in V_{\ell}\setminus V_{\ell-1}}\min\{d_i-1, k-\ell\}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Consider the broadcast forest $D_k$ corresponding to some feasible $\left(V_0,\ldots,V_k,\pi\right)$.
+Condition \ref{def:unique} implies that every node $v_i\in V_{\ell}\setminus V_{\ell-1}$ ($1\leq\ell<k$) has at most one child node in each of the node sets
+$V_{\ell+1},\ldots,V_k$, and thus no more than $k-\ell$ child nodes in $D_k$.
+Condition \ref{def:degree} implies that $v_i$ has at most $d_i-1$ child nodes in $D_k$.
+The corresponding bounds for a source $v_i\in V_0$ are $k$ and $d_i$, respectively.
+Conversely, the conditions \ref{def:unique}--\ref{def:degree} are satisfied for some $\pi$ if both bounds are respected at all nodes.
+The proof is complete by observing that condition \ref{def:parent} is satisfied if and only if the number $\left|V_k\setminus S\right|$ of non-root nodes in $D_k$
+is no larger than the total child node capacity $\sum_{v_i\in S}\min\{d_i, k\}+\sum_{\ell=1}^{k-1}\sum_{v_i\in V_{\ell}\setminus V_{\ell-1}}\min\{d_i-1, k-\ell\}$ in $D_k$.
+\end{proof}
+
 \begin{lemma}
 \label{lemma:degorder}
 The maximum value of $\left|V_t\right|$ over all $\left(V_0,\ldots,V_t,\pi\right)$ satisfying $V_0=S$ and
 conditions \ref{def:parent}--\ref{def:degree}, is attained by some
-$\left(V_0,\ldots,V_t,\pi\right)$ where \\ $\max_{v\in V_{i-1}}\delta_G(v)\leq\min_{v\in V_i}\delta_G(v)$ ($i=2,\ldots,t$).
+$\left(V_0,\ldots,V_t,\pi\right)$ where \\
+$\min\left\{i: v_i\in V_{k}\setminus V_{k-1}\right\}>\max\left\{i: v_i\in V_{k-1}\right\}$ ($k=1,\ldots,t$).
 \end{lemma}
 \begin{proof}
 
-A node with degree $d_i$ informed in the $j$-th time step can inform at most $\min\{d_i-1,t-j\}$ nodes.
-Consider integers  $k$ and $l$ such that $\sigma< k < \ell\leq n$ and nodes $v_k$, $v_\ell$ with degrees $d_k$, $d_\ell$, respectively.
-Assume without loss of generality, that $v_k$ and $v_l$ are informed in the $k'$-th and $\ell'$-th time step, respectively, and that $k'\leq\ell'$.
-Then, $d_k-1\geq d_\ell-1$ and $t-k' \geq t-\ell'$.
-Let $K_1$ and $L_1$ be the number of nodes that can be informed by $v_k$ and $v_l$, respectively:
+Consider an arbitrary optimal solution $\left(V_0,\ldots,V_t,\pi\right)$,
+and assume that $v_i\in V_p\setminus V_{p-1}$, $v_j\in V_{q}\setminus V_{q-1}$, $i<j$, and $1\leq q<p\leq t$.
+We prove that the solution 
+obtained by swapping nodes $v_i$ and $v_j$ is also optimal.
+Let $V_k'=V_k$ for $k=0,\ldots,q-1, p, p+1,\ldots,t$, and $V_k'=\left(V_k\setminus\{v_j\}\right)\cup\{v_i\}$ for $k=q,\ldots,p-1$.
+Because $\left|V_t'\right|=\left|V_t\right|$, we only need to show that $\left(V_0',\ldots,V_t',\pi'\right)$ is feasible for some $\pi'$.
+
+By feasibility of $\left(V_0,\ldots,V_t,\pi\right)$, the only-if part of Lemma \ref{lemma:degchild} implies that \eqref{eq:lemiff} holds for $k=1,\ldots,t$.
+The if part of the same lemma shows that if \eqref{eq:lemiff} applies to $\left(V_0',\ldots,V_t'\right)$, too, it is also feasible.
+
+Let $\alpha_k$ and $\alpha_k'$ denote the right hand side of \eqref{eq:lemiff} corresponding to
+$\left(V_0,\ldots,V_t\right)$ and $\left(V_0',\ldots,V_t'\right)$, respectively.
+Then $\alpha_k'=\alpha_k$ for $k=1,\ldots,q-1$.
+For $k=q+1,\ldots,p$, we have $\alpha_k'=\alpha_k+\min\{d_i-1, k-q\}-\min\{d_j-1, k-q\}\geq \alpha_k$, since $d_i\geq d_j$.
+For $k=p+1,\ldots,t$, we have $\alpha_k'=\alpha_k+\min\{d_i-1, k-q\}+\min\{d_j-1, k-p\}-\min\{d_j-1, k-q\}-\min\{d_i-1, k-p\}$.
+It thus remains to show that $K_1+L_1\geq K_2+L_2$, where
 $$
-K_1=\min\{d_k-1,t-k'\}, ~~~ L_1=\min\{d_\ell-1,t-\ell'\}.
+K_1=\min\{d_i-1,k-q\}, ~~~ L_1=\min\{d_j-1,k-p\},
 $$
-If the order in which $v_k$ and $v_l$ are informed is switched, i.e. when $v_k$ and $v_\ell$ is informed in the $\ell'$-th and $k'$-th time step, respectively, 
-we use $K_2$ and $L_2$ to denote the maximum number of nodes informed by $v_k$ and $v_\ell$:
+and
 $$
-K_2=\min\{d_k-1,t-\ell'\}, ~~~ L_2=\min\{d_\ell-1,t-k'\}.
+K_2=\min\{d_i-1,k-p\}, ~~~ L_2=\min\{d_j-1,k-q\}.
 $$
 We now investigate what values the difference 
 \begin{equation}
@@ -194,20 +218,10 @@ We now investigate what values the difference
 can attain.
 Observe that $K_1\geq L_2$ and $K_2\geq L_1$. 
 If $K_2>L_1$, there are two distinct cases:
-Either $K_2=d_k-1=K_1$, and then also $L_2=d_l-1=L_1$.
-	Or $K_2=t-\ell'\leq K_1$ implying $L_1 =d_\ell-1$, and since $d_\ell-1\leq t-\ell'\leq t-k'$, we have $L_2=d_\ell-1$ as well.
-We conclude that \eqref{eq:degbounds} always takes a non-negative value.
-%Therefore, if the nodes are informed in the order of their decreasing degrees,
-%the number of informed nodes within the give time step is no worse than when the nodes are informed in any other order.
-Assume that the nodes are informed in an arbitrary order.
-As long as it is possible to swap the order in which two nodes are informed so that a node with a higher degree becomes informed before a node with a lower degree,
-thus whenever such $k$ and $l$ as above exist, swapping the order can not decrease the number of informed nodes within the given time limit.
-The desired order of nodes can always be achieved by a sequence of swaps.
+If $K_2=d_i-1=K_1$, then also $L_2=d_j-1=L_1$.
+Otherwise, $K_2=k-p\leq K_1$, implying $L_1 =d_j-1$, and since $d_j-1\leq k-p\leq k-q$, we have $L_2=d_j-1=L_1$.
+We conclude that \eqref{eq:degbounds} always takes a non-negative value, which completes the proof.
 \end{proof}
-For the relaxed problem, informing nodes in the desired order is clearly possible.
-If $\mathcal{Q}$ is the set of graphs with degree sequence $Q$, a straightforward algorithm determining
-$\min\{\tau(G,S): G\in \mathcal{Q}\}$,
-and thus an optimal solution to Problem~\ref{prob:degree} can be developed.
 
 Alg. \ref{alg:dreg} operates with the set $I(t)$ that consists of indices of nodes informed within the first $t$ time steps.
 The function $a_i(t)$ determines the number of nodes informed by node $v_i$ within $t$ time steps, and finally,

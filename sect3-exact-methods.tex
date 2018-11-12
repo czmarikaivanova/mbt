@@ -4,34 +4,41 @@
 In this section, we formulate an ILP model for Problem \ref{prob:min}, and discuss possible solution strategies. 
 
 \subsection{Broadcast time model}
-The studied model is a straightforward formulation of the problem.
-Consider variables 
+Given an integer $t\geq\tau(G,S)$, define the variables ($(u,v)\in \overrightarrow{E}$, $k=1,\ldots,t$) 
 $$ x_{uv}^k=
 \begin{cases} 
-1, \text{ if } v\in V_k \text{ and } \pi(v)=u,\\ 
+1, \text{ if } v\in V_k\setminus V_{k-1} \text{ and } \pi(v)=u,\\ 
 0, \text{ otherwise},
 \end{cases}
 z_{k}=\begin{cases}
-1, \text{ if } k\leq\tau(G,S),\\
+1, \text{ if } k\leq t,\\
 0, \text{ otherwise}.
 \end{cases}
 $$
-The worst case scenario is when $G$ is a path $v_1,\dots,v_n$ with $S=\{v_1\}$. 
-In such an instance, the necessary number of time steps is $n-1$, which gives a trivial upper bound $\bar{t}=n-s$ on the broadcast time.
+\noindent
+Variable $x_{uv}^k$ thus represents the decision whether or not the signal is to be transmitted from node $u$ to node $v$ in period $k$,
+while $z_k$ indicates whether transmissions take place as late as in period $k$.
+
+An upper bound $t$ on the broadcast time $\tau(G,S)$ is easily available.
+Because $G$ is connected, the cut between any set $V_i$ of informed nodes and its complement is non-empty,
+and therefore at least one more node can be informed in each period.
+It follows that $\tau(G,S)\leq n-\sigma$.
+The bound is tight in the worst case instance where $S=\{v_1\}$, and $G$ is a path with $v_1$ as one of its end nodes.
 Problem \ref{prob:min} is then formulated as follows: 
 \begin{subequations}\label{mod:basic}
 \begin{align}
-\label{mod:basic:obj} \min \sum\limits_{k=1}^{\bar{t}}z_k \\ 
-\text{s. t.~~~} \label{mod:basic:singlein} \sum\limits_{k=1}^{\bar{t}}\sum\limits_{v\in N(u)}x_{vu}^k & = 1 & u\in V \setminus S,\\
+\label{mod:basic:obj} \min \sum\limits_{k=1}^{t}z_k \\ 
+\text{s. t.~~~} \label{mod:basic:singlein} \sum\limits_{k=1}^{t}\sum\limits_{v\in N(u)}x_{vu}^k  = 1 && u\in V \setminus S,\\
 %\label{mod:basic:uniqueTout} \sum\limits_{v\in N(u)}x_{uv}^k & \leq 1  & u\in V,k=1,\dots,\bar{t},\\
-\label{mod:basic:tIncreases} \sum\limits_{v\in N(u)}x_{uv}^k &\leq\sum\limits_{\ell=1}^{k-1}\sum\limits_{w\in N(u)} x_{wu}^{\ell}  & u\in V\setminus S, k=2,\dots,\bar{t},\\
+\label{mod:basic:tIncreases} \sum\limits_{v\in N(u)}x_{uv}^k \leq\sum\limits_{\ell=1}^{k-1}\sum\limits_{w\in N(u)} x_{wu}^{\ell}  && u\in V\setminus S, k=2,\dots,t,\\
 %\label{mod:basic:tIncreases} x_{uv}^k &\leq\sum\limits_{\ell=1}^{k-1}\sum\limits_{w\in N(u)\setminus\{v\}} x_{wu}^{\ell}  & \{u,v\}\in E, u\not\in S, k=2,\dots,\bar{t},\\
 %\label{mod:basic:tcrel} \sum\limits_{k=1}^{\bar{t}}k\cdot x_{uv}^k & \leq t^* &  (u,v)\in A,\\
-\label{mod:basic:tcrel} \sum\limits_{v\in N(u)}x_{uv}^k & \leq z_k &  u\in V,k=1,\dots,\bar{t},\\
-\label{mod:basic:timing} z_k & \leq z_{k-1} &  k=2,\dots,\bar{t},\\
+\label{mod:basic:tcrel} \sum\limits_{v\in N(u)}x_{uv}^k  \leq z_k &&  u\in V,k=1,\dots,t,\\
+\label{mod:basic:timing} z_k  \leq z_{k-1} &&  k=2,\dots,t,\\
 %\label{mod:basic:tcrel} \sum\limits_{t=1}^{n-1}t\sum\limits_{j\in N(i)}x_{ij}^k & \leq c &  i\in V,\\
-\label{mod:basic:positiveCost}x_{uv}^1 & = 0 & (u,v)\in A, u \in V\setminus S,\\
-\label{mod:basic:dim}x \in \{0,1\}^{A\times \{1,\dots,\bar{t}\}},z&\in\{0,1\}^{\{1,\dots,\bar{t}\}}.&
+\label{mod:basic:positiveCost}x_{uv}^1  = 0 && (u,v)\in \overrightarrow{E}, u \in V\setminus S,\\
+\label{mod:basic:dec:0toSource} x_{uv}^k  = 0  && (u,v)\in\overrightarrow{E}, v\in S, k=1,\ldots,t\\
+\label{mod:basic:dim}x \in \{0,1\}^{\overrightarrow{E}\times \{1,\dots,t\}},z\in\{0,1\}^{\{1,\ldots,t\}}.&&
 \end{align}~
 \end{subequations}
 By \eqref{mod:basic:singlein}, every non-source node $u$ receives the signal from exactly one adjacent node $v$ in some time step $k$.
@@ -43,33 +50,30 @@ It also sets correct values to the $z$-variable that appear in the objective fun
 %The requirement that only informed nodes can relay a signal is modeled by \eqref{mod:basic:tIncreases}. 
 %The maximum time step at which any transmission takes place is captured by \eqref{mod:basic:tcrel}, and finally, \eqref{mod:basic:positiveCost} states that a node that is not a source never transmits in the first time step.
 %The length of the sequence of subsets is captured by \eqref{mod:basic:tcrel}, and finally, \eqref{mod:basic:positiveCost} state that if $\pi(v)\not\in S$ for some $j\in V$, then $v\not\in V_1$.
-The valid inequality \ref{mod:basic:timing} states that $k$ is no greater than broadcast time of the given node set only if the same holds for $k-1$.
-Lastly, \eqref{mod:basic:positiveCost} state that non-source nodes do not transmit in the first time step.
+The valid inequalities \ref{mod:basic:timing} reflect that $k\leq\tau(G,S)$ only if $k-1\leq\tau(G,S)$.
+Lastly, constraints \eqref{mod:basic:positiveCost} and \eqref{mod:basic:dec:0toSource} state, respectively, that non-source nodes do not transmit in the first time step,
+and that sources never receive the signal.
 
 \subsubsection{Decision version}
 \label{sec:decbasic}
-The nature of MBT suggests another modelling approach derived from Model \ref{mod:basic}. 
-For a given maximum time period $t$, we maximize the number of nodes $v$ that receive a signal from some neighbor $u$ within $t$ time steps.
-If the optimal value is $n-s$, it is clear that we found a spanning broadcast tree with broadcast time $t$.
-In case the optimal value is less than $n-s$, the given $t$ is insufficient, and we have to try solving the problem with an increased time limit.
-Clearly, an additional knowledge of upper and lower bound spares some computations. 
-A lower bound is the initial value of $t$. 
-Similarly, if an upper bound $\bar{t}$ is known and $t=\bar{t}-1$, the process can be terminated even when the objective function is less then $n-s$, because $\bar{t}$ is than the optimal value.
+The nature of MBT suggests another modelling approach derived from Model \eqref{mod:basic}. 
+For a given positive integer $t$, we maximize the number of nodes $v$ that receive a signal from some neighbor $u$ within $t$ time steps.
+Hence, $\tau(G,S)$ is the smallest value of $t$ for which the maximum attains the value $n-\sigma$.
+If the optimal objective function value is $n-\sigma$, the corresponding values of the decision variable induce a broadcast forest with broadcast time $t$.
+Otherwise, if the optimal objective function value is smaller than $n-\sigma$, $t<\tau(G,S)$, and Model \eqref{mod:basic:dec} is solved again with $t$ replaced by $t+1$.
+The computational efficiency of a search where $t$ is increased from some lower bound on $\tau(G,S)$ is largely dependent of the tightness of available upper and lower bounds on $\tau(G,S)$.
+If an upper bound $\bar{t}\geq \tau(G,S)$ is known, and it is revealed that for $t=\bar{t}-1$ fewer than $n-\sigma$ can receive the signal in time $t$, it is concluded that $\tau(G,S)=\bar{t}$.
 
-The decision model \ref{mod:basic:dec}  has the form
+The decision version of a model for \textsc{Minimum Broadcast Time} takes the form
 \begin{subequations}\label{mod:basic:dec}
 \begin{align}
 \label{mod:basic:dec:obj} \max \sum\limits_{v \in V\setminus S}\sum\limits_{u \in N(v)} \sum\limits_{k=1}^{t}x_{uv}^k \\ 
-\text{s. t.~~~} \label{mod:basic:dec:atMost1in} \sum\limits_{k=1}^{t}\sum\limits_{v\in N(u)}x_{vu}^k & \leq 1 & u\in V \setminus S,\\
-\label{mod:basic:dec:0toSource} \sum\limits_{k=1}^{t}\sum\limits_{v\in N(u)}x_{vu}^k & = 0  & u\in S,\\
-\eqref{mod:basic:tIncreases},\notag \eqref{mod:basic:timing},  \eqref{mod:basic:positiveCost},\\
-\label{mod:basic:dec:dim}x &\in \{0,1\}^{A\times \{1,\dots,t\}}.&
+\text{s. t.~~~} \label{mod:basic:dec:atMost1in} \sum\limits_{k=1}^{t}\sum\limits_{v\in N(u)}x_{vu}^k  \leq 1 && u\in V \setminus S,\\
+\eqref{mod:basic:tIncreases},  \eqref{mod:basic:positiveCost}, \eqref{mod:basic:dec:0toSource}, \\
+\label{mod:basic:dec:dim}x \in \{0,1\}^{\overrightarrow{E}\times \{1,\dots,t\}}.&&
 \end{align}~
 \end{subequations}
 
-Constraint \eqref{mod:basic:singlein} is replaced by \eqref{mod:basic:dec:atMost1in} and \eqref{mod:basic:dec:0toSource}. 
-The former is an inequality, because not all nodes are necessarily reached within the given time limit.
-The latter makes sure that sources are not reached by any signal. 
-This was filtered out by optimality in \eqref{mod:basic}, but it must be forbidden explicitly in \eqref{mod:basic:dec} due to the changed objective function.
-The actual target function is the minimum time required for spreading the signal to all nodes, and so we are looking for the smallest value of $t$.
+In the transition from the optimization model \eqref{mod:basic}, constraint \eqref{mod:basic:singlein} is replaced by \eqref{mod:basic:dec:atMost1in}.
+The former is an inequality in the decision version, because not all nodes are necessarily reached within the given time limit.
 
