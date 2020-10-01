@@ -1,48 +1,75 @@
 \section{Upper bounds} \label{sec:ub}
 
-A knowledge of an upper bound $\bar{t}$ affects the number of variables in the studied model. 
-Particularly in the decision version, the iterative approach can be terminated once the solution is found to be infeasible for broadcast time limit $\bar{t}-1$.
-The algorithm presented in this section iteratively constructs broadcast forest $T=(V_T,A_T)$, where in the last iteration $V_T=V$.
+Access to an upper bound $\bar{t}\geq\tau(G,S)$ affects the number of variables in the models studied in Section \ref{sec:optbasic}. 
+Particularly in the decision version \eqref{mod:basic:dec},
+the iterative approach can be terminated once the solution is found to be infeasible for broadcast time limit $\bar{t}-1$.
+Algorithms that output feasible, or even near-optimal solutions, are instrumental in the computation of upper bounds.
+Further, such methods are required in sufficiently large instances, where exact approaches fail to terminate in practical time.
 
-\subsection{Restricted broadcast tree method}
+\subsection{Existing heuristic methods} \label{sec:heur}
+% Following reviewer 1, we should describe briefly the methods in \cite{harutyunyan06, harutyunyan14, harutyunyan10}.
+% One or more of these should also be studied in the experimental section.
 
-The following idea is based on the observation that at every time step, the maximum number of nodes that can be informed equals the size of maximum matching between already informed nodes and the rest.
-In the first iteration, the only informed nodes are the sources.
-Once a maximum matching is found, the set of informed nodes is extended by the endpoints of the matching that were not yet informed.
-This process is repeated until all nodes become informed.
-The number of iteration necessary to inform all nodes is then the upper bound on the broadcast time.
+Building on earlier works \cite{harutyunyan06, harutyunyan10},
+Harutyunyan and Jimborean \cite{harutyunyan14} study a heuristic (considering $\sigma=1$) departing from a shortest-path tree of $G$.
+A sequence of local improvements is performed in the bottom-up direction in the tree, starting by the leafs and terminating at the root node.
+Rearrangements of the parent assignments are made in order to reduce the broadcast time needed in subtrees.
+The heuristic has running time $\mathcal{O}\left(|E|\log{n}\right)$.
+% Reference \cite{harutyunyan10} studies a heuristic based on breadth-first, and seems to output something like the shortest-path tree.
+% The method in \cite{harutyunyan14} seems to be an improvement over the one in \cite{harutyunyan10}, and therefore a natural choice to benchmark against.
+% Note that it is a fast method, with predictable, polynomial upper bounds $\mathcal{O}(|E|\log|V|)$ on the running time.
+% As long as competing methods do not come with comparable bounds on the running time, they should output better solutions.
 
-A maximum matching can be determined by an exact polynomial algorithm, or by solving an integer program.
-Even though the second option is not a polynomial method, the solution time is negligible for the considered instance sizes.
+\subsection{A construction method} \label{sec:cons}
 
-A maximum matching can be found with the help of the integer program \eqref{mod:basic:dec} presented earlier with maximum time step $t$ set to 1.
-This model can be conveniently employed for an extension of this approach by increasing the maximum time step.
-A solution in each iteration gives a maximum number of newly informed nodes within the imposed time limit 
-by finding a set of node disjoint broadcast trees rooted at nodes informed in previous iterations.
-In this way we use the principle of rolling horizon method known from planning and scheduling.
-For the next iteration, only some nodes are selected for extending the set of informed nodes, typically only the ones reachable in a single time step, thus a matching.
-The steps are expressed by a pseudocode in Alg.~\ref{alg:match}.
+Consider an integer $t'\geq 0$, node sets $S=V_0\subseteq V_1\subseteq\cdots\subseteq V_{t'}\neq V$ and a function $\pi: V\setminus S\mapsto V$,
+where $\left\{\pi(v),v\right\}\in E$ for all $v\in V_{t'}\setminus S$,
+and conditions \ref{def:parent}--\ref{def:unique} of Definition \ref{def:broadcasttime} are satisfied for $t=t'$.
+That is, $\left(V_0,\ldots,V_{t'},\pi\right)$ defines a broadcast forest corresponding to the instance $\left(G\left[V_{t'}\right],S\right)$,
+but the forest does not cover $V$.
+In particular, if $t'=0$, the broadcast forest is a null graph on $S$, while it is a matching from $S$ to $V_1\setminus S$ if $t'=1$.
+
+This section addresses the problem of extending the partial solution $\left(V_0,\ldots,V_{t'},\pi\right)$ by another node set $V_{t'+1}$,
+such that the conditions above also are met for $t=t'+1$.
+With $t'=0$ as departure point, a sequence of extensions results in a broadcast forest corresponding to instance $(G,S)$.
+Each extension identifies a matching from $V_{t'}$ to $V\setminus V_{t'}$, and all matched nodes in the latter set are included in $V_{t'+1}$.
+A key issue is how to determine the matching.
+
+Since the goal is to minimize the time (number of extensions) needed to cover $V$, a \emph{maximum cardinality} matching between
+$V_{t'}$ and $V\setminus V_{t'}$ is a natural choice.
+Lack of consideration of the matched nodes' capabilities to inform other nodes is however an unfavorable property.
+Each iteration of Alg.\ \ref{alg:match} rather sees $k\geq 1$ time periods ahead, and maximizes the total number of nodes in $V\setminus V_{t'}$
+that can be informed in periods $t'+1,\ldots,t'+k$.
+Commitment is made for only one period, and the matched nodes are those that are informed in period $t'+1$ from some node in $V_{t'}$.
+The maximization problem in question is exactly the one addressed by model \eqref{mod:basic:dec},
+where $V_{t'}$ is considered as sources, $k$ the upper bound on the broadcast time, and the graph is $G$ with all edges within $V_{t'}$ removed.
+Choosing $k=1$ corresponds to the maximum matching option, whereas large values of $k$ (e.g., $k=n-\sigma$) makes Alg.\ \ref{alg:match} an exact method. 
+
 \begin{algorithm}[]
-	\KwData{$G=(V,E), S\subseteq V, t\in \{1,\dots,n-\sigma\}$}
-$V_T\leftarrow S, A_T \leftarrow \emptyset$\;
-$\bar{t}\leftarrow 0$\;
-\While{$V_T\neq V$} {
-	$S\leftarrow V_T$\;
-	$x\leftarrow$ optimal solution to model \eqref{mod:basic:dec}\;
-%	Find a set of restricted broadcast trees $\{T_1,\dots,T_{|V_T|}\}$ with broadcast time at most $t_{\text{max}}$ rooted in nodes of $V_T$ by solving model \eqref{mod:genmatch}\;
-%	$V_T\leftarrow V_T\cup \{v:v\in V_B:\beta(v)\leq p\}$\;
-	$V_T\leftarrow V_T\cup \{v\in V\setminus V_T:x_{uv}^1=1, u\in V_T\}$\;
-	$A_T\leftarrow A_T\cup \{(u,v)\in V_T\times V\setminus V_T: x_{uv}^1=1\}$\;
-	$\bar{t}\leftarrow \bar{t}+1$\;
+	\KwData{$G=(V,E), S\subseteq V, k\in \{1,\dots,n-\sigma\}$}
+\For{$t'=0,1,\dots$} {
+	\textbf{if} ~$S=V$ ~\textbf{return} $t'$ \\
+	$x\leftarrow$ optimal solution to the instance of model \eqref{mod:basic:dec} with $t=k$ \\
+	\For{$\{u,v\}\in E$ such that $u\in S$, $v\in V\setminus S$, and $x_{uv}^1=1$} {
+		$S\leftarrow S\cup\{v\}$
+	}
 }
-\Return $\bar{t}$\;
-%\Return $\lceil k/s \rceil$\;
- \caption{A method for determining an upper bound based on iterative search for trees}
+\caption{Construction of near-optimal solutions through sequences of matchings}
 \label{alg:match}
 \end{algorithm}
 
-For calculating an upper bound, it is not necessary to store node and arcs sets $V_T$ and $A_T$ in Alg~\ref{alg:match},
-but it is essential when knowledge of the actual broadcast tree is desirable.
-%It is also possible to use model \eqref{mod:genmatch} and obtain vector $y$.
-%In that case lines 6 and 7 in Alg. \ref{alg:match} would be replaced by $V_T\leftarrow V_T\cup\{v\in V\setminus V_T:y_{2u}^v=1,u\in V_T\}$ and 
-%$A_T\leftarrow A_T\cup \{(u,v)\in V_T\times V\setminus V_T:y_{2u}^v\}$, respectively.
+\begin{remark} \label{rem:time}
+If $k=1$, then the running time of Alg.\ \ref{alg:match} is $\mathcal{O}\left(n^{\frac{3}{2}}|E|\right)$, because the number of iterations is no more than $n$,
+and the maximum cardinality matching is found in $\mathcal{O}\left(\sqrt{n}|E|\right)$ time \cite{hopcroft73}.
+For fixed $k=2$, the problem solved in each iteration is NP-hard \cite{jansen95}.
+\end{remark}
+
+\begin{remark} \label{rem:mvm}
+If $k=1$, no attempt is made to favor the nodes with many uninformed nabors.
+To that end, maximum cardinality matching can be replaced by maximum \emph{vertex-weight} matching (MVM),
+where each node $v\in V\setminus S$ is assigned the weight $1+\left|\left\{u\in V\setminus S: \{u,v\}\in E\right\}\right|$.
+Other weights reflecting the capability of node $u$ to inform other nodes in later periods could also be considered.
+The running time of Alg.\ \ref{alg:match} increases to $\mathcal{O}\left(n^2|E|\right)$, as MVM
+is solved in $\mathcal{O}\left(n|E|\right)$ time \cite{dobrian19}.
+An approximate MVM-solution within $\frac{2}{3}$ of optimality is found in $\mathcal{O}\left(|E|+n\log{n}\right)$ time \cite{dobrian19}.
+\end{remark}

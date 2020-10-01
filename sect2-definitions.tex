@@ -9,9 +9,9 @@ The \emph{broadcast time} $\tau(G,S)$ of a node set $S\subseteq V$ in $G$ is def
 a sequence $V_0\subseteq\dots\subseteq V_t$ of node sets and a function $\pi:V\setminus S\to V$, such that:
 \begin{enumerate}
   \item $V_0=S$ and $V_t=V$, \label{def:boundary}
-  \item for all $v\in V\setminus S$, $\{v,\pi(v)\}\in E$, \label{def:edge}
+  \item for all $v\in V\setminus S$, $\{\pi(v),v\}\in E$, \label{def:edge}
   \item for all $k=1,\ldots,t$ and all $v\in V_k$, $\pi(v)\in V_{k-1}$, and \label{def:parent}
-  \item for all $u,v\in V_k\setminus V_{k-1}$, $\pi(u)=\pi(v)$ only if $u=v$. \label{def:unique}
+  \item for all $k=1,\ldots,t$ and all $u,v\in V_k\setminus V_{k-1}$, $\pi(u)=\pi(v)$ only if $u=v$. \label{def:unique}
 \end{enumerate}
 \end{definition}
 
@@ -23,6 +23,7 @@ Conditions \ref{def:edge}--\ref{def:parent} of Definition \ref{def:broadcasttime
 and that it is informed at an earlier time step than the recipient node.
 Because each node can send to at most one neighbor node in each time step,
 condition \ref{def:unique} states that $\pi$ maps the set of nodes becoming informed in step $k$ to distinct parent nodes.
+The preimage of $v$ under $\pi$, that is, the set of child nodes of $v$, is denoted $\pi^{-1}(v)$.
 
 The optimization problem in question is formulated as follows:
 \begin{problem}[\textsc{Minimum Broadcast Time}]\label{prob:min}
@@ -30,9 +31,10 @@ Given $G=(V,E)$ and $S\subseteq V$, find $\tau(G,S)$.
 \end{problem}
 
 \begin{definition} \label{def:broadcastgraph}
-For any $V_0,\ldots,V_t$ and $\pi$ satisfying the conditions of Definition \ref{def:broadcasttime},
+For any $V_0,\ldots,V_t$ and $\pi$ satisfying the conditions of Definition \ref{def:broadcasttime}, possibly with the exception of $t$ being minimum,
 the corresponding \emph{broadcast forest} is
-the digraph $D=(V,A)$, where $A=\left\{\left(v,\pi(v)\right): v\in V\right\}$.
+the digraph $D=(V,A)$, where $A=\left\{\left(\pi(v),v\right): v\in V\right\}$.
+If $t$ is minimum, $D$ is referred to as a \emph{minimum} broadcast forest.
 Each connected component of $D$ is a \emph{communication tree}.
 \end{definition}
 
@@ -43,12 +45,14 @@ and let $T_k(s)$ be the subtree of $T(s)$ induced by $V(s)\cap V_k$.
 Analogously, let $D_k$ be the directed subgraph of $D$ induced by node set $V_k$.
 For the sake of notational simplicity, the dependence on $(V_0,\ldots,V_t,\pi)$ is suppressed when referring to the directed graphs introduced here.
 
-The degree of node $v$ in graph $G$ is denoted by $\delta_G(v)$.
-The set of neighbors of $v\in V$ in $G$ is denoted by $N_G(v)$.
+The degree of node $v$ in graph $G$ is denoted by $\deg_G(v)$.
+% The set of neighbors of $v\in V$ in $G$ is denoted by $N_G(v)$.
 % Whenever there is no risk of confusion, the subscript $G$ is omitted.
-For a given subset $U\subseteq V$ of nodes, we define $N_G(U)=\bigcup_{v\in U}N_G(v)$.
-Likewise, $N_{\overrightarrow{G}}^+(v)=\left\{u\in V:(v,u)\in \overrightarrow{E}\right\}$ and $N_{\overrightarrow{G}}^-(v)=\left\{u\in V:(u,v)\in \overrightarrow{E}\right\}$ denote the neighbor sets of node $v$ in $\overrightarrow{G}$,
-and $N_{\overrightarrow{G}}(v)=N_{\overrightarrow{G}}^+(v)\cup N_{\overrightarrow{G}}^-(v)$.
-Finally, we let $\delta^+_{\overrightarrow{G}}(v)=\left|N_{\overrightarrow{G}}^+(v)\right|$ and $\delta^-_{\overrightarrow{G}}(v)=\left|N_{\overrightarrow{G}}^-(v)\right|$ denote, respectively, the out-degree and the in-degree of $\overrightarrow{G}$,
-and we let $\delta_{\overrightarrow{G}}(v)=\delta_{\overrightarrow{G}}^+(v)+\delta_{\overrightarrow{G}}^-(v)$
-
+For a given subset $U\subseteq V$ of nodes, we define $G[U]$ as the subgraph of $G$ induced by $U$.
+% and $N_G(U)=\bigcup_{v\in U}N_G(v)$.
+% Likewise, $N_{\overrightarrow{G}}^+(v)=\left\{u\in V:(v,u)\in \overrightarrow{E}\right\}$ and $N_{\overrightarrow{G}}^-(v)=\left\{u\in V:(u,v)\in \overrightarrow{E}\right\}$ denote the neighbor sets of node $v$ in $\overrightarrow{G}$,
+% and $N_{\overrightarrow{G}}(v)=N_{\overrightarrow{G}}^+(v)\cup N_{\overrightarrow{G}}^-(v)$.
+% Finally, we let $\deg^+_{\overrightarrow{G}}(v)=\left|N_{\overrightarrow{G}}^+(v)\right|$ and $\deg^-_{\overrightarrow{G}}(v)=\left|N_{\overrightarrow{G}}^-(v)\right|$ denote, respectively, the out-degree and the in-degree of $\overrightarrow{G}$,
+We let $\deg^+_{\overrightarrow{G}}(v)$ and $\deg^-_{\overrightarrow{G}}(v)$ denote, respectively, the out-degree and the in-degree of node $v$ in $\overrightarrow{G}$,
+and we let $\deg_{\overrightarrow{G}}(v)=\deg_{\overrightarrow{G}}^+(v)+\deg_{\overrightarrow{G}}^-(v)$.
+When $p$ is a logical proposition, $\delta_p=1$ if $p$ is true, and $\delta_p=0$, otherwise.

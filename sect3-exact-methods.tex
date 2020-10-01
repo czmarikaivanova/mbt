@@ -4,6 +4,7 @@
 In this section, we formulate an ILP model for Problem \ref{prob:min}, and discuss possible solution strategies. 
 
 \subsection{Broadcast time model}
+\label{sec:optbasic}
 Given an integer $t\geq\tau(G,S)$, define the variables ($(u,v)\in \overrightarrow{E}$, $k=1,\ldots,t$) 
 $$ x_{uv}^k=
 \begin{cases} 
@@ -11,7 +12,7 @@ $$ x_{uv}^k=
 0, \text{ otherwise},
 \end{cases}
 z_{k}=\begin{cases}
-1, \text{ if } k\leq t,\\
+1, \text{ if } k\leq \tau(G,S),\\
 0, \text{ otherwise}.
 \end{cases}
 $$
