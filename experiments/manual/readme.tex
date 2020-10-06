@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage[small]{titlesec}
+\title{MBT Experiments}
+\begin{document}
+\maketitle
+This text contains a description of how to perform experiments with MBT ILP models.
+
+\section{Structure of the folder \texttt{experiments/}}
+\begin{itemize}
+	\item\texttt{ampldata/ } - input files for the ILP models. The CPLEX solver is fed with these data files
+	\item\texttt{javaprograms/ } - procedures written in java 
+	\item\texttt{logs/ } - log files for elapsed time (\texttt{timelog.txt}) and objective function value (\texttt{objlog.txt})
+	\item\texttt{manual/ } - this manual
+	\item\texttt{models/ } - ILP models coded in AMPL
+\end{itemize}
+
+\section{Running the experiment}
+
+The main script for running the experiments is \texttt{iterfiles.sh}.
+It is run by typing \newline\newline
+\texttt{bash ./iterfiles.sh [parameters]}\newline\newline
+from the experiments directory (where iterfiles.sh is located).
+There are three different modes in which \texttt{iterfiles.sh} can be executed.
+
+\subsection{Input data from AMPL}
+
+This option allows to process multiple AMPL files (with *.dat extension). \newline\newline
+\texttt{bash ./iterfiles.sh ampl location\_of\_AMPL\_data\_files}\newline\newline
+The first parameter specifies that the mode is AMPL and the second one points to the folder in which the data files are stored.
+Typically it is the folder experiments/ampldata.
+
+\subsection{Input data from 'raw' files}
+
+A common way of how to store a graph in a file is shown in the following example:
+\texttt{\newline
+4 5\newline
+0 1 1.00\newline
+0 2 1.00\newline
+0 3 1.00\newline
+1 2 1.00\newline
+2 3 1.00\newline
+}
+This example encodes that the graph has 4 nodes and 5 edges, each of unit weight. 
+The edges are (0,1), (0,2), (0, 3),  (1,2) and  (2,3). 
+In order to run experiments on files with raw format, use the command\newline\newline
+\texttt{bash ./iterfiles.sh raw num\_of\_sources location\_of\_raw\_data\_files}\newline\newline
+
+\subsection{Randomly generated instances}
+
+The last option allows to run randomly generated instances with given parameters.
+This option will probably not be used again, so it is only briefly described. 
+More details will be added in case they are needed.
+Type \newline\newline
+\texttt{bash ./iterfiles.sh rand num\_of\_generated\_instances num\_of\_nodes num\_of\_sources density location\_of\_generated\_ampl\_files}\newline\newline
+and the program will generate desired number of random graphs with given number of nodes, sources and edge density. 
+Resulting AMPL files are then stored in the specified location.
+
+\section{How it works}
+
+The purpose of \texttt{iterfiles.sh} is to prepare AMPL data files and generate AMPL runfile that defines experimental settings and calls the solver which executes the computation.
+Once the AMPL data files are prepared, the function \texttt{makeAMPLrun} is called. 
+This function generates the AMPL run file with an AMPL data file as an input.
+
+The file \texttt{iterfiles.sh} is very ad-hoc and contains several hard coded parameters (location of the cplex solver, log files, etc.), which should be adjusted according to the machine on which it is executed.
+Which AMPL model is used is specified inside the body of the function \texttt{makeAMPLrun}.	
+Elapsed time and objective function value of individual methods are stored in files \texttt{timelog.txt} and \texttt{objlog.txt}.
+
+
+
+\end{document}
