@@ -1,0 +1,23 @@
+option solver "/home/marika/software/AMPL/cplex";
+option cplex_options 'mipdisplay 2 mipinterval 1';
+
+set FILENAMES;
+param lb;		# lower bound
+param ub;		# upper bound
+param v1;
+param v2;
+
+model "models/MBT-mintime.mod";
+data "filenames.dat";	# Names of files in folder ./data
+
+for{fname in FILENAMES} {
+	read cardV, cardE, cardS < (fname);
+	read lb, ub < (fname);			#read lower and upper bounds
+	let E := {};
+	for{k in 1..cardE} {
+		read v1,v2 < (fname);  # Read an edge from a textfile
+		let E := E union {(min(v1,v2),max(v1,v2))};
+	}
+	solve;
+}
+

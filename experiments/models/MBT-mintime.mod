@@ -1,13 +1,13 @@
 # Parameters:
-param k; 			# Not used here, only in the straightforward model
-param n; 			# Total number of satellites
-param s; 			# Number of source satellites
+param cardV; 			# Total number of satellites
+param cardS; 			# Number of source satellites
+param cardE;			# Number of edges
 
-param tmax default n - 1;	# Upper bound on broadcast time
+param tmax default cardV - 1;	# Upper bound on broadcast time
 
 # Sets:
-set V = 0 .. n - 1; 						# Set of all nodes
-set S = 0 .. s - 1; 						# Set of sources
+set V = 0 .. cardV - 1;						# Set of all nodes
+set S = 0 .. cardS - 1;						# Set of sources
 set E within {(i,j) in V cross V: i<j}; 			# Set of edges (communication links) 
 set A={(i,j) in V cross V: (i,j) in E || (j,i) in E}; 		# set of arcs (directed communication links)
 set N{i in V} within V = {j in V: (i,j) in E || (j,i) in E}; 	# N[i] is a set of all neighbors of i
