@@ -1,0 +1,1283 @@
+FILENAME: ./data/ins_50_01.txt
+========================
+------------------------
+MODEL: max informed, INTEGRALITY RELAXED: 1
+------------------------
+presolve, constraint noFirst[6,7]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[5,6]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[4,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[3,4]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,3]:
+	all variables eliminated, but upper bound = -1 < 0
+2 presolve messages suppressed.
+Infeasible constraints determined by presolve.
+_ampl_elapsed_time = 0.001734
+_ampl_time = 0.003657
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 26 constraints and 17 variables.
+Adjusted problem:
+0 variables;
+7 constraints, all linear; 0 nonzeros
+	7 equality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 1
+
+Presolve eliminates 47 constraints and 32 variables.
+Adjusted problem:
+2 variables, all linear
+4 constraints, all linear; 2 nonzeros
+	3 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[6,7]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[4,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,3]:
+	all variables eliminated, but upper bound = -1 < 0
+_ampl_elapsed_time = 0.002095
+_ampl_time = 0.004018
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 47 constraints and 32 variables.
+Adjusted problem:
+2 variables, all linear
+4 constraints, all linear; 2 nonzeros
+	3 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 2
+
+Presolve eliminates 62 constraints and 48 variables.
+Adjusted problem:
+3 variables, all linear
+7 constraints, all linear; 4 nonzeros
+	5 equality constraints
+	2 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[4]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.002898
+_ampl_time = 0.004506
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 62 constraints and 48 variables.
+Adjusted problem:
+3 variables, all linear
+7 constraints, all linear; 4 nonzeros
+	5 equality constraints
+	2 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 3
+
+Presolve eliminates 80 constraints and 64 variables.
+Adjusted problem:
+4 variables, all linear
+7 constraints, all linear; 6 nonzeros
+	4 equality constraints
+	3 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.003475
+_ampl_time = 0.005083
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 80 constraints and 64 variables.
+Adjusted problem:
+4 variables, all linear
+7 constraints, all linear; 6 nonzeros
+	4 equality constraints
+	3 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 4
+
+Presolve eliminates 98 constraints and 80 variables.
+Adjusted problem:
+5 variables, all linear
+7 constraints, all linear; 8 nonzeros
+	3 equality constraints
+	4 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.004048
+_ampl_time = 0.005656
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 98 constraints and 80 variables.
+Adjusted problem:
+5 variables, all linear
+7 constraints, all linear; 8 nonzeros
+	3 equality constraints
+	4 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 5
+
+Presolve eliminates 116 constraints and 96 variables.
+Adjusted problem:
+6 variables, all linear
+7 constraints, all linear; 10 nonzeros
+	2 equality constraints
+	5 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.004537
+_ampl_time = 0.006145
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 116 constraints and 96 variables.
+Adjusted problem:
+6 variables, all linear
+7 constraints, all linear; 10 nonzeros
+	2 equality constraints
+	5 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 6
+
+Presolve eliminates 134 constraints and 112 variables.
+Adjusted problem:
+7 variables, all linear
+7 constraints, all linear; 12 nonzeros
+	1 equality constraint
+	6 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.004965
+_ampl_time = 0.006573
+_solve_elapsed_time = 0
+_solve_time = 0
+_total_solve_elapsed_time = 0
+_total_solve_time = 0
+
+solve_result = infeasible
+
+
+Presolve eliminates 134 constraints and 112 variables.
+Adjusted problem:
+7 variables, all linear
+7 constraints, all linear; 12 nonzeros
+	1 equality constraint
+	6 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 7
+
+Presolve eliminates 152 constraints and 128 variables.
+Adjusted problem:
+8 variables, all linear
+7 constraints, all linear; 14 nonzeros
+	7 inequality constraints
+1 linear objective; 0 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 0
+CPLEX 12.10.0.0: optimal solution; objective 8
+0 dual simplex iterations (0 in phase I)
+_ampl_elapsed_time = 0.006117
+_ampl_time = 0.008008
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = solved
+
+
+Presolve eliminates 152 constraints and 128 variables.
+Adjusted problem:
+8 variables, all linear
+7 constraints, all linear; 14 nonzeros
+	7 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Optimal solution found, n-s nodes informed. Broadcast time: 8
+------------------------
+MODEL: max informed, INTEGRALITY RELAXED: 0
+------------------------
+
+Presolve eliminates 26 constraints and 17 variables.
+Adjusted problem:
+0 variables;
+7 constraints, all linear; 0 nonzeros
+	7 equality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[6,7]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[5,6]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[4,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[3,4]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,3]:
+	all variables eliminated, but upper bound = -1 < 0
+2 presolve messages suppressed.
+Infeasible constraints determined by presolve.
+_ampl_elapsed_time = 0.006822
+_ampl_time = 0.008713
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 26 constraints and 17 variables.
+Adjusted problem:
+0 variables;
+7 constraints, all linear; 0 nonzeros
+	7 equality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 1
+
+Presolve eliminates 47 constraints and 32 variables.
+Adjusted problem:
+2 variables, all binary
+4 constraints, all linear; 2 nonzeros
+	3 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[6,7]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[4,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,3]:
+	all variables eliminated, but upper bound = -1 < 0
+_ampl_elapsed_time = 0.007332
+_ampl_time = 0.009223
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 47 constraints and 32 variables.
+Adjusted problem:
+2 variables, all binary
+4 constraints, all linear; 2 nonzeros
+	3 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 2
+
+Presolve eliminates 62 constraints and 48 variables.
+Adjusted problem:
+3 variables, all binary
+7 constraints, all linear; 4 nonzeros
+	5 equality constraints
+	2 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[4]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.00787
+_ampl_time = 0.009762
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 62 constraints and 48 variables.
+Adjusted problem:
+3 variables, all binary
+7 constraints, all linear; 4 nonzeros
+	5 equality constraints
+	2 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 3
+
+Presolve eliminates 80 constraints and 64 variables.
+Adjusted problem:
+4 variables, all binary
+7 constraints, all linear; 6 nonzeros
+	4 equality constraints
+	3 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.008482
+_ampl_time = 0.010372
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 80 constraints and 64 variables.
+Adjusted problem:
+4 variables, all binary
+7 constraints, all linear; 6 nonzeros
+	4 equality constraints
+	3 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 4
+
+Presolve eliminates 98 constraints and 80 variables.
+Adjusted problem:
+5 variables, all binary
+7 constraints, all linear; 8 nonzeros
+	3 equality constraints
+	4 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.009169
+_ampl_time = 0.011061
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 98 constraints and 80 variables.
+Adjusted problem:
+5 variables, all binary
+7 constraints, all linear; 8 nonzeros
+	3 equality constraints
+	4 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 5
+
+Presolve eliminates 116 constraints and 96 variables.
+Adjusted problem:
+6 variables, all binary
+7 constraints, all linear; 10 nonzeros
+	2 equality constraints
+	5 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.009992
+_ampl_time = 0.011884
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 116 constraints and 96 variables.
+Adjusted problem:
+6 variables, all binary
+7 constraints, all linear; 10 nonzeros
+	2 equality constraints
+	5 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 6
+
+Presolve eliminates 134 constraints and 112 variables.
+Adjusted problem:
+7 variables, all binary
+7 constraints, all linear; 12 nonzeros
+	1 equality constraint
+	6 inequality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[8]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.010726
+_ampl_time = 0.012618
+_solve_elapsed_time = 0.029335
+_solve_time = 0.011055
+_total_solve_elapsed_time = 0.029335
+_total_solve_time = 0.011055
+
+solve_result = infeasible
+
+
+Presolve eliminates 134 constraints and 112 variables.
+Adjusted problem:
+7 variables, all binary
+7 constraints, all linear; 12 nonzeros
+	1 equality constraint
+	6 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 7
+
+Presolve eliminates 152 constraints and 128 variables.
+Adjusted problem:
+8 variables, all binary
+7 constraints, all linear; 14 nonzeros
+	7 inequality constraints
+1 linear objective; 0 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 1
+1 of 1 MIP starts provided solutions.
+MIP start 'm1' defined initial solution with objective 8.0000.
+MIP Presolve eliminated 7 rows and 8 columns.
+All rows and columns eliminated.
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPLEX 12.10.0.0: optimal integer solution; objective 8
+0 MIP simplex iterations
+0 branch-and-bound nodes
+_ampl_elapsed_time = 0.011894
+_ampl_time = 0.014096
+_solve_elapsed_time = 0.019524
+_solve_time = 0.008413
+_total_solve_elapsed_time = 0.048859
+_total_solve_time = 0.019468
+
+solve_result = solved
+
+
+Presolve eliminates 152 constraints and 128 variables.
+Adjusted problem:
+8 variables, all binary
+7 constraints, all linear; 14 nonzeros
+	7 inequality constraints
+1 linear objective; 0 nonzeros.
+
+Optimal solution found, n-s nodes informed. Broadcast time: 8
+------------------------
+MODEL: min time
+------------------------
+
+Presolve eliminates 159 constraints and 136 variables.
+Adjusted problem:
+0 variables;
+0 constraints
+1 linear objective; 0 nonzeros.
+
+Solution determined by presolve;
+objective minTime = 8.
+_ampl_elapsed_time = 0.012436
+_ampl_time = 0.014639
+_solve_elapsed_time = 0.019524
+_solve_time = 0.008413
+_total_solve_elapsed_time = 0.048859
+_total_solve_time = 0.019468
+
+solve_result = solved
+
+
+Presolve eliminates 159 constraints and 136 variables.
+Adjusted problem:
+0 variables;
+0 constraints
+1 linear objective; 0 nonzeros.
+
+FILENAME: ./data/ins_50_02.txt
+========================
+------------------------
+MODEL: max informed, INTEGRALITY RELAXED: 1
+------------------------
+
+Presolve eliminates 15 constraints and 15 variables.
+Adjusted problem:
+0 variables;
+4 constraints, all linear; 0 nonzeros
+	4 equality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[4,6]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[4,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,4]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint allReceive[3]:
+	all variables eliminated, but lower bound = 1 > 0
+Infeasible constraints determined by presolve.
+_ampl_elapsed_time = 0.012857
+_ampl_time = 0.01506
+_solve_elapsed_time = 0.019524
+_solve_time = 0.008413
+_total_solve_elapsed_time = 0.048859
+_total_solve_time = 0.019468
+
+solve_result = infeasible
+
+
+Presolve eliminates 15 constraints and 15 variables.
+Adjusted problem:
+0 variables;
+4 constraints, all linear; 0 nonzeros
+	4 equality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 1
+
+Presolve eliminates 23 constraints and 28 variables.
+Adjusted problem:
+2 variables, all linear
+3 constraints, all linear; 2 nonzeros
+	2 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.013063
+_ampl_time = 0.015265
+_solve_elapsed_time = 0.019524
+_solve_time = 0.008413
+_total_solve_elapsed_time = 0.048859
+_total_solve_time = 0.019468
+
+solve_result = infeasible
+
+
+Presolve eliminates 23 constraints and 28 variables.
+Adjusted problem:
+2 variables, all linear
+3 constraints, all linear; 2 nonzeros
+	2 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 2
+
+Presolve eliminates 25 constraints and 36 variables.
+Adjusted problem:
+9 variables, all linear
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.013309
+_ampl_time = 0.015512
+_solve_elapsed_time = 0.019524
+_solve_time = 0.008413
+_total_solve_elapsed_time = 0.048859
+_total_solve_time = 0.019468
+
+solve_result = infeasible
+
+
+Presolve eliminates 25 constraints and 36 variables.
+Adjusted problem:
+9 variables, all linear
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+Infeasible for deadline k = 3
+
+Presolve eliminates 19 constraints and 30 variables.
+Adjusted problem:
+30 variables, all linear
+21 constraints, all linear; 72 nonzeros
+	6 equality constraints
+	15 inequality constraints
+1 linear objective; 26 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 0
+CPLEX 12.10.0.0: optimal solution; objective 6
+13 dual simplex iterations (0 in phase I)
+_ampl_elapsed_time = 0.01385
+_ampl_time = 0.01621
+_solve_elapsed_time = 0.006814
+_solve_time = 0.006727
+_total_solve_elapsed_time = 0.055673
+_total_solve_time = 0.026195
+
+solve_result = solved
+
+
+Presolve eliminates 19 constraints and 30 variables.
+Adjusted problem:
+30 variables, all linear
+21 constraints, all linear; 72 nonzeros
+	6 equality constraints
+	15 inequality constraints
+1 linear objective; 26 nonzeros.
+
+Optimal solution found, n-s nodes informed. Broadcast time: 4
+------------------------
+MODEL: max informed, INTEGRALITY RELAXED: 0
+------------------------
+
+Presolve eliminates 15 constraints and 15 variables.
+Adjusted problem:
+0 variables;
+4 constraints, all linear; 0 nonzeros
+	4 equality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[4,6]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[4,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,4]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint allReceive[3]:
+	all variables eliminated, but lower bound = 1 > 0
+Infeasible constraints determined by presolve.
+_ampl_elapsed_time = 0.014269
+_ampl_time = 0.016628
+_solve_elapsed_time = 0.006814
+_solve_time = 0.006727
+_total_solve_elapsed_time = 0.055673
+_total_solve_time = 0.026195
+
+solve_result = infeasible
+
+
+Presolve eliminates 15 constraints and 15 variables.
+Adjusted problem:
+0 variables;
+4 constraints, all linear; 0 nonzeros
+	4 equality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 1
+
+Presolve eliminates 23 constraints and 28 variables.
+Adjusted problem:
+2 variables, all binary
+3 constraints, all linear; 2 nonzeros
+	2 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+presolve, constraint allReceive[6]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.01469
+_ampl_time = 0.016962
+_solve_elapsed_time = 0.006814
+_solve_time = 0.006727
+_total_solve_elapsed_time = 0.055673
+_total_solve_time = 0.026195
+
+solve_result = infeasible
+
+
+Presolve eliminates 23 constraints and 28 variables.
+Adjusted problem:
+2 variables, all binary
+3 constraints, all linear; 2 nonzeros
+	2 equality constraints
+	1 inequality constraint
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 2
+
+Presolve eliminates 25 constraints and 36 variables.
+Adjusted problem:
+9 variables, all binary
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+presolve, constraint allReceive[5]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.014967
+_ampl_time = 0.017238
+_solve_elapsed_time = 0.006814
+_solve_time = 0.006727
+_total_solve_elapsed_time = 0.055673
+_total_solve_time = 0.026195
+
+solve_result = infeasible
+
+
+Presolve eliminates 25 constraints and 36 variables.
+Adjusted problem:
+9 variables, all binary
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+Infeasible for deadline k = 3
+
+Presolve eliminates 19 constraints and 30 variables.
+Adjusted problem:
+30 variables, all binary
+21 constraints, all linear; 72 nonzeros
+	6 equality constraints
+	15 inequality constraints
+1 linear objective; 26 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 1
+Retaining values of one MIP start for possible repair.
+Found incumbent of value 6.000000 after 0.00 sec. (0.01 ticks)
+MIP Presolve eliminated 13 rows and 17 columns.
+Reduced MIP has 6 rows, 11 columns, and 22 nonzeros.
+Reduced MIP has 11 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Probing fixed 3 vars, tightened 0 bounds.
+Probing time = 0.00 sec. (0.00 ticks)
+MIP Presolve eliminated 5 rows and 10 columns.
+MIP Presolve modified 1 coefficients.
+All rows and columns eliminated.
+
+Root node processing (before b&c):
+  Real time             =    0.01 sec. (1.07 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.01 sec. (1.07 ticks)
+CPLEX 12.10.0.0: optimal integer solution; objective 6
+0 MIP simplex iterations
+0 branch-and-bound nodes
+Tried aggregator 2 times
+_ampl_elapsed_time = 0.015666
+_ampl_time = 0.018292
+_solve_elapsed_time = 0.023782
+_solve_time = 0.011452
+_total_solve_elapsed_time = 0.079455
+_total_solve_time = 0.037647
+
+solve_result = solved
+
+
+Presolve eliminates 19 constraints and 30 variables.
+Adjusted problem:
+30 variables, all binary
+21 constraints, all linear; 72 nonzeros
+	6 equality constraints
+	15 inequality constraints
+1 linear objective; 26 nonzeros.
+
+Optimal solution found, n-s nodes informed. Broadcast time: 4
+------------------------
+MODEL: min time
+------------------------
+
+Presolve eliminates 31 constraints and 30 variables.
+Adjusted problem:
+30 variables, all binary
+37 constraints, all linear; 114 nonzeros
+	6 equality constraints
+	31 inequality constraints
+1 linear objective; 4 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 1
+Retaining values of one MIP start for possible repair.
+MIP Presolve modified 3 coefficients.
+Reduced MIP has 37 rows, 30 columns, and 118 nonzeros.
+Reduced MIP has 30 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Found incumbent of value 4.000000 after 0.00 sec. (0.24 ticks)
+Probing fixed 20 vars, tightened 0 bounds.
+Probing changed sense of 2 constraints.
+Probing time = 0.00 sec. (0.02 ticks)
+Cover probing fixed 0 vars, tightened 2 bounds.
+MIP Presolve eliminated 35 rows and 28 columns.
+All rows and columns eliminated.
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (1.27 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (1.27 ticks)
+CPLEX 12.10.0.0: optimal integer solution; objective 4
+0 MIP simplex iterations
+0 branch-and-bound nodes
+Tried aggregator 3 times
+_ampl_elapsed_time = 0.01673
+_ampl_time = 0.019587
+_solve_elapsed_time = 0.024639
+_solve_time = 0.01101
+_total_solve_elapsed_time = 0.104094
+_total_solve_time = 0.048657
+
+solve_result = solved
+
+
+Presolve eliminates 31 constraints and 30 variables.
+Adjusted problem:
+30 variables, all binary
+37 constraints, all linear; 114 nonzeros
+	6 equality constraints
+	31 inequality constraints
+1 linear objective; 4 nonzeros.
+
+FILENAME: ./data/ins_50_03.txt
+========================
+------------------------
+MODEL: max informed, INTEGRALITY RELAXED: 1
+------------------------
+
+Presolve eliminates 21 constraints and 21 variables.
+Adjusted problem:
+0 variables;
+5 constraints, all linear; 0 nonzeros
+	5 equality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[5,6]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[1,3]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[4]:
+	all variables eliminated, but lower bound = 1 > 0
+Infeasible constraints determined by presolve.
+_ampl_elapsed_time = 0.017112
+_ampl_time = 0.01997
+_solve_elapsed_time = 0.024639
+_solve_time = 0.01101
+_total_solve_elapsed_time = 0.104094
+_total_solve_time = 0.048657
+
+solve_result = infeasible
+
+
+Presolve eliminates 21 constraints and 21 variables.
+Adjusted problem:
+0 variables;
+5 constraints, all linear; 0 nonzeros
+	5 equality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 1
+
+Presolve eliminates 28 constraints and 36 variables.
+Adjusted problem:
+6 variables, all linear
+6 constraints, all linear; 9 nonzeros
+	2 equality constraints
+	4 inequality constraints
+1 linear objective; 4 nonzeros.
+
+presolve, variable x[6,5,2]:
+	impossible deduced bounds: lower = 0, upper = -1
+presolve: constraint inIfOut[5,2] cannot hold:
+	body <= -1 cannot be >= 0; difference = -1
+presolve, variable x[5,3,2]:
+	impossible deduced bounds: lower = 0, upper = -1
+_ampl_elapsed_time = 0.017274
+_ampl_time = 0.020131
+_solve_elapsed_time = 0.024639
+_solve_time = 0.01101
+_total_solve_elapsed_time = 0.104094
+_total_solve_time = 0.048657
+
+solve_result = infeasible
+
+
+Presolve eliminates 28 constraints and 36 variables.
+Adjusted problem:
+6 variables, all linear
+6 constraints, all linear; 9 nonzeros
+	2 equality constraints
+	4 inequality constraints
+1 linear objective; 4 nonzeros.
+
+Infeasible for deadline k = 2
+
+Presolve eliminates 34 constraints and 54 variables.
+Adjusted problem:
+9 variables, all linear
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.017434
+_ampl_time = 0.020291
+_solve_elapsed_time = 0.024639
+_solve_time = 0.01101
+_total_solve_elapsed_time = 0.104094
+_total_solve_time = 0.048657
+
+solve_result = infeasible
+
+
+Presolve eliminates 34 constraints and 54 variables.
+Adjusted problem:
+9 variables, all linear
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+Infeasible for deadline k = 3
+
+Presolve eliminates 37 constraints and 64 variables.
+Adjusted problem:
+20 variables, all linear
+13 constraints, all linear; 45 nonzeros
+	3 equality constraints
+	10 inequality constraints
+1 linear objective; 16 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 0
+CPLEX 12.10.0.0: optimal solution; objective 7
+5 dual simplex iterations (0 in phase I)
+_ampl_elapsed_time = 0.017926
+_ampl_time = 0.020932
+_solve_elapsed_time = 0.006109
+_solve_time = 0.005656
+_total_solve_elapsed_time = 0.110203
+_total_solve_time = 0.054313
+
+solve_result = solved
+
+
+Presolve eliminates 37 constraints and 64 variables.
+Adjusted problem:
+20 variables, all linear
+13 constraints, all linear; 45 nonzeros
+	3 equality constraints
+	10 inequality constraints
+1 linear objective; 16 nonzeros.
+
+Optimal solution found, n-s nodes informed. Broadcast time: 4
+------------------------
+MODEL: max informed, INTEGRALITY RELAXED: 0
+------------------------
+
+Presolve eliminates 21 constraints and 21 variables.
+Adjusted problem:
+0 variables;
+5 constraints, all linear; 0 nonzeros
+	5 equality constraints
+1 linear objective; 0 nonzeros.
+
+presolve, constraint noFirst[5,6]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[2,5]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint noFirst[1,3]:
+	all variables eliminated, but upper bound = -1 < 0
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+presolve, constraint allReceive[4]:
+	all variables eliminated, but lower bound = 1 > 0
+Infeasible constraints determined by presolve.
+_ampl_elapsed_time = 0.018634
+_ampl_time = 0.021423
+_solve_elapsed_time = 0.006109
+_solve_time = 0.005656
+_total_solve_elapsed_time = 0.110203
+_total_solve_time = 0.054313
+
+solve_result = infeasible
+
+
+Presolve eliminates 21 constraints and 21 variables.
+Adjusted problem:
+0 variables;
+5 constraints, all linear; 0 nonzeros
+	5 equality constraints
+1 linear objective; 0 nonzeros.
+
+Infeasible for deadline k = 1
+
+Presolve eliminates 28 constraints and 36 variables.
+Adjusted problem:
+6 variables, all binary
+6 constraints, all linear; 9 nonzeros
+	2 equality constraints
+	4 inequality constraints
+1 linear objective; 4 nonzeros.
+
+presolve, variable x[6,5,2]:
+	impossible deduced bounds: lower = 0, upper = -1
+presolve: constraint inIfOut[5,2] cannot hold:
+	body <= -1 cannot be >= 0; difference = -1
+presolve, variable x[5,3,2]:
+	impossible deduced bounds: lower = 0, upper = -1
+_ampl_elapsed_time = 0.019119
+_ampl_time = 0.021738
+_solve_elapsed_time = 0.006109
+_solve_time = 0.005656
+_total_solve_elapsed_time = 0.110203
+_total_solve_time = 0.054313
+
+solve_result = infeasible
+
+
+Presolve eliminates 28 constraints and 36 variables.
+Adjusted problem:
+6 variables, all binary
+6 constraints, all linear; 9 nonzeros
+	2 equality constraints
+	4 inequality constraints
+1 linear objective; 4 nonzeros.
+
+Infeasible for deadline k = 2
+
+Presolve eliminates 34 constraints and 54 variables.
+Adjusted problem:
+9 variables, all binary
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+presolve, constraint allReceive[7]:
+	all variables eliminated, but lower bound = 1 > 0
+_ampl_elapsed_time = 0.019595
+_ampl_time = 0.022075
+_solve_elapsed_time = 0.006109
+_solve_time = 0.005656
+_total_solve_elapsed_time = 0.110203
+_total_solve_time = 0.054313
+
+solve_result = infeasible
+
+
+Presolve eliminates 34 constraints and 54 variables.
+Adjusted problem:
+9 variables, all binary
+8 constraints, all linear; 17 nonzeros
+	3 equality constraints
+	5 inequality constraints
+1 linear objective; 6 nonzeros.
+
+Infeasible for deadline k = 3
+
+Presolve eliminates 37 constraints and 64 variables.
+Adjusted problem:
+20 variables, all binary
+13 constraints, all linear; 45 nonzeros
+	3 equality constraints
+	10 inequality constraints
+1 linear objective; 16 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 1
+Retaining values of one MIP start for possible repair.
+Found incumbent of value 7.000000 after 0.00 sec. (0.01 ticks)
+MIP Presolve eliminated 10 rows and 14 columns.
+Reduced MIP has 1 rows, 4 columns, and 4 nonzeros.
+Reduced MIP has 4 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Probing time = 0.00 sec. (0.00 ticks)
+MIP Presolve eliminated 1 rows and 4 columns.
+All rows and columns eliminated.
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.06 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.06 ticks)
+CPLEX 12.10.0.0: optimal integer solution; objective 7
+0 MIP simplex iterations
+0 branch-and-bound nodes
+_ampl_elapsed_time = 0.020477
+_ampl_time = 0.023162
+_solve_elapsed_time = 0.015437
+_solve_time = 0.00787
+_total_solve_elapsed_time = 0.12564
+_total_solve_time = 0.062183
+
+solve_result = solved
+
+
+Presolve eliminates 37 constraints and 64 variables.
+Adjusted problem:
+20 variables, all binary
+13 constraints, all linear; 45 nonzeros
+	3 equality constraints
+	10 inequality constraints
+1 linear objective; 16 nonzeros.
+
+Optimal solution found, n-s nodes informed. Broadcast time: 4
+------------------------
+MODEL: min time
+------------------------
+
+Presolve eliminates 72 constraints and 71 variables.
+Adjusted problem:
+13 variables, all binary
+10 constraints, all linear; 34 nonzeros
+	3 equality constraints
+	7 inequality constraints
+1 linear objective; 0 nonzeros.
+
+CPLEX 12.10.0.0: mipdisplay 2
+mipinterval 1
+absmipgap 0.99999
+lowercutoff 1
+Retaining values of one MIP start for possible repair.
+Found incumbent of value 4.000000 after 0.00 sec. (0.01 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.01 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.01 ticks)
+CPLEX 12.10.0.0: optimal integer solution; objective 4
+0 MIP simplex iterations
+0 branch-and-bound nodes
+_ampl_elapsed_time = 0.021252
+_ampl_time = 0.024226
+_solve_elapsed_time = 0.009108
+_solve_time = 0.006982
+_total_solve_elapsed_time = 0.134748
+_total_solve_time = 0.069165
+
+solve_result = solved
+
+
+Presolve eliminates 72 constraints and 71 variables.
+Adjusted problem:
+13 variables, all binary
+10 constraints, all linear; 34 nonzeros
+	3 equality constraints
+	7 inequality constraints
+1 linear objective; 0 nonzeros.
+

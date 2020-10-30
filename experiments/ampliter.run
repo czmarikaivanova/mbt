@@ -1,23 +1,104 @@
-option solver "/home/marika/software/AMPL/cplex";
-option cplex_options 'mipdisplay 2 mipinterval 1';
+option solver "/home/marika/software/AMPL/cplex";	# path to used solver (cplex)
+option cplex_options 'mipdisplay 2 mipinterval 1';	# what should be displayed during solution process
+option eexit -99999; 					# supress bailing after xxx warnings
+#option log_file "logs/logfile.txt";			# log console output
 
 set FILENAMES;
 param lb;		# lower bound
 param ub;		# upper bound
-param v1;
+param v1;	
 param v2;
+param tlim default 3600;			# time limit for the solver
+param _total_cmd_elapsed_time default 0;	# cummulate _solve_elapsed_time for each iteration of decision model
+param objlog symbolic := "./logs/objlog.txt";	# objective function value log file
+param timelog symbolic := "./logs/timelog.txt"; # _solve_elapsed_time log file
 
-model "models/MBT-mintime.mod";
 data "filenames.dat";	# Names of files in folder ./data
 
+model "models/MBT-combined.mod";
+
 for{fname in FILENAMES} {
+	printf 'FILENAME: %s\n', fname; 
+	printf '========================\n';
+        printf '%s\t', fname >> (objlog);
+        printf '%s\t', fname >> (timelog);
+
+	# STARTOF LOADING DATA --------------------------------------
+	reset data;
 	read cardV, cardE, cardS < (fname);
-	read lb, ub < (fname);			#read lower and upper bounds
 	let E := {};
 	for{k in 1..cardE} {
 		read v1,v2 < (fname);  # Read an edge from a textfile
 		let E := E union {(min(v1,v2),max(v1,v2))};
 	}
+	read lb, ub < (fname);		#read lower and upper bounds
+
+	# END OF LOADING DATA --------------------------------------
+	
+	drop xcrel;
+	for {j in 0..1} {					# This model is once solved as a LP relaxation (for finding lower bound) and then as an IP
+		printf '------------------------\n';
+		printf 'MODEL: max informed, INTEGRALITY RELAXED: %d\n', (if j=0 then 1 else 0);
+		printf '------------------------\n';
+		let tlim := 3600;
+
+		let _total_cmd_elapsed_time := 0;
+		for {i in lb..ub} {						# iterate from lower to upper bound
+		        let tmax := i;
+			let tlim := tlim - _solve_elapsed_time; 		# decrease the time limit by _solve_elapsed_time of each iteration
+			option relax_integrality (if j= 0 then 1 else 0);	# set if IP or LP
+			option cplex_options ('timelimit ' & tlim);		# set time limit for the following solve command
+			#option cplex_options ('absmipgap 0 lowercutoff ' & j);
+			objective maxInformed;
+		        solve;
+			let _total_cmd_elapsed_time := _total_cmd_elapsed_time + _solve_elapsed_time;
+			#display _ampl_elapsed_time, _ampl_time, _solve_elapsed_time, _solve_time, _total_solve_elapsed_time,  _total_solve_time;
+			display solve_result;
+			option show_stats 1; 
+			
+		        if solve_result = 'solved' then { 	# a solution is found
+				# If a solution is found, but objective is not n-s, then the solution is in fact infeasible!
+				if round(maxInformed,2) = cardV-cardS then {
+					printf '%4.2f\t', _total_cmd_elapsed_time >> (timelog);
+					printf '%2.0f\t', i >> (objlog);
+		        	        printf 'Optimal solution found, n-s nodes informed. Broadcast time: %d\n',i;
+		        	        break;
+				}
+		        }
+			if solve_result = 'infeasible' then {	# the instance has no feasible solution
+					if i = ub-1 then {		# if we are in the last iteration before the upper bound, the solution is indeed the ub.
+						printf '%4.2f\t',  _total_cmd_elapsed_time  >> (timelog);
+					printf '%2.0f\t', ub >> (objlog);
+					printf 'Infeasible solution for iteration %d, but upper bound %d can now be used',i,ub;
+		                	break;
+				}
+				else {
+		        		printf 'Infeasible for deadline k = %d\n',i;
+				}
+			}
+			# If we got here, it means that we exceeded the time limit without finding the solution
+			 if solve_result = 'limit' then {
+				printf '%4.2f\t',  _total_cmd_elapsed_time  >> (timelog);
+				printf '%2.0f\t', i >> (objlog);
+		                printf 'Time limit exceeded. Best value found (LB): %d\n',i;
+		                break;
+		        }
+		}
+	}
+ 	printf '------------------------\n';
+	printf 'MODEL: min time\n';
+	printf '------------------------\n';
+	drop oneAtATime;
+	restore xcrel;
+	objective minTime;
 	solve;
+        printf '%d\t',ceil(minTime) >> (objlog);
+        printf '%4.2f\t', _solve_elapsed_time  >> (timelog);
+        #display _ampl_elapsed_time, _ampl_time, _solve_elapsed_time, _solve_time, _total_solve_elapsed_time,  _total_solve_time;
+        display solve_result;
+        option show_stats 1; 
+      
+	printf '\n' >> (timelog);
+	printf '\n' >> (objlog);
 }
 
