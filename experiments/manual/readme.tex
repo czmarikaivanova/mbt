@@ -19,8 +19,11 @@ This text contains a description of how to perform experiments with MBT ILP mode
 The main script for running the experiments is \texttt{mbtrun.sh}.
 The script is executed by typing \newline\newline
 \texttt{./mbtrun.sh [path to directory with input files] <time limit> }\newline\newline
+or\newline\newline 
+\texttt{./mbtrun.sh [path to one input file] <time limit> }\newline\newline
 from the directory \texttt{experiments/} (where \texttt{mbtrun.sh} is located).
-If the optional parameter <time limit> in seconds is not specified, the default value (3600s) applies.
+The first parameter specifying either a directory containing instance files, or a single instance file is required.
+If the optional parameter \texttt{<time limit>} in seconds is not specified, the default value (3600s) applies.
 
 \section{Input data}
 

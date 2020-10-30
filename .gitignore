@@ -33,3 +33,6 @@ C:\\nppdf32Log\\debuglog.txt
 # Swap files
 *.swp
 *.swo
+
+timelog.txt
+objlog.txt
