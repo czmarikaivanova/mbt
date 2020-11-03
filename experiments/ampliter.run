@@ -8,6 +8,7 @@ param lb;		# lower bound
 param ub;		# upper bound
 param v1;	
 param v2;
+param s1;
 param tlim default 3600;			# time limit for the solver
 param _total_cmd_elapsed_time default 0;	# cummulate _solve_elapsed_time for each iteration of decision model
 param objlog symbolic := "./logs/objlog.txt";	# objective function value log file
@@ -30,6 +31,11 @@ for{fname in FILENAMES} {
 	for{k in 1..cardE} {
 		read v1,v2 < (fname);  # Read an edge from a textfile
 		let E := E union {(min(v1,v2),max(v1,v2))};
+	}
+	let S := {};
+	for {k in 1..cardS} {
+		read s1 < (fname); # Read a source node id from a textfile
+		let S := S union {s1};
 	}
 	read lb, ub < (fname);		#read lower and upper bounds
 

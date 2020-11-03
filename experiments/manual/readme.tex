@@ -35,11 +35,12 @@ v1 v2\newline
 v1 v3\newline
 v2 v4\newline
 ...\newline
+s1 s2 s3...\newline
 lb ub\newline\newline
 }
-where \texttt{cardV} is the number of nodes, \texttt{cardS} is the number of sources (the sources have indices $0\dots\texttt{cardS}-1$, 
-and \texttt{cardE} is the number of edges (potential communication links).
-Finally \texttt{lb} and \texttt{ub} denote lower and upper bound on the optimal solution, respectively.
+where \texttt{cardV} is the number of nodes, \texttt{cardS} is the number of sources and \texttt{cardE} is the number of edges (potential communication links).
+The first line is followed by a list of edges, and the second last line consists of a list of source nodes.
+Finally, \texttt{lb} and \texttt{ub} denote lower and upper bound on the optimal solution, respectively.
 There must not be any other characters.
 An example of an input file representing a path on 9 nodes with one source "0" look as follows:\newline\newline
 \texttt{
@@ -52,6 +53,7 @@ An example of an input file representing a path on 9 nodes with one source "0" l
 5	6\newline
 6	7\newline
 7	8\newline
+0\newline
 4	12\newline\newline
 }
 

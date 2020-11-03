@@ -7,7 +7,7 @@ param tmax default cardV - 1;	# Upper bound on broadcast time
 
 # Sets:
 set V = 0 .. cardV - 1;						# Set of all nodes
-set S = 0 .. cardS - 1;						# Set of sources
+set S default 0 .. cardS - 1;						# Set of sources
 set E within {(i,j) in V cross V: i<j}; 			# Set of edges (communication links) 
 set A={(i,j) in V cross V: (i,j) in E || (j,i) in E}; 		# set of arcs (directed communication links)
 set N{i in V} within V = {j in V: (i,j) in E || (j,i) in E}; 	# N[i] is a set of all neighbors of i
