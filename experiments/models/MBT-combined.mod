@@ -21,12 +21,13 @@ minimize minTime: sum{i in 1..tmax} c[i];	# Minimize broadcast time
 
 maximize maxInformed: sum{v in V, t in 1..tmax, u in N[v]: v not in S} x[u,v,t];	# Maximize the number of informed nodes within a given deadline tmax
 
+maximize maxCardM: sum{(u,v) in A, t in 1..tmax} x[u,v,t];		# Maximize matching cardinality
 
 # Constraints:
 
 # Sources broadcast in time 1 - not necessary 
-#subject to sourceFirst {v in S}:		
-#	sum{i in N[v]} x[v,i,1] <= 1;
+subject to sourceFirst {v in S}:		
+	sum{i in N[v]} x[v,i,1] <= 1;
 
 # All nodes except the sources receive the signal at some time step
 subject to allReceive {u in (V diff S)}:

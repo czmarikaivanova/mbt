@@ -18,12 +18,26 @@ This text contains a description of how to perform experiments with MBT ILP mode
 
 The main script for running the experiments is \texttt{mbtrun.sh}.
 The script is executed by typing \newline\newline
-\texttt{./mbtrun.sh [path to directory with input files] <time limit> }\newline\newline
+\texttt{./mbtrun.sh <options> [path to directory with input files] }\newline\newline
 or\newline\newline 
-\texttt{./mbtrun.sh [path to one input file] <time limit> }\newline\newline
+\texttt{./mbtrun.sh <options> [path to one input file] }\newline\newline
 from the directory \texttt{experiments/} (where \texttt{mbtrun.sh} is located).
-The first parameter specifying either a directory containing instance files, or a single instance file is required.
-If the optional parameter \texttt{<time limit>} in seconds is not specified, the default value (3600s) applies.
+There are three optional switches:
+\begin{itemize}
+	\item[] \texttt{-i }  specify whether the ILP models should be solved 
+	\item[] \texttt{-m }  specify whether the matching upper bounding algorithm should be solved 
+	\item[] \texttt{-t number\_of\_seconds }  specify a time limit on solution time for each method (default 3600)
+\end{itemize}
+If both switches \texttt{-i} and \texttt{-m} are excluded, both models and matching algorithm are solved.
+The reason for these optional switches is to be able to run either only the matching algorithm, or only the ILP models.
+So for example \newline\newline
+\texttt{./mbtrun -mt 600 data/} 
+\newline\newline
+runs only the matching algorithm with time limit 10 minutes per each instance in the directory \texttt{data/}.
+In order to run both ILP model and matching with the default 1 hour time limit, simply type \newline\newline
+\texttt{./mbtrun path\_to\_directory\_with\_input\_files}.
+\newline\newline
+The last parameter specifying either a directory containing instance files, or a single instance file is required.
 
 \section{Input data}
 
@@ -63,7 +77,9 @@ The script iterates over all filenames in the input directory and reads the data
 We study two models, let's call them \emph{maxInformed} and \emph{minTime}.
 Both models are written in \texttt{models/MBT-combined.mod}.
 It contains two objective functions, and commands \texttt{drop [constraint\_name]} and \texttt{restore [constraint\_name]} specify which constraints are used for which model. 
-Once the data are loaded, the script runs LP relaxation of the model \emph{maxInformed}, then the same model without the relaxation, and finally the model \emph{minTime}.
+Once the data are loaded, the script runs LP relaxation of the model \emph{maxInformed}, then the same model without the relaxation, and then the model \emph{minTime}.
+Finally, the 'matching' algorithm for upper bound is executed 4 times - always for a specified number of steps it looks ahead (4, 3, 2, and 1). 
+
 
 When running the model \emph{maxInformed}, the script iterates over increasing deadline. 
 The iterative process terminates once either the objective value is \texttt{cardV-cardS}, or elapsed time exceeds a given time limit, or the number of iteration reaches an upper bound.
@@ -76,6 +92,6 @@ which should be adjusted according to the machine on which it is executed.
 Elapsed time in seconds and objective function value of individual methods are stored in files \texttt{logs/timelog.txt} and \texttt{logs/objlog.txt}.
 Each line starts with a filename of the processed instance followed by the respective values in the order mentioned above.
 
-The reported elapsed time for model \emph{maxInformed} is a sum of elapsed times of all calls of the \texttt{solve} command during the iterative procedure.
+The reported elapsed time for model \emph{maxInformed} and is a sum of elapsed times of all calls of the \texttt{solve} command during the iterative procedure.
 
 \end{document}
