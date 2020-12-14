@@ -5,10 +5,11 @@
 class Graph
 {
     private:
+
+
+    public:
     //Number of vertices
     int n;
-    
-    public:
     //Id of source (currently only one source)
     int source;
     std::vector<Vertex> vertices;
@@ -22,6 +23,9 @@ class Graph
     std::vector<int> *children;
     //Matrix of siblings were edges exist between verticies the same level
     std::vector<int> *siblings;
+    //Results
+    int estBroadCast;
+    int actualBroadCast;
 
     Graph();
     void initialize(int n);

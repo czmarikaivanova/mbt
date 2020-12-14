@@ -8,6 +8,7 @@
 
 Graph::Graph()
 {
+    n = 0;
 }
 
 void Graph::initialize(int nb_of_v)
@@ -87,8 +88,10 @@ void Graph::solve(int s)
     } */
 
     std::cout << "Estimated broadcast time: " << vertices[s].estBroadcast << std::endl;
+    this->estBroadCast = vertices[s].estBroadcast; 
     this->generateSiblings();
     int broadcastTime = this->broadcast(s);
+    this->actualBroadCast = broadcastTime;
     std::cout << "Actual broadcast time " << broadcastTime << std::endl;
 
 
