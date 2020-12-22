@@ -1,5 +1,5 @@
 option solver "/home/marika/software/AMPL/cplex";	# path to used solver (cplex)
-option cplex_options 'mipdisplay 2 mipinterval 1';	# what should be displayed during solution process
+#option cplex_options 'mipdisplay 2 mipinterval 1';	# what should be displayed during solution process
 option eexit -99999; 					# supress bailing after xxx warnings
 #option log_file "logs/logfile.txt";			# log console output
 
@@ -69,6 +69,7 @@ for{fname in FILENAMES} {
 	drop xcrel;
 	drop timing;
 	drop allReceive;
+	restore oneAtATime;
 	objective maxCardM;
 	if doMATCHING = 1 then {					 			# perform this procedure only if it is desired
 		for {h in {4,3,2,1}} {								# for deadline 4, 3, 2, and 1 (upper bound is weaker with shorter deadline)
