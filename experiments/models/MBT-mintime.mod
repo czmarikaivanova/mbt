@@ -17,7 +17,7 @@ var x{(i,j) in A, t in 1..tmax} binary;		# x[i,j,t] = 1 iff a signal is sent via
 var c{i in 1..tmax} binary;			# c[i] = 1 iff a signal is transmitted as late as in time t
 
 # Objective function:
-minimize objval: sum{i in 1..tmax} c[i];	# Minimize broadcast time					
+minimize minTime: sum{i in 1..tmax} c[i];	# Minimize broadcast time					
 
 # Constraints:
 
