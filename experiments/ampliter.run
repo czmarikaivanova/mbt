@@ -81,8 +81,6 @@ for{fname in FILENAMES} {
 		        repeat while card(S) < cardV {						# in iterative matching cardinality of 'sources' is increasing
 		       		let iterCnt := iterCnt + 1;
 		#####		option cplex_options ('timelimit ' & currTlim);			# set time limit for the following solve command
-				display E;
-				display S;
 		                solve;
 				let currTlim := currTlim - _solve_time;;
 		                for {j in S} {							# add neighbours of the sources to the sources for the next iteration
