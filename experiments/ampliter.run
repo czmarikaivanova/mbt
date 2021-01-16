@@ -1,5 +1,5 @@
 option solver "/home/marika/software/AMPL/cplex";	# path to used solver (cplex)
-option cplex_options 'mipdisplay 2 mipinterval 1';	# what should be displayed during solution process
+#option cplex_options 'mipdisplay 2 mipinterval 1';	# what should be displayed during solution process
 option eexit -99999; 					# supress bailing after xxx warnings
 #option log_file "logs/logfile.txt";			# log console output
 
@@ -67,8 +67,9 @@ for{fname in FILENAMES} {
 
 	# start of upper bound calculation  ------------------------
 	drop xcrel;
-	drop timing;
+#	drop timing;
 	drop allReceive;
+	#restore oneAtATime;
 	objective maxCardM;
 	if doMATCHING = 1 then {					 			# perform this procedure only if it is desired
 		for {h in {4,3,2,1}} {								# for deadline 4, 3, 2, and 1 (upper bound is weaker with shorter deadline)
@@ -102,13 +103,12 @@ for{fname in FILENAMES} {
 			printf '------------------------\n';
 			printf 'model: max informed, integrality relaxed: %d\n', (if j=0 then 1 else 0);
 			printf '------------------------\n';
-			let currTlim := tlim;
+			let currTlim := time();
 			for {i in lb..ub} {						# iterate from lower to upper bound
 			        let tmax := i;
 				option relax_integrality (if j= 0 then 1 else 0);	# set if ip or lp
-				option cplex_options ('timelimit ' & currTlim);		# set time limit for the following solve command
+				option cplex_options ('absmipgap 0.99999  timelimit ' & currTlim);		# set time limit for the following solve command
 				#option cplex_options ('absmipgap 0 lowercutoff ' & j);
-
 			        solve;
 				
 				let currTlim := currTlim - _solve_time;
@@ -118,7 +118,8 @@ for{fname in FILENAMES} {
 			        if solve_result = 'solved' then { 	# a solution is found
 					# if a solution is found, but objective is not n-s, then the solution is in fact infeasible!
 					if round(maxInformed,2) = cardV-cardS then {
-						printf '%4.2f\t', tlim - currTlim >> (timelog);
+						#printf '%4.2f\t', tlim - currTlim >> (timelog);
+						printf '%4.2f\t', time() - currTlim >> (timelog);
 						printf '%2.0f\t', i >> (objlog);
 			        	        printf 'optimal solution found, n-s nodes informed. broadcast time: %d\n',i;
 			        	        break;
@@ -147,9 +148,9 @@ for{fname in FILENAMES} {
  		printf '------------------------\n';
 		printf 'model: min time\n';
 		printf '------------------------\n';
-		drop oneAtATime;
+		#drop oneAtATime;
 		restore xcrel;
-		restore timing;
+		#restore timing;
 		objective minTime;
 		option cplex_options ('timelimit ' & tlim);		# set time limit for the following solve command
 		solve;

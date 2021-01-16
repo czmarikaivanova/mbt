@@ -3,7 +3,7 @@
 \title{MBT Experiments}
 \begin{document}
 \maketitle
-This text contains a description of how to perform experiments with MBT ILP models.
+This text contains a description of how to perform experiments with MBT ILP models on Linux.
 
 \section{Structure of the directory \texttt{experiments/}}
 \begin{itemize}
@@ -26,14 +26,14 @@ There are three optional switches:
 \begin{itemize}
 	\item[] \texttt{-i }  specify whether the ILP models should be solved 
 	\item[] \texttt{-m }  specify whether the matching upper bounding algorithm should be solved 
-	\item[] \texttt{-t number\_of\_seconds }  specify a time limit on solution time for each method (default 3600)
+	\item[] \texttt{-t number\_of\_seconds }  specify a limit on the solution time for each method (default 3600)
 \end{itemize}
 If both switches \texttt{-i} and \texttt{-m} are excluded, both models and matching algorithm are solved.
 The reason for these optional switches is to be able to run either only the matching algorithm, or only the ILP models.
 So for example \newline\newline
 \texttt{./mbtrun -mt 600 data/} 
 \newline\newline
-runs only the matching algorithm with time limit 10 minutes per each instance in the directory \texttt{data/}.
+runs only the matching algorithm with time limit set to 10 minutes per each instance in the directory \texttt{data/}.
 In order to run both ILP model and matching with the default 1 hour time limit, simply type \newline\newline
 \texttt{./mbtrun path\_to\_directory\_with\_input\_files}.
 \newline\newline
@@ -41,10 +41,11 @@ The last parameter specifying either a directory containing instance files, or a
 
 \section{Input data}
 
-The input data files are not expected to follow any specific naming convention.
+The input data filenames are not expected to follow any specific naming convention.
+The data files are unformatted in the sense that they contains nothing except the values to be read, and are aimed for the AMPL \texttt{read} command.
 The instances is encoded as \newline\newline
 \texttt{
-cardV cardS cardE\newline
+cardV cardE cardS\newline
 v1 v2\newline
 v1 v3\newline
 v2 v4\newline
