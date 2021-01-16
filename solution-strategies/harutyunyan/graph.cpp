@@ -65,7 +65,7 @@ void Graph::solve(int s)
         this->performMatching(i);
     }
 
-    /* std::cout << "Layer:" << std::endl;
+    std::cout << "Layer:" << std::endl;
     for (int j = 0; j < (*layer).size(); j++)
     {
         std::cout << "[ " << j << " ] ";
@@ -74,9 +74,9 @@ void Graph::solve(int s)
             std::cout << (*layer)[j][k] << " ";
         }
         std::cout << std::endl;
-    } */
+    }
 
-    /* std::cout << "Matching:" << std::endl;
+    std::cout << "Matching:" << std::endl;
     for (int j = 0; j < n; j++)
     {
         std::cout << "[ " << j << " ] ";
@@ -85,7 +85,7 @@ void Graph::solve(int s)
             std::cout << matching[j][k] << " ";
         }
         std::cout << std::endl;
-    } */
+    }
 
     std::cout << "Estimated broadcast time: " << vertices[s].estBroadcast << std::endl;
     this->estBroadCast = vertices[s].estBroadcast; 
