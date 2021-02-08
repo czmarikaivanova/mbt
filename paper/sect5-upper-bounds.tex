@@ -58,6 +58,26 @@ Choosing $k=1$ corresponds to the maximum matching option, whereas large values 
 \label{alg:match}
 \end{algorithm}
 
+In many instances, there are multiple options for selecting an optimal solution $x$ (line 3).
+Two different sequences of solutions generated during the course of Alg.~\ref{alg:match} may result in different broadcast times.
+Let us take a hypercube $C_j$ as an example which has $\tau(C_j,S)=j$ for $\sigma=1$ regardless of selection of the source node.
+Alg.~\ref{alg:match} with $k=1$ always finds $\tau(C_j,S)$ for $j=1\dots 3$. 
+It also finds the optimum for $j\geq 4$ 
+provided that the subgraph induced by the current $S$ at the beginning of each iteration $t'$ forms a hypercube $C_{t'}$.
+If this tie-breaking rule is violated, the algorithm may fail to find the optimum as demonstrated in $C_4$ (TODO: image or description in the text?)
+
+Intuitively, the broadcast time found by Alg.~\ref{alg:match} is likely to be closer to the optimum for larger $k$.
+This intuition is also confirmed by a vast majority of instances in the experimental section.
+Nevertheless, there are instances for which Alg.~\ref{alg:match} with smaller $k$ finds a better solution.
+One such example is a tree $T$ on 17 nodes with one source $s$ and $\text{deg}(s)=2$.
+The first neighbor $n_1$ of $s$ is a root of a binomial tree $B_2$ of degree two. 
+One of the leafs of $B_2$ is an endpoint of a path of length 3.
+The second neighbor $n_2$ of $s$ is adjacent to a root of binomial tree $B_3$.
+Alg.~\ref{alg:match} with $k=3$ decides that $n_1\in V_1$, $n_2\in V_2$ and eventually finds $\tau{T,\left\{s\right\}}$.
+With $k=5$, $n_1\in V_2$, $n_2\in V_1$, which results in a suboptimal solution.
+(TODO: is such an example useful? Should there be an illustration?)
+
+
 \begin{remark} \label{rem:time}
 If $k=1$, then the running time of Alg.\ \ref{alg:match} is $\mathcal{O}\left(n^{\frac{3}{2}}|E|\right)$, because the number of iterations is no more than $n$,
 and the maximum cardinality matching is found in $\mathcal{O}\left(\sqrt{n}|E|\right)$ time \cite{hopcroft73}.
@@ -65,7 +85,7 @@ For fixed $k=2$, the problem solved in each iteration is NP-hard \cite{jansen95}
 \end{remark}
 
 \begin{remark} \label{rem:mvm}
-If $k=1$, no attempt is made to favor the nodes with many uninformed nabors.
+If $k=1$, no attempt is made to favor the nodes with many uninformed neighbors.
 To that end, maximum cardinality matching can be replaced by maximum \emph{vertex-weight} matching (MVM),
 where each node $v\in V\setminus S$ is assigned the weight $1+\left|\left\{u\in V\setminus S: \{u,v\}\in E\right\}\right|$.
 Other weights reflecting the capability of node $u$ to inform other nodes in later periods could also be considered.
