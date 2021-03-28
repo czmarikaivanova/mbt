@@ -2,10 +2,17 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "msvc build",
+        "label": "g++ build active file",
         "type": "shell",
-        "command": "cl.exe",
-        "args": ["/EHsc", "/Zi", "/Fe:", "harutyunyan.exe", "${workspaceFolder}\\*.cpp"],
+        "command": "/usr/bin/g++",
+        "args": [
+          "-std=c++17",
+          "-g",
+          "-I${workspaceFolder}",
+          "${workspaceFolder}/*.cpp",
+          "-o",
+          "${workspaceFolder}/harutyunyan.exe"
+        ],
         "group": {
           "kind": "build",
           "isDefault": true
@@ -13,7 +20,9 @@
         "presentation": {
           "reveal": "always"
         },
-        "problemMatcher": "$msCompile"
+        "problemMatcher": [
+          "$gcc"
+        ]
       }
     ]
   }

@@ -1,6 +1,6 @@
 ﻿
 #include <vector>
-#include "Vertex.hpp"
+#include "vertex.hpp"
 
 class QuickSort
 {
