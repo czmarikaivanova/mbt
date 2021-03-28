@@ -89,7 +89,7 @@ Graph read_file (std::string fileName)
 void read_directory(const std::string& name)
 {
     std::ofstream result_file(name + "_harutyunyan_results.txt");
-    for (auto& p: std::experimental::filesystem::directory_iterator(name))
+    for (auto& p: std::filesystem::directory_iterator(name))
     {
         Graph graph = read_file(p.path().string());
         if (graph.n > 0)
