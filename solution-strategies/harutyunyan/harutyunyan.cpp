@@ -61,9 +61,9 @@ Graph read_file (std::string fileName)
         
         //Skip 0 after edges
         getline(graphInstance, line);
-
+        source = stoi(line);
         //Parse to get source
-        getline(graphInstance, line);
+/*      getline(graphInstance, line);
         index1 = find_index(line);
         if (index1 != std::string::npos)
         {
@@ -72,7 +72,7 @@ Graph read_file (std::string fileName)
         else
         {
             source = stoi(line.substr(0, line.size()));
-        }
+        } */
         
         graph.set_source(source);
         graphInstance.close();

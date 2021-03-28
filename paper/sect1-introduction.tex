@@ -74,11 +74,16 @@ Among more recent works, \cite{hasson04} describes a meta heuristic algorithm fo
 The communication model is considered in an existing satellite navigation system in \cite{chu17}, where a greedy inexact method is proposed together with a mathematical programming model.
 Examples of additional efficient heuristics can be found e.g. in \cite{harutyunyan06,harutyunyan14,wang10}.
 
-Approximation algorithms for MBT are studied in \cite{kortsarz95}. 
-The authors argue that methods presented in \cite{scheuermann84} provide no guarantee on the performance, and show that wheel-graphs are examples of unfavourable instances.
+Considerable attention was devoted to finding approximation algorithms for MBT. 
+In \cite{kortsarz95}, the authors argue that methods presented in \cite{scheuermann84} provide no guarantee on the performance, 
+and show that wheel-graphs are examples of unfavourable instances.
 Another contribution from \cite{kortsarz95} is an $\mathcal{O}(\sqrt{n})$-additive approximation algorithm for broadcasting in general graphs with $n$ nodes.
 The same work also provides approximation algorithms for several graph classes with small separators with approximation ratio proportional to the separator size times $\log n$.
-An algorithm with $\mathcal{O}\left(\frac{\log n}{\log \log n}\right)$-approximation ratio is given in~\cite{elkin03}.
+Authors of \cite{ravi94} improve the approximation result by presenting a 
+$\mathcal{O}\left(\frac{\log^2 n}{\log \log n}\right)$-approximation  algorithm, and thus remove the additive $\mathcal{O}(\sqrt{n})$ term.
+Subsequently, \cite{barnoy00} provides a $\mathcal{O}(\log n)$ approximation.
+This work also shows that it is NP-hard to approximate MBT of any graph within a factor of $3-\epsilon$.
+An algorithm with $\mathcal{O}\left(\frac{\log n}{\log \log n}\right)$-approximation ratio given in~\cite{elkin03} improves the result further.
 Most of the works cited above consider a single source.
 (Throughout the current text, the symbol $\log$ refers to the logarithm of base 2.)
 
