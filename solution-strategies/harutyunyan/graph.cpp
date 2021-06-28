@@ -2,9 +2,11 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <chrono>
 #include "graph.hpp"
 #include "quick-sort.hpp"
 #include "merge-sort.hpp"
+
 
 Graph::Graph()
 {
@@ -48,6 +50,7 @@ void Graph::add_edge(Vertex v, Vertex u)
 
 void Graph::solve(int s)
 {
+    auto start = std::chrono::system_clock::now();
     this->createLayerGraph(s);
 
 /*     std::cout << "Children:" << std::endl;
@@ -65,7 +68,7 @@ void Graph::solve(int s)
         this->performMatching(i);
     }
 
-    std::cout << "Layer:" << std::endl;
+/*     std::cout << "Layer:" << std::endl;
     for (int j = 0; j < (*layer).size(); j++)
     {
         std::cout << "[ " << j << " ] ";
@@ -74,9 +77,9 @@ void Graph::solve(int s)
             std::cout << (*layer)[j][k] << " ";
         }
         std::cout << std::endl;
-    }
+    } */
 
-    std::cout << "Matching:" << std::endl;
+ /*    std::cout << "Matching:" << std::endl;
     for (int j = 0; j < n; j++)
     {
         std::cout << "[ " << j << " ] ";
@@ -85,16 +88,21 @@ void Graph::solve(int s)
             std::cout << matching[j][k] << " ";
         }
         std::cout << std::endl;
-    }
-
-    std::cout << "Estimated broadcast time: " << vertices[s].estBroadcast << std::endl;
-    this->estBroadCast = vertices[s].estBroadcast; 
+    } */
+    auto construction_end = std::chrono::system_clock::now();
+    std::chrono::duration<double> construction_seconds = construction_end - start;
+    this->construction_time = construction_seconds.count();
+    std::cout << "Estimated broadcast time: " << vertices[s].estBroadcast << ", execution time: " << construction_seconds.count() << std::endl;
+    this->estBroadCast = vertices[s].estBroadcast;
+     
     this->generateSiblings();
     int broadcastTime = this->broadcast(s);
+    auto improvement_end = std::chrono::system_clock::now();
+    std::chrono::duration<double> improvement_seconds = improvement_end - construction_end;
+    this->improvement_time = improvement_seconds.count();
     this->actualBroadCast = broadcastTime;
-    std::cout << "Actual broadcast time " << broadcastTime << std::endl;
-
-
+    //second time estimate
+    std::cout << "Actual broadcast time " << broadcastTime << ", execution time: " << improvement_seconds.count() << std::endl;
 
     /* std::cout << "Edges:" << std::endl;
     for (int j = 0; j < n; j++)
@@ -364,12 +372,12 @@ void Graph::performMatching(int i)
                                     matching[(*layer)[i][j]].push_back(equalBroadcast[l]);
 
                                     //Recalculate EB?
-                                    std::cout << "Org broadcast: " << (*layer)[i][j] << " " << vertices[(*layer)[i][j]].estBroadcast << std::endl;
+                                    //std::cout << "Org broadcast: " << (*layer)[i][j] << " " << vertices[(*layer)[i][j]].estBroadcast << std::endl;
                                     vertices[(*layer)[i][j]].estBroadcast = estimateBroadcast((*layer)[i][j]);
-                                    std::cout << "New broadcast: " << (*layer)[i][j] << " " << vertices[(*layer)[i][j]].estBroadcast << std::endl;
-                                    std::cout << "Org broadcast: " << max_index << " " << vertices[max_index].estBroadcast << std::endl;
+                                    //std::cout << "New broadcast: " << (*layer)[i][j] << " " << vertices[(*layer)[i][j]].estBroadcast << std::endl;
+                                    //std::cout << "Org broadcast: " << max_index << " " << vertices[max_index].estBroadcast << std::endl;
                                     vertices[max_index].estBroadcast = estimateBroadcast(max_index);
-                                    std::cout << "New broadcast: " << max_index << " " << vertices[max_index].estBroadcast << std::endl;
+                                    //std::cout << "New broadcast: " << max_index << " " << vertices[max_index].estBroadcast << std::endl;
 
                                     isMatched = true;
                                     break;

@@ -95,7 +95,7 @@ void read_directory(const std::string& name)
         if (graph.n > 0)
         {
             graph.solve(graph.get_source());
-            result_file << p.path() << ", " << graph.estBroadCast << ", " << graph.actualBroadCast << "\n";
+            result_file << p.path() << ", Construction: " << graph.estBroadCast << ", " << graph.construction_time << ", Improvment: " << graph.actualBroadCast << ", " << graph.improvement_time << "\n";
         }
     }
 }

@@ -26,6 +26,8 @@ class Graph
     //Results
     int estBroadCast;
     int actualBroadCast;
+    double construction_time;
+    double improvement_time;
 
     Graph();
     void initialize(int n);
