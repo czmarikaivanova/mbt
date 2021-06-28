@@ -454,6 +454,7 @@ int Graph::estimateBroadcast(int index)
                 {
                     min[j] = vertices[matching[index][i]].estBroadcast;
                 }
+                break;
             }
         }
     }
